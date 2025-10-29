@@ -24,9 +24,41 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+const URL_PROTOCOL_REGEX = /^https?:\/\//i;
+const MIN_PROJECT_NAME_LENGTH = 3;
+const MAX_PROJECT_NAME_LENGTH = 50;
+
 const formSchema = z.object({
-  projectName: z.string(),
-  gitHubRepoUrl: z.url("GitHub repository URL is required."),
+  projectName: z
+    .string()
+    .min(
+      MIN_PROJECT_NAME_LENGTH,
+      `Project name must be at least ${MIN_PROJECT_NAME_LENGTH} characters.`
+    )
+    .max(
+      MAX_PROJECT_NAME_LENGTH,
+      `Project name must be less than ${MAX_PROJECT_NAME_LENGTH} characters.`
+    ),
+  gitHubRepoUrl: z
+    .string()
+    .min(1, "GitHub repository URL is required.")
+    .refine(
+      (val) => {
+        // Add https:// if no protocol is present for validation
+        const urlWithProtocol = URL_PROTOCOL_REGEX.test(val)
+          ? val
+          : `https://${val}`;
+        try {
+          const urlObj = new URL(urlWithProtocol);
+          return urlObj.hostname === "github.com";
+        } catch {
+          return false;
+        }
+      },
+      {
+        message: "URL must be from github.com domain.",
+      }
+    ),
   projectDescription: z.string(),
 });
 
@@ -38,13 +70,20 @@ export function SubmitProjectForm() {
       projectDescription: "",
     },
     validators: {
-      onSubmit: (values) => formSchema.parse(values),
+      onChange: formSchema,
     },
     onSubmit: ({ value }) => {
+      // Transform gitHubRepoUrl to add https:// if missing
+      const transformedValue = {
+        ...value,
+        gitHubRepoUrl: URL_PROTOCOL_REGEX.test(value.gitHubRepoUrl)
+          ? value.gitHubRepoUrl
+          : `https://${value.gitHubRepoUrl}`,
+      };
       toast("You submitted the following values:", {
         description: (
           <pre className="mt-2 w-[320px] overflow-x-auto rounded-md bg-code p-4 text-code-foreground">
-            <code>{JSON.stringify(value, null, 2)}</code>
+            <code>{JSON.stringify(transformedValue, null, 2)}</code>
           </pre>
         ),
         position: "bottom-right",
@@ -122,8 +161,8 @@ export function SubmitProjectForm() {
                       name={field.name}
                       onBlur={field.handleBlur}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      placeholder="https://github.com/username/repo"
-                      type="url"
+                      placeholder="github.com/username/repo"
+                      type="text"
                       value={field.state.value}
                     />
                     <FieldDescription>
