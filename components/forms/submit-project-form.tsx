@@ -1,7 +1,7 @@
 /** biome-ignore-all lint/correctness/noChildrenProp: External component */
 "use client";
 
-import { useForm } from "@tanstack/react-form";
+import { useForm, useStore } from "@tanstack/react-form";
 import { Loader2 } from "lucide-react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -84,6 +84,8 @@ export function SubmitProjectForm() {
       }
     },
   });
+
+  const isSubmitting = useStore(form.store, (state) => state.isSubmitting);
 
   return (
     <Card className="w-full sm:max-w-md">
@@ -202,11 +204,11 @@ export function SubmitProjectForm() {
             Reset
           </Button>
           <Button
-            disabled={form.state.isSubmitting}
+            disabled={isSubmitting}
             form="submit-project-form"
             type="submit"
           >
-            {form.state.isSubmitting ? (
+            {isSubmitting ? (
               <Loader2 className="size-4 animate-spin" />
             ) : (
               "Save"
