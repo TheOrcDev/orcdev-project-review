@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/correctness/noChildrenProp: External component */
 "use client";
 
 import { useForm } from "@tanstack/react-form";
@@ -21,6 +22,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   projectName: z.string(),
@@ -38,7 +40,7 @@ export function SubmitProjectForm() {
     validators: {
       onSubmit: (values) => formSchema.parse(values),
     },
-    onSubmit: async ({ value }) => {
+    onSubmit: ({ value }) => {
       toast("You submitted the following values:", {
         description: (
           <pre className="mt-2 w-[320px] overflow-x-auto rounded-md bg-code p-4 text-code-foreground">
@@ -75,6 +77,7 @@ export function SubmitProjectForm() {
               children={(field) => {
                 const isInvalid =
                   field.state.meta.isTouched && !field.state.meta.isValid;
+
                 return (
                   <Field data-invalid={isInvalid}>
                     <FieldLabel htmlFor="form-tanstack-input-project-name">
@@ -103,6 +106,66 @@ export function SubmitProjectForm() {
               }}
               name="projectName"
             />
+            <form.Field
+              children={(field) => {
+                const isInvalid =
+                  field.state.meta.isTouched && !field.state.meta.isValid;
+                return (
+                  <Field data-invalid={isInvalid}>
+                    <FieldLabel htmlFor="form-tanstack-input-github-repo-url">
+                      GitHub Repository URL
+                    </FieldLabel>
+                    <Input
+                      aria-invalid={isInvalid}
+                      autoComplete="url"
+                      id="form-tanstack-input-github-repo-url"
+                      name={field.name}
+                      onBlur={field.handleBlur}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      placeholder="https://github.com/username/repo"
+                      type="url"
+                      value={field.state.value}
+                    />
+                    <FieldDescription>
+                      The URL of your GitHub repository.
+                    </FieldDescription>
+                    {isInvalid && (
+                      <FieldError errors={field.state.meta.errors} />
+                    )}
+                  </Field>
+                );
+              }}
+              name="gitHubRepoUrl"
+            />
+            <form.Field
+              children={(field) => {
+                const isInvalid =
+                  field.state.meta.isTouched && !field.state.meta.isValid;
+                return (
+                  <Field data-invalid={isInvalid}>
+                    <FieldLabel htmlFor="form-tanstack-input-project-description">
+                      Project Description
+                    </FieldLabel>
+                    <Textarea
+                      aria-invalid={isInvalid}
+                      id="form-tanstack-input-project-description"
+                      name={field.name}
+                      onBlur={field.handleBlur}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      placeholder="A brief description of your project..."
+                      value={field.state.value}
+                    />
+                    <FieldDescription>
+                      Provide a detailed description of your project.
+                    </FieldDescription>
+                    {isInvalid && (
+                      <FieldError errors={field.state.meta.errors} />
+                    )}
+                  </Field>
+                );
+              }}
+              name="projectDescription"
+            />
           </FieldGroup>
         </form>
       </CardContent>
@@ -111,7 +174,7 @@ export function SubmitProjectForm() {
           <Button onClick={() => form.reset()} type="button" variant="outline">
             Reset
           </Button>
-          <Button form="form-tanstack-input" type="submit">
+          <Button form="submit-project-form" type="submit">
             Save
           </Button>
         </Field>
