@@ -9,3 +9,8 @@ export const projects = pgTable("projects", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
   deletedAt: timestamp("deleted_at"),
 });
+
+export type SelectProject = typeof projects.$inferSelect;
+export type InsertProject = typeof projects.$inferInsert;
+
+export const schema = { projects };

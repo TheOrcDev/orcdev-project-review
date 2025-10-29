@@ -2,9 +2,8 @@
 "use client";
 
 import { useForm } from "@tanstack/react-form";
-import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 import { z } from "zod";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,6 +22,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { createProject } from "@/server/projects";
 
 const URL_PROTOCOL_REGEX = /^https?:\/\//i;
 const MIN_PROJECT_NAME_LENGTH = 3;
@@ -72,28 +72,16 @@ export function SubmitProjectForm() {
     validators: {
       onChange: formSchema,
     },
-    onSubmit: ({ value }) => {
-      // Transform gitHubRepoUrl to add https:// if missing
-      const transformedValue = {
-        ...value,
-        gitHubRepoUrl: URL_PROTOCOL_REGEX.test(value.gitHubRepoUrl)
-          ? value.gitHubRepoUrl
-          : `https://${value.gitHubRepoUrl}`,
-      };
-      toast("You submitted the following values:", {
-        description: (
-          <pre className="mt-2 w-[320px] overflow-x-auto rounded-md bg-code p-4 text-code-foreground">
-            <code>{JSON.stringify(transformedValue, null, 2)}</code>
-          </pre>
-        ),
-        position: "bottom-right",
-        classNames: {
-          content: "flex flex-col gap-2",
-        },
-        style: {
-          "--border-radius": "calc(var(--radius)  + 4px)",
-        } as React.CSSProperties,
-      });
+    onSubmit: async ({ value }) => {
+      try {
+        await createProject({
+          name: value.projectName,
+          githubRepoUrl: value.gitHubRepoUrl,
+          description: value.projectDescription,
+        });
+      } catch {
+        throw new Error("Failed to create project");
+      }
     },
   });
 
@@ -213,8 +201,16 @@ export function SubmitProjectForm() {
           <Button onClick={() => form.reset()} type="button" variant="outline">
             Reset
           </Button>
-          <Button form="submit-project-form" type="submit">
-            Save
+          <Button
+            disabled={form.state.isSubmitting}
+            form="submit-project-form"
+            type="submit"
+          >
+            {form.state.isSubmitting ? (
+              <Loader2 className="size-4 animate-spin" />
+            ) : (
+              "Save"
+            )}
           </Button>
         </Field>
       </CardFooter>
