@@ -138,14 +138,9 @@ export function SubmitProjectForm() {
                       name={field.name}
                       onBlur={field.handleBlur}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      placeholder="shadcn"
+                      placeholder="open source project"
                       value={field.state.value}
                     />
-                    <FieldDescription>
-                      This is your public display name. Must be between 3 and 10
-                      characters. Must only contain letters, numbers, and
-                      underscores.
-                    </FieldDescription>
                     {isInvalid && (
                       <FieldError errors={field.state.meta.errors} />
                     )}
@@ -230,7 +225,7 @@ export function SubmitProjectForm() {
             {isSubmitting ? (
               <Loader2 className="size-4 animate-spin" />
             ) : (
-              "Save"
+              "Submit"
             )}
           </Button>
         </Field>
