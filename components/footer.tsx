@@ -8,14 +8,10 @@ export function Footer() {
           Built by{" "}
           <Link className="underline" href="https://orcdev.com" target="_blank">
             OrcDev
-          </Link>
-          . The source code is available on{" "}
-          <Link
-            className="underline"
-            href="https://github.com/TheOrcDev/nextjs16-cache-components"
-            target="_blank"
-          >
-            GitHub
+          </Link>{" "}
+          using{" "}
+          <Link className="underline" href="https://8bitcn.com" target="_blank">
+            8bitcn
           </Link>
           .
         </p>

@@ -6,7 +6,7 @@ import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/8bit/button";
 import {
   Card,
   CardContent,
@@ -14,7 +14,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/ui/8bit/card";
+import { Input } from "@/components/ui/8bit/input";
+import { Textarea } from "@/components/ui/8bit/textarea";
 import {
   Field,
   FieldDescription,
@@ -22,8 +24,6 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { createProject } from "@/server/projects";
 import { SubmitSuccessCard } from "../submit-success-card";
 
@@ -90,7 +90,8 @@ export function SubmitProjectForm() {
           return;
         }
 
-        toast.success("Project submitted successfully. Good luck! ⚔️");
+        toast.success("Project submitted successfully. Good luck!");
+        setIsSubmited(true);
         form.reset();
       } catch {
         throw new Error("Failed to create project");
@@ -107,10 +108,9 @@ export function SubmitProjectForm() {
   return (
     <Card className="w-full sm:max-w-md">
       <CardHeader>
-        <CardTitle>Submit Your Project ⚔️</CardTitle>
-        <CardDescription>
-          Want your open source project reviewed live on stream? Drop it here
-          and join the spotlight.
+        <CardTitle>Submit Your Project</CardTitle>
+        <CardDescription className="text-xs">
+          Drop your project here
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -170,7 +170,7 @@ export function SubmitProjectForm() {
                       type="text"
                       value={field.state.value}
                     />
-                    <FieldDescription>
+                    <FieldDescription className="text-xs">
                       Must be a public repository hosted on GitHub.
                     </FieldDescription>
                     {isInvalid && (
@@ -199,7 +199,7 @@ export function SubmitProjectForm() {
                       placeholder="A brief description of your project..."
                       value={field.state.value}
                     />
-                    <FieldDescription>
+                    <FieldDescription className="text-xs">
                       Be descriptive — this helps during the livestream review.
                     </FieldDescription>
                     {isInvalid && (
@@ -214,7 +214,7 @@ export function SubmitProjectForm() {
         </form>
       </CardContent>
       <CardFooter>
-        <Field orientation="horizontal">
+        <Field className="flex gap-5" orientation="horizontal">
           <Button onClick={() => form.reset()} type="button" variant="outline">
             Reset
           </Button>

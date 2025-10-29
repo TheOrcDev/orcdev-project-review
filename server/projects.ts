@@ -1,8 +1,8 @@
 "use server";
 
+import { eq, or } from "drizzle-orm";
 import { db } from "@/db/drizzle";
 import { type InsertProject, projects, type SelectProject } from "@/db/schema";
-import { eq, or } from "drizzle-orm";
 
 export async function getProjects() {
   try {
