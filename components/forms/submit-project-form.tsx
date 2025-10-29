@@ -143,7 +143,10 @@ export function SubmitProjectForm() {
                       value={field.state.value}
                     />
                     {isInvalid && (
-                      <FieldError errors={field.state.meta.errors} />
+                      <FieldError
+                        className="text-xs"
+                        errors={field.state.meta.errors}
+                      />
                     )}
                   </Field>
                 );
@@ -174,7 +177,10 @@ export function SubmitProjectForm() {
                       Must be a public repository hosted on GitHub.
                     </FieldDescription>
                     {isInvalid && (
-                      <FieldError errors={field.state.meta.errors} />
+                      <FieldError
+                        className="text-xs"
+                        errors={field.state.meta.errors}
+                      />
                     )}
                   </Field>
                 );
@@ -203,7 +209,10 @@ export function SubmitProjectForm() {
                       Be descriptive — this helps during the livestream review.
                     </FieldDescription>
                     {isInvalid && (
-                      <FieldError errors={field.state.meta.errors} />
+                      <FieldError
+                        className="text-xs"
+                        errors={field.state.meta.errors}
+                      />
                     )}
                   </Field>
                 );
