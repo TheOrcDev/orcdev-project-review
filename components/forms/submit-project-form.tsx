@@ -3,6 +3,7 @@
 
 import { useForm, useStore } from "@tanstack/react-form";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
@@ -74,11 +75,19 @@ export function SubmitProjectForm() {
     },
     onSubmit: async ({ value }) => {
       try {
-        await createProject({
+        const newProject = await createProject({
           name: value.projectName,
           githubRepoUrl: value.gitHubRepoUrl,
           description: value.projectDescription,
         });
+
+        if (typeof newProject === "string") {
+          toast.error(newProject);
+          return;
+        }
+
+        toast.success("Project submitted successfully. Good luck! ⚔️");
+        form.reset();
       } catch {
         throw new Error("Failed to create project");
       }
