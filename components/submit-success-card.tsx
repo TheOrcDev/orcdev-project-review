@@ -5,11 +5,11 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/ui/8bit/card";
 
 export function SubmitSuccessCard() {
   return (
-    <Card className="w-full text-center sm:max-w-md">
+    <Card className="w-full text-center sm:max-w-lg">
       <CardHeader>
         <CardTitle>Submission Received! ⚔️</CardTitle>
         <CardDescription>
