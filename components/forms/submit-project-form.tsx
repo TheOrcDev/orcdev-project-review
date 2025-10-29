@@ -107,9 +107,10 @@ export function SubmitProjectForm() {
   return (
     <Card className="w-full sm:max-w-md">
       <CardHeader>
-        <CardTitle>Submit Project</CardTitle>
+        <CardTitle>Submit Your Project ⚔️</CardTitle>
         <CardDescription>
-          Submit your open source project for review.
+          Want your open source project reviewed live on stream? Drop it here
+          and join the spotlight.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -170,7 +171,7 @@ export function SubmitProjectForm() {
                       value={field.state.value}
                     />
                     <FieldDescription>
-                      The URL of your GitHub repository.
+                      Must be a public repository hosted on GitHub.
                     </FieldDescription>
                     {isInvalid && (
                       <FieldError errors={field.state.meta.errors} />
@@ -199,7 +200,7 @@ export function SubmitProjectForm() {
                       value={field.state.value}
                     />
                     <FieldDescription>
-                      Provide a detailed description of your project.
+                      Be descriptive — this helps during the livestream review.
                     </FieldDescription>
                     {isInvalid && (
                       <FieldError errors={field.state.meta.errors} />
