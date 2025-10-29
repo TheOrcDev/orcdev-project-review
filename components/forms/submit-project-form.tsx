@@ -100,7 +100,7 @@ export function SubmitProjectForm() {
 
   const isSubmitting = useStore(form.store, (state) => state.isSubmitting);
 
-  if (isSubmited) {
+  if (!isSubmited) {
     return <SubmitSuccessCard />;
   }
 
