@@ -1,3 +1,5 @@
+import { SubmitProjectForm } from "@/components/forms/submit-project-form";
+
 export default function Home() {
   return (
     <main className="flex flex-col items-center justify-center gap-5 py-12">
@@ -6,6 +8,7 @@ export default function Home() {
         Want your open source project reviewed live on stream? Drop it here and
         join the spotlight.
       </p>
+      <SubmitProjectForm />
     </main>
   );
 }
