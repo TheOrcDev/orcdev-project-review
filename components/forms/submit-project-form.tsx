@@ -100,7 +100,9 @@ export function SubmitProjectForm() {
     <Card className="w-full sm:max-w-md">
       <CardHeader>
         <CardTitle>Submit Project</CardTitle>
-        <CardDescription>Submit your project for review.</CardDescription>
+        <CardDescription>
+          Submit your open source project for review.
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <form
