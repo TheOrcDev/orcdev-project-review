@@ -3,6 +3,7 @@
 
 import { useForm, useStore } from "@tanstack/react-form";
 import { Loader2 } from "lucide-react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { createProject } from "@/server/projects";
+import { SubmitSuccessCard } from "../submit-success-card";
 
 const URL_PROTOCOL_REGEX = /^https?:\/\//i;
 const MIN_PROJECT_NAME_LENGTH = 3;
@@ -64,6 +66,8 @@ const formSchema = z.object({
 });
 
 export function SubmitProjectForm() {
+  const [isSubmited, setIsSubmited] = useState(false);
+
   const form = useForm({
     defaultValues: {
       projectName: "",
@@ -95,6 +99,10 @@ export function SubmitProjectForm() {
   });
 
   const isSubmitting = useStore(form.store, (state) => state.isSubmitting);
+
+  if (isSubmited) {
+    return <SubmitSuccessCard />;
+  }
 
   return (
     <Card className="w-full sm:max-w-md">
