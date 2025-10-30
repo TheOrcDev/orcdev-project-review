@@ -25,12 +25,7 @@ export default function MainMenu({
       <CardContent>
         <div className="flex flex-col gap-8">
           {menuItems.map((item) => (
-            <Link
-              className="w-full"
-              href={item.href}
-              key={item.label}
-              target={item.target}
-            >
+            <Link className="w-full" href={item.href} key={item.label}>
               <Button className="flex w-full items-center gap-2">
                 {item.label}
               </Button>
