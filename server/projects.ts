@@ -2,7 +2,7 @@
 
 import { db } from "@/db/drizzle";
 import { type InsertProject, projects, type SelectProject } from "@/db/schema";
-import { and, eq, isNull, or } from "drizzle-orm";
+import { and, count, eq, isNull, or } from "drizzle-orm";
 
 export async function getProjects() {
   try {
@@ -35,5 +35,18 @@ export async function createProject(
     return newProject;
   } catch {
     throw new Error("Failed to create project");
+  }
+}
+
+export async function getProjectCount() {
+  try {
+    const [totalProjects] = await db
+      .select({ count: count() })
+      .from(projects)
+      .where(isNull(projects.resetDate));
+
+    return totalProjects?.count ?? 0;
+  } catch {
+    throw new Error("Failed to get project count");
   }
 }
