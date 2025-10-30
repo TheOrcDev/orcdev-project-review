@@ -5,6 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "@/components/ui/8bit/styles/retro.css";
 
+import { Analytics } from "@vercel/analytics/next";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -71,6 +72,7 @@ export default function RootLayout({
             <Toaster />
           </div>
           <Footer />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
