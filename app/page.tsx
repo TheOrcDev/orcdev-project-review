@@ -12,7 +12,7 @@ export default function Home() {
           Total projects submitted for review so far
         </p>
         <div className="flex h-10 items-center justify-center">
-          <Badge className="min-size-10 size-[42px] font-bold text-2xl">
+          <Badge className="min-size-10 h-[42px] w-full min-w-[42px] font-bold text-2xl">
             <Suspense fallback={<Loader2 className="size-8 animate-spin" />}>
               <TotalProjects />
             </Suspense>
