@@ -1,8 +1,8 @@
 "use server";
 
-import { eq, or } from "drizzle-orm";
 import { db } from "@/db/drizzle";
 import { type InsertProject, projects, type SelectProject } from "@/db/schema";
+import { and, eq, isNull, or } from "drizzle-orm";
 
 export async function getProjects() {
   try {
@@ -17,9 +17,12 @@ export async function createProject(
   project: InsertProject
 ): Promise<string | SelectProject> {
   const check = await db.query.projects.findFirst({
-    where: or(
-      eq(projects.name, project.name),
-      eq(projects.githubRepoUrl, project.githubRepoUrl)
+    where: and(
+      or(
+        eq(projects.name, project.name),
+        eq(projects.githubRepoUrl, project.githubRepoUrl)
+      ),
+      isNull(projects.resetDate)
     ),
   });
 
