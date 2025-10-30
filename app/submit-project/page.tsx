@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { SubmitProjectForm } from "@/components/forms/submit-project-form";
 import { Button } from "@/components/ui/8bit/button";
+import { Skeleton } from "@/components/ui/8bit/skeleton";
 
 export default function Home() {
   return (
@@ -15,7 +17,9 @@ export default function Home() {
         <Button>Back</Button>
       </Link>
 
-      <SubmitProjectForm />
+      <Suspense fallback={<Skeleton className="h-40 w-full" />}>
+        <SubmitProjectForm />
+      </Suspense>
     </main>
   );
 }
