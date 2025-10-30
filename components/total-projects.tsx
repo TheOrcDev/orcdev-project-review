@@ -1,7 +1,8 @@
 import { getProjectCount } from "@/server/projects";
+import { Badge } from "./ui/8bit/badge";
 
 export async function TotalProjects() {
   const totalProjects = await getProjectCount();
 
-  return <p className="h-4 font-bold text-2xl">{totalProjects}</p>;
+  return <Badge className="font-bold text-2xl">{totalProjects}</Badge>;
 }

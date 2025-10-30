@@ -5,8 +5,8 @@ import MainMenu from "@/components/ui/8bit/blocks/main-menu";
 
 export default function Home() {
   return (
-    <main className="retro flex min-w-full flex-col items-center justify-center gap-5 py-12">
-      <div className="flex flex-col items-center justify-center gap-1">
+    <main className="retro flex min-w-full flex-col items-center justify-center gap-10 py-12">
+      <div className="flex flex-col items-center justify-center gap-3">
         <p className="text-center text-muted-foreground text-xs">
           Total projects submitted for review so far
         </p>
