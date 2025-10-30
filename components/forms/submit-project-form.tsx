@@ -224,9 +224,6 @@ export function SubmitProjectForm() {
       </CardContent>
       <CardFooter>
         <Field className="flex gap-5" orientation="horizontal">
-          <Button onClick={() => form.reset()} type="button" variant="outline">
-            Reset
-          </Button>
           <Button
             disabled={isSubmitting}
             form="submit-project-form"
