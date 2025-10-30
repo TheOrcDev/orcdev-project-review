@@ -27,7 +27,7 @@ export async function createProject(
   });
 
   if (check) {
-    return "Project already submitted.";
+    return "Project already submitted for the next stream.";
   }
 
   try {
