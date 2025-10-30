@@ -10,9 +10,11 @@ export default function Home() {
         <p className="text-center text-muted-foreground text-xs">
           Total projects submitted for review so far
         </p>
-        <Suspense fallback={<Loader2 className="size-4 animate-spin" />}>
-          <TotalProjects />
-        </Suspense>
+        <div className="flex h-10 items-center justify-center">
+          <Suspense fallback={<Loader2 className="size-4 animate-spin" />}>
+            <TotalProjects />
+          </Suspense>
+        </div>
       </div>
 
       <MainMenu className="w-full max-w-sm" />
