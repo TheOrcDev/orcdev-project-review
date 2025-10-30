@@ -5,7 +5,6 @@ export const menuItems = [
   },
   {
     label: "LIVESTREAMS",
-    href: "https://www.youtube.com/@orcdev/streams",
-    target: "_blank",
+    href: "/livestreams",
   },
 ];
