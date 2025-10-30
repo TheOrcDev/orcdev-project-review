@@ -7,6 +7,7 @@ export const projects = pgTable("projects", {
   description: text("description").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  resetDate: timestamp("reset_date"),
   deletedAt: timestamp("deleted_at"),
 });
 
