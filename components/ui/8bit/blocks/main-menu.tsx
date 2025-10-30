@@ -7,19 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/8bit/card";
+import { menuItems } from "@/config/nav-items";
 import { cn } from "@/lib/utils";
-
-const menuItems = [
-  {
-    label: "SUBMIT PROJECT",
-    href: "/submit-project",
-  },
-  {
-    label: "LIVESTREAMS",
-    href: "https://www.youtube.com/@orcdev/streams",
-    target: "_blank",
-  },
-];
 
 export default function MainMenu({
   className,

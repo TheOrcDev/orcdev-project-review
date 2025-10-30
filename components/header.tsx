@@ -1,33 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
-import MobileNav from "@/components/mobile-nav";
 import { ModeSwitcher } from "@/components/mode-switcher";
 import { Button } from "@/components/ui/button";
-import { navItems } from "@/config/nav-items";
 
 export function Header() {
   return (
     <header className="sticky top-0 z-50 flex h-14 shrink-0 items-center gap-2 border-b border-dashed bg-background/95">
       <div className="mx-auto flex h-full w-full max-w-[1400px] items-center gap-1 border-r border-l border-dashed px-4 md:gap-5 md:px-6">
-        <Link className="hidden items-center gap-2 md:flex" href="/">
+        <Link className="items-center gap-2" href="/">
           <Image alt="logo" height={32} src="/orcdev.png" width={32} />{" "}
         </Link>
 
-        <div className="block md:hidden">
-          <MobileNav />
-        </div>
-
-        <nav className="hidden items-center gap-4 text-sm md:flex">
-          {navItems.header.map((item) => (
-            <Link
-              className="text-foreground transition-colors hover:text-foreground/80"
-              href={item.href}
-              key={item.href}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
         <div className="ml-auto flex items-center gap-2">
           <Link href="https://github.com/TheOrcDev/8bitcn-ui" target="_blank">
             <Button
