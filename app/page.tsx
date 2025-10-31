@@ -1,4 +1,3 @@
-import { Loader2 } from "lucide-react";
 import { Suspense } from "react";
 import { TotalProjects } from "@/components/total-projects";
 import { Badge } from "@/components/ui/8bit/badge";
@@ -13,7 +12,7 @@ export default function Home() {
         </p>
         <div className="flex h-10 items-center justify-center">
           <Badge className="min-size-10 h-[42px] w-full min-w-[42px] font-bold text-2xl">
-            <Suspense fallback={<Loader2 className="size-8 animate-spin" />}>
+            <Suspense fallback={"0"}>
               <TotalProjects />
             </Suspense>
           </Badge>
