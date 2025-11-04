@@ -7,4 +7,12 @@ export const menuItems = [
     label: "LIVESTREAMS",
     href: "/livestreams",
   },
+  {
+    label: "THE ORC MACHINE",
+    href: "/orc-machine",
+  },
+  {
+    label: "REVIEWED PROJECTS",
+    href: "/reviewed-projects",
+  },
 ];

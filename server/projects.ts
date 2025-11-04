@@ -2,7 +2,7 @@
 
 import { db } from "@/db/drizzle";
 import { type InsertProject, projects, type SelectProject } from "@/db/schema";
-import { and, count, eq, isNull, or } from "drizzle-orm";
+import { and, count, eq, isNotNull, isNull, or, sql } from "drizzle-orm";
 
 export async function getProjects() {
   try {
@@ -48,5 +48,51 @@ export async function getProjectCount() {
     return totalProjects?.count ?? 0;
   } catch {
     throw new Error("Failed to get project count");
+  }
+}
+
+type RandomProject = {
+  projects: SelectProject[];
+  pickedProject: SelectProject;
+};
+
+export async function getRandomProject(): Promise<RandomProject> {
+  try {
+    const random10Projects = await db.query.projects.findMany({
+      where: and(isNull(projects.resetDate), isNull(projects.deletedAt)),
+      orderBy: sql`RANDOM()`,
+      limit: 10,
+    });
+
+    const pickedProject =
+      random10Projects[Math.floor(Math.random() * random10Projects.length)];
+
+    await db
+      .update(projects)
+      .set({
+        deletedAt: sql`NOW()`,
+      })
+      .where(eq(projects.id, pickedProject.id));
+
+    return {
+      projects: random10Projects.filter(
+        (project) => project.id !== pickedProject.id
+      ),
+      pickedProject,
+    };
+  } catch {
+    throw new Error("Failed to get random project");
+  }
+}
+
+export async function getReviewedProjects() {
+  try {
+    const allReviewedProjects = await db.query.projects.findMany({
+      where: isNotNull(projects.deletedAt),
+    });
+
+    return allReviewedProjects;
+  } catch {
+    throw new Error("Failed to get reviewed projects");
   }
 }
