@@ -8,7 +8,7 @@ export default function ReviewedProjectsPage() {
       <h1 className="text-center font-bold text-2xl">Reviewed Projects</h1>
 
       <Suspense fallback={<Skeleton className="h-40 w-full" />}>
-        <ReviewedProjects batch={1} />
+        <ReviewedProjects />
       </Suspense>
     </main>
   );
