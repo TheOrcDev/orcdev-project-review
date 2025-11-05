@@ -106,7 +106,7 @@ export function SubmitProjectForm() {
   }
 
   return (
-    <Card className="w-full sm:max-w-md">
+    <Card>
       <CardHeader>
         <CardTitle>Submit Your Project</CardTitle>
         <CardDescription className="text-xs">

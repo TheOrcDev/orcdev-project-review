@@ -1,10 +1,15 @@
+import Link from "next/link";
 import { Suspense } from "react";
 import { ReviewedProjects } from "@/components/reviewed-projects";
+import { Button } from "@/components/ui/8bit/button";
 import { Skeleton } from "@/components/ui/8bit/skeleton";
 
 export default function ReviewedProjectsPage() {
   return (
-    <main className="retro mx-auto flex max-w-2xl flex-col items-center justify-center gap-5 py-12">
+    <main className="retro mx-auto flex max-w-2xl flex-col gap-5 py-12">
+      <Link href="/">
+        <Button variant="outline">Back</Button>
+      </Link>
       <h1 className="text-center font-bold text-2xl">Reviewed Projects</h1>
 
       <Suspense
