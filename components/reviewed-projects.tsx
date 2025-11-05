@@ -2,8 +2,8 @@ import Link from "next/link";
 import { getReviewedProjects } from "@/server/projects";
 import { Button } from "./ui/8bit/button";
 
-export async function ReviewedProjects() {
-  const allReviewedProjects = await getReviewedProjects();
+export async function ReviewedProjects({ batch }: { batch: number }) {
+  const allReviewedProjects = await getReviewedProjects(batch);
 
   return (
     <>

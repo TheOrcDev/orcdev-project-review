@@ -1,8 +1,13 @@
 "use server";
 
 import { db } from "@/db/drizzle";
-import { type InsertProject, projects, type SelectProject } from "@/db/schema";
-import { and, count, eq, isNotNull, isNull, or, sql } from "drizzle-orm";
+import {
+  type InsertProject,
+  projects,
+  reviewedProjects,
+  type SelectProject,
+} from "@/db/schema";
+import { and, count, desc, eq, isNotNull, isNull, or, sql } from "drizzle-orm";
 
 export async function getProjects() {
   try {
@@ -85,14 +90,44 @@ export async function getRandomProject(): Promise<RandomProject> {
   }
 }
 
-export async function getReviewedProjects() {
+export async function getReviewedProjects(batch: number) {
   try {
-    const allReviewedProjects = await db.query.projects.findMany({
-      where: isNotNull(projects.deletedAt),
+    const allReviewedProjects = await db.query.reviewedProjects.findMany({
+      where: eq(reviewedProjects.batch, batch),
     });
 
     return allReviewedProjects;
   } catch {
     throw new Error("Failed to get reviewed projects");
+  }
+}
+
+export async function deleteAllProjectsAndAddToReviewedProjects() {
+  try {
+    const allProjects = await db.query.projects.findMany({
+      where: isNotNull(projects.deletedAt),
+    });
+
+    const [latestBatchRow] = await db
+      .select()
+      .from(reviewedProjects)
+      .where(isNotNull(reviewedProjects.batch))
+      .orderBy(desc(reviewedProjects.batch))
+      .limit(1);
+
+    const latestBatch = latestBatchRow?.batch ?? 0;
+
+    await db.insert(reviewedProjects).values(
+      allProjects.map((project) => ({
+        name: project.name,
+        githubRepoUrl: project.githubRepoUrl,
+        description: project.description,
+        batch: latestBatch + 1,
+      }))
+    );
+  } catch {
+    throw new Error(
+      "Failed to delete all projects and add to reviewed projects"
+    );
   }
 }
