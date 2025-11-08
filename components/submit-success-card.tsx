@@ -9,7 +9,7 @@ import {
 
 export function SubmitSuccessCard() {
   return (
-    <Card className="w-full text-center sm:max-w-lg">
+    <Card className="w-full text-center">
       <CardHeader>
         <CardTitle>Submission Received! ⚔️</CardTitle>
         <CardDescription>
