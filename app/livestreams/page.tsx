@@ -1,6 +1,17 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/8bit/button";
 
+const livestreams = [
+  {
+    date: "4th November 2025",
+    url: "https://www.youtube.com/watch?v=oaD2svrWWnU",
+  },
+  {
+    date: "11th November 2025",
+    url: "https://www.youtube.com/watch?v=EG45hfpIAoc",
+  },
+];
+
 export default function Livestreams() {
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-5 py-12">
@@ -14,32 +25,18 @@ export default function Livestreams() {
         All livestreams are listed here.
       </p>
 
-      <div className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <div className="flex flex-col gap-4">
-          <h2 className="text-center font-bold md:text-xl">
-            4th November 2025
-          </h2>
-          <div className="flex justify-center">
-            <iframe
-              className="aspect-video w-full"
-              src={"https://www.youtube.com/embed/oaD2svrWWnU"}
-              title="OrcDev Project Review Livestream"
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <h2 className="text-center font-bold md:text-xl">
-            11th November 2025
-          </h2>
-          <div className="flex justify-center">
-            <iframe
-              className="aspect-video w-full"
-              src={"https://www.youtube.com/embed/EG45hfpIAoc"}
-              title="OrcDev Project Review Livestream"
-            />
-          </div>
-        </div>
+      <div className="mt-5 grid grid-cols-1 gap-6 lg:grid-cols-2">
+        {livestreams.map((livestream) => (
+          <Link
+            className="text-center font-bold text-primary underline md:text-xl"
+            href={livestream.url}
+            key={livestream.date}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <Button>{livestream.date}</Button>
+          </Link>
+        ))}
       </div>
     </main>
   );
