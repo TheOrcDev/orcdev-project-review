@@ -14,7 +14,7 @@ export async function ReviewedProjects({
   const allReviewedProjects = await getReviewedProjects(batch);
 
   return (
-    <>
+    <div>
       <h2>
         {allReviewedProjects.length} projects have been reviewed in{" "}
         <Link
@@ -43,6 +43,6 @@ export async function ReviewedProjects({
           </Link>
         ))}
       </div>
-    </>
+    </div>
   );
 }

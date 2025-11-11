@@ -20,14 +20,16 @@ export default function ReviewedProjectsPage() {
           </div>
         }
       >
-        <ReviewedProjects
-          batch={1}
-          livestreamUrl="https://www.youtube.com/watch?v=oaD2svrWWnU"
-        />
-        <ReviewedProjects
-          batch={2}
-          livestreamUrl="https://www.youtube.com/watch?v=EG45hfpIAoc"
-        />
+        <div className="flex flex-col gap-10">
+          <ReviewedProjects
+            batch={1}
+            livestreamUrl="https://www.youtube.com/watch?v=oaD2svrWWnU"
+          />
+          <ReviewedProjects
+            batch={2}
+            livestreamUrl="https://www.youtube.com/watch?v=EG45hfpIAoc"
+          />
+        </div>
       </Suspense>
     </main>
   );
