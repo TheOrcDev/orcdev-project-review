@@ -2,7 +2,15 @@ import Link from "next/link";
 import { getReviewedProjects } from "@/server/projects";
 import { Button } from "./ui/8bit/button";
 
-export async function ReviewedProjects({ batch }: { batch: number }) {
+type ReviewedProjectsProps = {
+  batch: number;
+  livestreamUrl: string;
+};
+
+export async function ReviewedProjects({
+  batch,
+  livestreamUrl,
+}: ReviewedProjectsProps) {
   const allReviewedProjects = await getReviewedProjects(batch);
 
   return (
@@ -11,7 +19,7 @@ export async function ReviewedProjects({ batch }: { batch: number }) {
         {allReviewedProjects.length} projects have been reviewed in{" "}
         <Link
           className="font-medium text-primary underline"
-          href="https://www.youtube.com/watch?v=oaD2svrWWnU"
+          href={livestreamUrl}
           rel="noopener noreferrer"
           target="_blank"
         >
