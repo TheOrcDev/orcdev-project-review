@@ -10,6 +10,10 @@ const livestreams = [
     date: "11th November 2025",
     url: "https://www.youtube.com/watch?v=EG45hfpIAoc",
   },
+  {
+    date: "20th November 2025",
+    url: "https://www.youtube.com/live/qpWkvlYjqvE",
+  },
 ];
 
 export default function Livestreams() {
@@ -28,13 +32,13 @@ export default function Livestreams() {
       <div className="mt-5 grid grid-cols-1 gap-6 lg:grid-cols-2">
         {livestreams.map((livestream) => (
           <Link
-            className="text-center font-bold text-primary underline md:text-xl"
+            className="w-full text-center font-bold text-primary underline md:text-xl"
             href={livestream.url}
             key={livestream.date}
             rel="noopener noreferrer"
             target="_blank"
           >
-            <Button>{livestream.date}</Button>
+            <Button className="w-full">{livestream.date}</Button>
           </Link>
         ))}
       </div>
