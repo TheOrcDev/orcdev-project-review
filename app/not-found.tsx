@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className="grid h-screen w-full place-content-center gap-5 bg-background px-4 text-center">
+    <main className="retro flex min-w-full flex-col items-center justify-center gap-10 py-12">
       <Image
         alt="OrcDev Project Review 404"
         className="bg-white"
@@ -29,6 +29,6 @@ export default function NotFound() {
           <Link href={"/"}>Return to Home Page</Link>
         </Button>
       </div>
-    </div>
+    </main>
   );
 }
