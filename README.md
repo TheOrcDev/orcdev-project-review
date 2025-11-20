@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OrcDev Project Review
 
-## Getting Started
+A platform where open source projects get reviewed live on stream. Submit your project and join the spotlight!
 
-First, run the development server:
+## What Are These Livestreams About?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The OrcDev Project Review livestreams are live coding sessions where open source projects are reviewed, discussed, and explored in real-time. Each stream features:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Live code reviews** of submitted projects
+- **Technical discussions** about architecture, code quality, and best practices
+- **Interactive Q&A** with the community
+- **Feedback and suggestions** for improvement
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+All livestreams are recorded and available for viewing. Check out the [Livestreams](/livestreams) page to watch past reviews.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## How to Submit Your Project
 
-## Learn More
+Want your open source project reviewed on stream? Here's how:
 
-To learn more about Next.js, take a look at the following resources:
+1. **Navigate to the Submit Project page** and fill out the form with:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   - **Project Name**: A clear, descriptive name (3-50 characters)
+   - **GitHub Repository URL**: Must be a public repository hosted on GitHub
+   - **Project Description**: A brief description that helps during the review
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. **Submit your project** - Once submitted, your project enters the pool for random selection.
 
-## Deploy on Vercel
+3. **Wait for selection** - Projects are picked randomly for each livestream (see below).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Note**: Each project can only be submitted once per review cycle. If your project has already been submitted, you'll see a notification.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Random Project Selection
+
+Projects are selected **randomly** for each livestream using "The Orc Machine" - our random project picker. Here's how it works:
+
+- All submitted projects enter a pool
+- Before each stream, projects are randomly selected from the pool
+- Selected projects are reviewed during the livestream
+- After review, projects are archived by batch
+
+This ensures a fair and unbiased selection process, giving every submitted project an equal chance to be featured.
+
+## Reviewed Projects
+
+After projects are reviewed on stream, they're archived and organized by batch. You can view all previously reviewed projects on the [Reviewed Projects](/reviewed-projects) page, where each batch is linked to its corresponding livestream.
+
+---
+
+Ready to submit your project? Head over to the [Submit Project](/submit-project) page and get started!
