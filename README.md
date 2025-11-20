@@ -7,11 +7,10 @@ A platform where open source projects get reviewed live on stream. Submit your p
 The OrcDev Project Review livestreams are live coding sessions where open source projects are reviewed, discussed, and explored in real-time. Each stream features:
 
 - **Live code reviews** of submitted projects
-- **Technical discussions** about architecture, code quality, and best practices
 - **Interactive Q&A** with the community
 - **Feedback and suggestions** for improvement
 
-All livestreams are recorded and available for viewing. Check out the [Livestreams](/livestreams) page to watch past reviews.
+All livestreams are recorded and available for viewing. Check out the [Livestreams](https://review.orcdev.com/livestreams) page to watch past reviews.
 
 ## How to Submit Your Project
 
@@ -42,8 +41,8 @@ This ensures a fair and unbiased selection process, giving every submitted proje
 
 ## Reviewed Projects
 
-After projects are reviewed on stream, they're archived and organized by batch. You can view all previously reviewed projects on the [Reviewed Projects](/reviewed-projects) page, where each batch is linked to its corresponding livestream.
+After projects are reviewed on stream, they're archived and organized by batch. You can view all previously reviewed projects on the [Reviewed Projects](https://review.orcdev.com/reviewed-projects) page, where each batch is linked to its corresponding livestream.
 
 ---
 
-Ready to submit your project? Head over to the [Submit Project](/submit-project) page and get started!
+Ready to submit your project? Head over to the [Submit Project](https://review.orcdev.com/submit-project) page and get started!
