@@ -1,6 +1,8 @@
 # OrcDev Project Review
 
-A platform where open source projects get reviewed live on stream. Submit your project and join the spotlight!
+A platform where open source projects get reviewed live on stream. Submit your project and get picked by THE ORC MACHINE!
+
+<img width="1344" height="768" alt="The Orc Machine" src="https://github.com/user-attachments/assets/2f818b35-6516-410e-940c-36e935d8ad43" />
 
 ## What Are These Livestreams About?
 
