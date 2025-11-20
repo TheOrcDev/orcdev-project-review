@@ -7,7 +7,17 @@ import {
   reviewedProjects,
   type SelectProject,
 } from "@/db/schema";
-import { and, count, desc, eq, isNotNull, isNull, or, sql } from "drizzle-orm";
+import {
+  and,
+  count,
+  desc,
+  eq,
+  isNotNull,
+  isNull,
+  max,
+  or,
+  sql,
+} from "drizzle-orm";
 
 export async function getProjects() {
   try {
@@ -129,5 +139,18 @@ export async function deleteAllProjectsAndAddToReviewedProjects() {
     throw new Error(
       "Failed to delete all projects and add to reviewed projects"
     );
+  }
+}
+
+export async function getBatchCount() {
+  try {
+    const [batchCount] = await db
+      .select({ count: max(reviewedProjects.batch) })
+      .from(reviewedProjects)
+      .where(isNotNull(reviewedProjects.batch));
+
+    return batchCount?.count ?? 0;
+  } catch {
+    throw new Error("Failed to get batch count");
   }
 }

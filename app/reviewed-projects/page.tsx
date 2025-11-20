@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import { ReviewedProjects } from "@/components/reviewed-projects";
+import { AllBatches } from "@/components/all-batches";
 import { Button } from "@/components/ui/8bit/button";
 import { Skeleton } from "@/components/ui/8bit/skeleton";
 
-export default function ReviewedProjectsPage() {
+export default async function ReviewedProjectsPage() {
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-5 py-12">
       <Link href="/">
@@ -21,14 +21,7 @@ export default function ReviewedProjectsPage() {
         }
       >
         <div className="flex flex-col gap-10">
-          <ReviewedProjects
-            batch={1}
-            livestreamUrl="https://www.youtube.com/watch?v=oaD2svrWWnU"
-          />
-          <ReviewedProjects
-            batch={2}
-            livestreamUrl="https://www.youtube.com/watch?v=EG45hfpIAoc"
-          />
+          <AllBatches />
         </div>
       </Suspense>
     </main>

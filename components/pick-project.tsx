@@ -42,6 +42,9 @@ export function PickProject() {
 
       <div className="flex gap-6">
         <Button onClick={pickProject}>Pick a Project</Button>
+        {/* <Button onClick={deleteAllProjectsAndAddToReviewedProjects}>
+          Delete All Projects and Add to Reviewed Projects
+        </Button> */}
       </div>
 
       {project && (
