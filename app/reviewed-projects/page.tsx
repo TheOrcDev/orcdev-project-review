@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import { AllBatches } from "@/components/all-batches";
+import { ReviewedProjects } from "@/components/reviewed-projects";
 import { Button } from "@/components/ui/8bit/button";
 import { Skeleton } from "@/components/ui/8bit/skeleton";
 
@@ -21,7 +21,18 @@ export default async function ReviewedProjectsPage() {
         }
       >
         <div className="flex flex-col gap-10">
-          <AllBatches />
+          <ReviewedProjects
+            batch={1}
+            livestreamUrl="https://www.youtube.com/watch?v=oaD2svrWWnU"
+          />
+          <ReviewedProjects
+            batch={2}
+            livestreamUrl="https://www.youtube.com/watch?v=EG45hfpIAoc"
+          />
+          <ReviewedProjects
+            batch={3}
+            livestreamUrl="https://www.youtube.com/live/qpWkvlYjqvE"
+          />
         </div>
       </Suspense>
     </main>
