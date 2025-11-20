@@ -14,6 +14,12 @@ The OrcDev Project Review livestreams are live coding sessions where open source
 
 All livestreams are recorded and available for viewing. Check out the [Livestreams](https://review.orcdev.com/livestreams) page to watch past reviews.
 
+## Previous Livestreams
+
+- [4th November 2025](https://www.youtube.com/watch?v=oaD2svrWWnU)
+- [11th November 2025](https://www.youtube.com/watch?v=EG45hfpIAoc)
+- [20th November 2025](https://www.youtube.com/live/qpWkvlYjqvE)
+
 ## How to Submit Your Project
 
 Want your open source project reviewed on stream? Here's how:
