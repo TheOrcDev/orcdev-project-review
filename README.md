@@ -20,6 +20,8 @@ All livestreams are recorded and available for viewing. Check out the [Livestrea
 - [11th November 2025](https://www.youtube.com/watch?v=EG45hfpIAoc)
 - [20th November 2025](https://www.youtube.com/live/qpWkvlYjqvE)
 
+## Stream Guests
+
 ## How to Submit Your Project
 
 Want your open source project reviewed on stream? Here's how:
