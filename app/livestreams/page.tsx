@@ -14,6 +14,10 @@ const livestreams = [
     date: "20th November 2025",
     url: "https://www.youtube.com/live/qpWkvlYjqvE",
   },
+  {
+    date: "26th November 2025",
+    url: "https://www.youtube.com/live/w4AUms5wNpY",
+  },
 ];
 
 export default function Livestreams() {
