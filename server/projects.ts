@@ -1,12 +1,5 @@
 "use server";
 
-import { db } from "@/db/drizzle";
-import {
-  type InsertProject,
-  projects,
-  reviewedProjects,
-  type SelectProject,
-} from "@/db/schema";
 import {
   and,
   count,
@@ -18,6 +11,13 @@ import {
   or,
   sql,
 } from "drizzle-orm";
+import { db } from "@/db/drizzle";
+import {
+  type InsertProject,
+  projects,
+  reviewedProjects,
+  type SelectProject,
+} from "@/db/schema";
 
 export async function getProjects() {
   try {

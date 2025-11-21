@@ -3,9 +3,12 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
+import "./retro-globals.css";
+
 import "@/components/ui/8bit/styles/retro.css";
 
 import { Analytics } from "@vercel/analytics/next";
+import { ActiveThemeProvider } from "@/components/active-theme";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -66,13 +69,15 @@ export default function RootLayout({
           disableTransitionOnChange
           enableSystem
         >
-          <Header />
-          <div className="mx-auto w-full max-w-[1400px] flex-1 border-r border-l border-dashed">
-            <div className="p-4 px-6">{children}</div>
-            <Toaster />
-          </div>
-          <Footer />
-          <Analytics />
+          <ActiveThemeProvider>
+            <Header />
+            <div className="mx-auto w-full max-w-[1400px] flex-1 border-r border-l border-dashed">
+              <div className="p-4 px-6">{children}</div>
+              <Toaster />
+            </div>
+            <Footer />
+            <Analytics />
+          </ActiveThemeProvider>
         </ThemeProvider>
       </body>
     </html>

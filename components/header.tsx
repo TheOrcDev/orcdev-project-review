@@ -1,9 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ModeSwitcher } from "@/components/mode-switcher";
 import { Button } from "@/components/ui/button";
+import { useThemeConfig } from "./active-theme";
+import { SelectThemeDropdown } from "./select-theme-dropdown";
 
 export function Header() {
+  const { activeTheme, setActiveTheme } = useThemeConfig();
+
   return (
     <header className="sticky top-0 z-50 flex h-14 shrink-0 items-center gap-2 border-b border-dashed bg-background/95">
       <div className="mx-auto flex h-full w-full max-w-[1400px] items-center gap-1 border-r border-l border-dashed px-4 md:gap-5 md:px-6">
@@ -28,6 +34,11 @@ export function Header() {
             </Button>
           </Link>
           <ModeSwitcher />
+
+          <SelectThemeDropdown
+            activeTheme={activeTheme}
+            setActiveTheme={setActiveTheme}
+          />
         </div>
       </div>
     </header>
