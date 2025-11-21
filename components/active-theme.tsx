@@ -20,25 +20,22 @@ function getThemeCookie(): Theme | null {
   }
 
   try {
-    const cookies = document.cookie.split(";");
-    for (const cookie of cookies) {
-      const trimmed = cookie.trim();
-      if (!trimmed) continue;
+    const cookieString = document.cookie;
+    const start = cookieString.indexOf(`${COOKIE_NAME}=`);
+    if (start === -1) {
+      return null;
+    }
 
-      const equalIndex = trimmed.indexOf("=");
-      if (equalIndex === -1) continue;
+    const valueStart = start + COOKIE_NAME.length + 1;
+    const valueEnd = cookieString.indexOf(";", valueStart);
+    const value =
+      valueEnd === -1
+        ? cookieString.slice(valueStart)
+        : cookieString.slice(valueStart, valueEnd);
 
-      const name = trimmed.slice(0, equalIndex).trim();
-      const value = trimmed.slice(equalIndex + 1).trim();
-
-      // Validate that the value is a valid Theme
-      if (
-        name === COOKIE_NAME &&
-        value &&
-        Object.values(Theme).includes(value as Theme)
-      ) {
-        return value as Theme;
-      }
+    // Validate that the value is a valid Theme
+    if (value && Object.values(Theme).includes(value as Theme)) {
+      return value as Theme;
     }
   } catch (error) {
     console.error("Error reading theme cookie:", error);
@@ -94,7 +91,9 @@ export function ActiveThemeProvider({
 
   // On initial mount, sync with cookie - cookie takes priority
   useEffect(() => {
-    if (hasInitialized.current) return;
+    if (hasInitialized.current) {
+      return;
+    }
     hasInitialized.current = true;
 
     const cookieTheme = getThemeCookie();
@@ -110,7 +109,8 @@ export function ActiveThemeProvider({
     }
 
     isInitialMount.current = false;
-  }, []); // Only run on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Save cookie and apply theme whenever activeTheme changes
   useEffect(() => {
