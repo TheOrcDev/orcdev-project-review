@@ -33,6 +33,10 @@ export default async function ReviewedProjectsPage() {
             batch={3}
             livestreamUrl="https://www.youtube.com/live/qpWkvlYjqvE"
           />
+          <ReviewedProjects
+            batch={4}
+            livestreamUrl="https://www.youtube.com/live/w4AUms5wNpY"
+          />
         </div>
       </Suspense>
     </main>

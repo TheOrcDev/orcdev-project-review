@@ -7,7 +7,10 @@ export default function Home() {
       <Link href="/">
         <Button variant="outline">Back</Button>
       </Link>
-      {/* <PickProject /> */}
+      {/* <PickProject />
+      <Button onClick={deleteAllProjectsAndAddToReviewedProjects}>
+        Delete All Projects and Add to Reviewed Projects
+      </Button> */}
       <h1>The Orc Machine currently waits for the next stream.</h1>
     </main>
   );
