@@ -19,6 +19,7 @@ All livestreams are recorded and available for viewing. Check out the [Livestrea
 - [4th November 2025](https://www.youtube.com/watch?v=oaD2svrWWnU)
 - [11th November 2025](https://www.youtube.com/watch?v=EG45hfpIAoc)
 - [20th November 2025](https://www.youtube.com/live/qpWkvlYjqvE)
+- [26th November 2025](https://www.youtube.com/live/w4AUms5wNpY)
 
 ## Stream Guests
 
