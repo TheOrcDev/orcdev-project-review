@@ -5,11 +5,13 @@ import { Button } from "./ui/8bit/button";
 type ReviewedProjectsProps = {
   batch: number;
   livestreamUrl: string;
+  date: string;
 };
 
 export async function ReviewedProjects({
   batch,
   livestreamUrl,
+  date,
 }: ReviewedProjectsProps) {
   const allReviewedProjects = await getReviewedProjects(batch);
 
@@ -24,7 +26,8 @@ export async function ReviewedProjects({
           target="_blank"
         >
           this livestream
-        </Link>
+        </Link>{" "}
+        on {date}
       </h2>
 
       <div className="mt-5 flex flex-wrap gap-5">
