@@ -3,24 +3,24 @@ import { Button } from "@/components/ui/8bit/button";
 
 const livestreams = [
   {
-    date: "4th November 2025",
-    url: "https://www.youtube.com/watch?v=oaD2svrWWnU",
-  },
-  {
-    date: "11th November 2025",
-    url: "https://www.youtube.com/watch?v=EG45hfpIAoc",
-  },
-  {
-    date: "20th November 2025",
-    url: "https://www.youtube.com/live/qpWkvlYjqvE",
+    date: "2nd December 2025",
+    url: "https://www.youtube.com/live/Q1JyVbDoQSM",
   },
   {
     date: "26th November 2025",
     url: "https://www.youtube.com/live/w4AUms5wNpY",
   },
   {
-    date: "2nd December 2025",
-    url: "https://www.youtube.com/live/Q1JyVbDoQSM",
+    date: "20th November 2025",
+    url: "https://www.youtube.com/live/qpWkvlYjqvE",
+  },
+  {
+    date: "11th November 2025",
+    url: "https://www.youtube.com/watch?v=EG45hfpIAoc",
+  },
+  {
+    date: "4th November 2025",
+    url: "https://www.youtube.com/watch?v=oaD2svrWWnU",
   },
 ];
 
