@@ -22,6 +22,11 @@ export default async function ReviewedProjectsPage() {
       >
         <div className="flex flex-col gap-10">
           <ReviewedProjects
+            batch={6}
+            date="9th December 2025"
+            livestreamUrl="https://www.youtube.com/live/m-pT1Jl2568"
+          />
+          <ReviewedProjects
             batch={5}
             date="2nd December 2025"
             livestreamUrl="https://www.youtube.com/live/Q1JyVbDoQSM"
