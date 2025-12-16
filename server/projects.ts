@@ -1,5 +1,12 @@
 "use server";
 
+import { db } from "@/db/drizzle";
+import {
+  type InsertProject,
+  projects,
+  reviewedProjects,
+  type SelectProject,
+} from "@/db/schema";
 import {
   and,
   count,
@@ -11,13 +18,14 @@ import {
   or,
   sql,
 } from "drizzle-orm";
-import { db } from "@/db/drizzle";
 import {
-  type InsertProject,
-  projects,
-  reviewedProjects,
-  type SelectProject,
-} from "@/db/schema";
+  refresh,
+  revalidatePath,
+  revalidateTag,
+  unstable_cache,
+} from "next/cache";
+
+const PROJECTS_TAG = "projects";
 
 export async function getProjects() {
   try {
@@ -47,24 +55,31 @@ export async function createProject(
 
   try {
     const [newProject] = await db.insert(projects).values(project).returning();
+    revalidateTag(PROJECTS_TAG, "default");
+    revalidatePath("/", "layout");
+    refresh();
     return newProject;
   } catch {
     throw new Error("Failed to create project");
   }
 }
 
-export async function getProjectCount() {
-  try {
-    const [totalProjects] = await db
-      .select({ count: count() })
-      .from(projects)
-      .where(isNull(projects.resetDate));
+export const getProjectCount = unstable_cache(
+  async () => {
+    try {
+      const [totalProjects] = await db
+        .select({ count: count() })
+        .from(projects)
+        .where(isNull(projects.resetDate));
 
-    return totalProjects?.count ?? 0;
-  } catch {
-    throw new Error("Failed to get project count");
-  }
-}
+      return totalProjects?.count ?? 0;
+    } catch {
+      throw new Error("Failed to get project count");
+    }
+  },
+  ["project-count"],
+  { tags: [PROJECTS_TAG] }
+);
 
 type RandomProject = {
   projects: SelectProject[];

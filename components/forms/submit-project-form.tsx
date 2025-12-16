@@ -3,6 +3,7 @@
 
 import { useForm, useStore } from "@tanstack/react-form";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -67,6 +68,7 @@ const formSchema = z.object({
 
 export function SubmitProjectForm() {
   const [isSubmited, setIsSubmited] = useState(false);
+  const router = useRouter();
 
   const form = useForm({
     defaultValues: {
@@ -93,6 +95,7 @@ export function SubmitProjectForm() {
         toast.success("Project submitted successfully. Good luck!");
         setIsSubmited(true);
         form.reset();
+        router.refresh();
       } catch {
         throw new Error("Failed to create project");
       }
@@ -125,7 +128,8 @@ export function SubmitProjectForm() {
             <form.Field
               children={(field) => {
                 const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
+                  field.state.meta.isTouched === true &&
+                  field.state.meta.isValid === false;
 
                 return (
                   <Field data-invalid={isInvalid}>
@@ -142,12 +146,12 @@ export function SubmitProjectForm() {
                       placeholder="open source project"
                       value={field.state.value}
                     />
-                    {isInvalid && (
+                    {isInvalid ? (
                       <FieldError
                         className="text-xs"
                         errors={field.state.meta.errors}
                       />
-                    )}
+                    ) : null}
                   </Field>
                 );
               }}
@@ -156,7 +160,8 @@ export function SubmitProjectForm() {
             <form.Field
               children={(field) => {
                 const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
+                  field.state.meta.isTouched === true &&
+                  field.state.meta.isValid === false;
                 return (
                   <Field data-invalid={isInvalid}>
                     <FieldLabel htmlFor="form-tanstack-input-github-repo-url">
@@ -176,12 +181,12 @@ export function SubmitProjectForm() {
                     <FieldDescription className="text-xs">
                       Must be a public repository hosted on GitHub.
                     </FieldDescription>
-                    {isInvalid && (
+                    {isInvalid ? (
                       <FieldError
                         className="text-xs"
                         errors={field.state.meta.errors}
                       />
-                    )}
+                    ) : null}
                   </Field>
                 );
               }}
@@ -190,7 +195,8 @@ export function SubmitProjectForm() {
             <form.Field
               children={(field) => {
                 const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
+                  field.state.meta.isTouched === true &&
+                  field.state.meta.isValid === false;
                 return (
                   <Field data-invalid={isInvalid}>
                     <FieldLabel htmlFor="form-tanstack-input-project-description">
@@ -208,12 +214,12 @@ export function SubmitProjectForm() {
                     <FieldDescription className="text-xs">
                       Be descriptive — this helps during the livestream review.
                     </FieldDescription>
-                    {isInvalid && (
+                    {isInvalid ? (
                       <FieldError
                         className="text-xs"
                         errors={field.state.meta.errors}
                       />
-                    )}
+                    ) : null}
                   </Field>
                 );
               }}
