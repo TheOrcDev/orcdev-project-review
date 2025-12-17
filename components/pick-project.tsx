@@ -47,14 +47,14 @@ export function PickProject() {
         </Button> */}
       </div>
 
-      {project && (
+      {project ? (
         <h2 className="text-center font-bold text-2xl">{project.name}</h2>
-      )}
+      ) : null}
 
       <div className="flex flex-col gap-3">
-        {pickedProject && (
+        {pickedProject ? (
           <ProjectCard key={pickedProject.id} project={pickedProject} />
-        )}
+        ) : null}
       </div>
     </div>
   );

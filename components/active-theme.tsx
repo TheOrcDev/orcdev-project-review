@@ -48,7 +48,7 @@ function setThemeCookie(theme: Theme) {
     return;
   }
 
-  // biome-ignore lint/suspicious/noAssignInExpressions: Setting cookie requires direct assignment
+  // biome-ignore lint/suspicious/noDocumentCookie: Setting cookie requires direct assignment
   document.cookie = `${COOKIE_NAME}=${theme}; path=/; max-age=31536000; SameSite=Lax; ${
     window.location.protocol === "https:" ? "Secure;" : ""
   }`;
@@ -110,7 +110,7 @@ export function ActiveThemeProvider({
 
     isInitialMount.current = false;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [activeTheme]);
 
   // Save cookie and apply theme whenever activeTheme changes
   useEffect(() => {

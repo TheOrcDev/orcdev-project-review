@@ -87,7 +87,7 @@ function SelectTrigger({ children, ...props }: BitSelectTriggerProps) {
 
       <div
         aria-hidden="true"
-        className="-mx-1.5 pointer-events-none absolute inset-0 border-foreground border-x-6 dark:border-ring"
+        className="pointer-events-none absolute inset-0 -mx-1.5 border-foreground border-x-6 dark:border-ring"
       />
     </div>
   );
@@ -111,7 +111,7 @@ function SelectContent({
       className={cn(
         font !== "normal" && "retro",
         className,
-        "-ml-1 relative mt-1 rounded-none border-4 border-foreground dark:border-ring"
+        "relative mt-1 -ml-1 rounded-none border-4 border-foreground dark:border-ring"
       )}
       {...props}
     >

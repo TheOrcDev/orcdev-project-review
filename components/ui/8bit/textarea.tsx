@@ -38,12 +38,12 @@ function Textarea({ ...props }: BitTextareaProps) {
 
       <div
         aria-hidden="true"
-        className="-my-1.5 pointer-events-none absolute inset-0 border-foreground border-y-6 dark:border-ring"
+        className="pointer-events-none absolute inset-0 -my-1.5 border-foreground border-y-6 dark:border-ring"
       />
 
       <div
         aria-hidden="true"
-        className="-mx-1.5 pointer-events-none absolute inset-0 border-foreground border-x-6 dark:border-ring"
+        className="pointer-events-none absolute inset-0 -mx-1.5 border-foreground border-x-6 dark:border-ring"
       />
     </div>
   );
