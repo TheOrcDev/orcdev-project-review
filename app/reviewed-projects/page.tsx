@@ -13,7 +13,9 @@ export default async function ReviewedProjectsPage() {
           <Button variant="outline">Back</Button>
         </Link>
 
-        <SearchReviewedProjects />
+        <Suspense fallback={<Skeleton className="h-10 w-full" />}>
+          <SearchReviewedProjects />
+        </Suspense>
       </div>
       <h1 className="text-center font-bold text-2xl">Reviewed Projects</h1>
 
