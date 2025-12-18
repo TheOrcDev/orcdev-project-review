@@ -21,6 +21,18 @@ export const reviewedProjects = pgTable("reviewed_projects", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+export const previouslySubmittedProjects = pgTable(
+  "previously_submitted_projects",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    name: text("name").notNull(),
+    githubRepoUrl: text("github_repo_url").unique().notNull(),
+    description: text("description").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  }
+);
+
 export type SelectProject = typeof projects.$inferSelect;
 export type InsertProject = typeof projects.$inferInsert;
 

@@ -1,5 +1,13 @@
 "use server";
 
+import { db } from "@/db/drizzle";
+import {
+  type InsertProject,
+  previouslySubmittedProjects,
+  projects,
+  reviewedProjects,
+  type SelectProject,
+} from "@/db/schema";
 import {
   and,
   count,
@@ -17,13 +25,6 @@ import {
   revalidateTag,
   unstable_cache,
 } from "next/cache";
-import { db } from "@/db/drizzle";
-import {
-  type InsertProject,
-  projects,
-  reviewedProjects,
-  type SelectProject,
-} from "@/db/schema";
 
 const PROJECTS_TAG = "projects";
 
@@ -150,6 +151,19 @@ export async function deleteAllProjectsAndAddToReviewedProjects() {
         batch: latestBatch + 1,
       }))
     );
+
+    await db
+      .insert(previouslySubmittedProjects)
+      .values(
+        allProjects.map((project) => ({
+          name: project.name,
+          githubRepoUrl: project.githubRepoUrl,
+          description: project.description,
+        }))
+      )
+      .onConflictDoNothing({
+        target: previouslySubmittedProjects.githubRepoUrl,
+      });
   } catch {
     throw new Error(
       "Failed to delete all projects and add to reviewed projects"
