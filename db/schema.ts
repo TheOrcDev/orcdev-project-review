@@ -36,4 +36,7 @@ export const previouslySubmittedProjects = pgTable(
 export type SelectProject = typeof projects.$inferSelect;
 export type InsertProject = typeof projects.$inferInsert;
 
+export type SelectReviewedProject = typeof reviewedProjects.$inferSelect;
+export type InsertReviewedProject = typeof reviewedProjects.$inferInsert;
+
 export const schema = { projects, reviewedProjects };

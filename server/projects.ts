@@ -116,10 +116,10 @@ export async function getRandomProject(): Promise<RandomProject> {
   }
 }
 
-export async function getReviewedProjects(batch: number) {
+export async function getReviewedProjects() {
   try {
     const allReviewedProjects = await db.query.reviewedProjects.findMany({
-      where: eq(reviewedProjects.batch, batch),
+      orderBy: desc(reviewedProjects.batch),
     });
 
     return allReviewedProjects;
