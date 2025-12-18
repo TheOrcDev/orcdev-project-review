@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
 import "./retro-globals.css";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import "@/components/ui/8bit/styles/retro.css";
 
@@ -63,22 +64,24 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          disableTransitionOnChange
-          enableSystem
-        >
-          <ActiveThemeProvider>
-            <Header />
-            <div className="mx-auto w-full max-w-[1400px] flex-1 border-r border-l border-dashed">
-              <div className="p-4 px-6">{children}</div>
-              <Toaster />
-            </div>
-            <Footer />
-            <Analytics />
-          </ActiveThemeProvider>
-        </ThemeProvider>
+        <NuqsAdapter>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            disableTransitionOnChange
+            enableSystem
+          >
+            <ActiveThemeProvider>
+              <Header />
+              <div className="mx-auto w-full max-w-[1400px] flex-1 border-r border-l border-dashed">
+                <div className="p-4 px-6">{children}</div>
+                <Toaster />
+              </div>
+              <Footer />
+              <Analytics />
+            </ActiveThemeProvider>
+          </ThemeProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );
