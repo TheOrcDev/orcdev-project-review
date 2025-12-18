@@ -23,7 +23,7 @@ export default function MainMenu({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-5">
           {menuItems.map((item) => (
             <Link className="w-full" href={item.href} key={item.label}>
               <Button className="flex w-full items-center gap-2">
