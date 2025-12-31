@@ -3,7 +3,7 @@
 import { useInView, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef } from "react";
 
-type CountUpProps = {
+interface CountUpProps {
   to: number;
   from?: number;
   direction?: "up" | "down";
@@ -14,7 +14,7 @@ type CountUpProps = {
   separator?: string;
   onStart?: () => void;
   onEnd?: () => void;
-};
+}
 
 const BASE_DAMPING = 20;
 const DURATION = 2;

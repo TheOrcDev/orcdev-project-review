@@ -82,10 +82,10 @@ export const getProjectCount = unstable_cache(
   { tags: [PROJECTS_TAG] }
 );
 
-type RandomProject = {
+interface RandomProject {
   projects: SelectProject[];
   pickedProject: SelectProject;
-};
+}
 
 export async function getRandomProject(): Promise<RandomProject> {
   try {
