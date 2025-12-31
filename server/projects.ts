@@ -1,13 +1,5 @@
 "use server";
 
-import { db } from "@/db/drizzle";
-import {
-  type InsertProject,
-  previouslySubmittedProjects,
-  projects,
-  reviewedProjects,
-  type SelectProject,
-} from "@/db/schema";
 import {
   and,
   count,
@@ -25,6 +17,14 @@ import {
   revalidateTag,
   unstable_cache,
 } from "next/cache";
+import { db } from "@/db/drizzle";
+import {
+  type InsertProject,
+  previouslySubmittedProjects,
+  projects,
+  reviewedProjects,
+  type SelectProject,
+} from "@/db/schema";
 
 const PROJECTS_TAG = "projects";
 
