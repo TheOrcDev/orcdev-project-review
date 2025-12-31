@@ -130,7 +130,9 @@ export async function getReviewedProjects() {
 
 export async function deleteAllProjectsAndAddToReviewedProjects() {
   try {
-    const allProjects = await db.query.projects.findMany({
+    const allProjects = await db.query.projects.findMany();
+
+    const allPulledProjects = await db.query.projects.findMany({
       where: isNotNull(projects.deletedAt),
     });
 
@@ -144,7 +146,7 @@ export async function deleteAllProjectsAndAddToReviewedProjects() {
     const latestBatch = latestBatchRow?.batch ?? 0;
 
     await db.insert(reviewedProjects).values(
-      allProjects.map((project) => ({
+      allPulledProjects.map((project) => ({
         name: project.name,
         githubRepoUrl: project.githubRepoUrl,
         description: project.description,

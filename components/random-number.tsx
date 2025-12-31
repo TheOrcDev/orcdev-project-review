@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "./ui/8bit/button";
 import { Input } from "./ui/8bit/input";
+
 export function RandomNumber() {
   const [totalProjects, setTotalProjects] = useState(0);
   const [randomNumber, setRandomNumber] = useState(0);
