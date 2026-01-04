@@ -109,7 +109,7 @@ export function SubmitProjectForm() {
   }
 
   return (
-    <Card>
+    <Card className="mx-2">
       <CardHeader>
         <CardTitle>Submit Your Project</CardTitle>
         <CardDescription className="text-xs">
