@@ -11,7 +11,23 @@ export default function Home() {
       <Button onClick={deleteAllProjectsAndAddToReviewedProjects}>
         Delete All Projects and Add to Reviewed Projects
       </Button> */}
-      <h1>The Orc Machine currently waits for the next stream.</h1>
+      <h1 className="text-center font-bold">
+        The Orc Machine is sleeping (for now)
+      </h1>
+      <p className="text-xs">
+        The Orc Machine is our random project picker for the livestream. When
+        it’s awake, it grabs one project from the submitted list and that’s what
+        gets reviewed — no favoritism, just the wheel of fate.
+      </p>
+
+      <p className="text-xs">
+        Want better odds? We also pick one project from the Discord community
+        each stream, so joining gives you an extra chance to get pulled. Hop in:{" "}
+        <Link className="underline" href="https://join.thehorde.dev/">
+          Join the Horde
+        </Link>
+        !
+      </p>
     </main>
   );
 }
