@@ -7,8 +7,9 @@ export default function Home() {
       <Link href="/">
         <Button variant="outline">Back</Button>
       </Link>
-      {/* <PickProject />
-      <Button onClick={deleteAllProjectsAndAddToReviewedProjects}>
+      {/* <PickProject /> */}
+      {/* <RandomNumber /> */}
+      {/* <Button onClick={deleteAllProjectsAndAddToReviewedProjects}>
         Delete All Projects and Add to Reviewed Projects
       </Button> */}
       <div className="flex flex-col gap-3 border border-dashed p-4">
