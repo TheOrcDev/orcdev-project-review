@@ -12,7 +12,7 @@ export default function Home() {
       {/* <Button onClick={deleteAllProjectsAndAddToReviewedProjects}>
         Delete All Projects and Add to Reviewed Projects
       </Button> */}
-      {/* <div className="flex flex-col gap-3 border border-dashed p-4">
+      <div className="flex flex-col gap-3 border border-dashed p-4">
         <h1 className="text-center font-bold">
           The Orc Machine is sleeping (for now)
         </h1>
@@ -31,7 +31,7 @@ export default function Home() {
           </Link>
           !
         </p>
-      </div> */}
+      </div>
     </main>
   );
 }
