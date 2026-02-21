@@ -219,16 +219,29 @@ export async function deleteAllProjectsAndAddToReviewedProjects() {
 
 export async function getRecord() {
   try {
-    const [record] = await db.select().from(records).limit(1);
     const [currentCount] = await db
       .select({ count: count() })
       .from(projects)
       .where(isNull(projects.resetDate));
 
-    return {
-      highest: record?.highestProjectCount ?? 0,
-      current: currentCount?.count ?? 0,
-    };
+    const current = currentCount?.count ?? 0;
+    const [record] = await db.select().from(records).limit(1);
+
+    // Auto-seed record if it doesn't exist or is behind current
+    if (!record) {
+      await db.insert(records).values({ highestProjectCount: current });
+      return { highest: current, current };
+    }
+
+    if (current > record.highestProjectCount) {
+      await db
+        .update(records)
+        .set({ highestProjectCount: current, updatedAt: sql`NOW()` })
+        .where(eq(records.id, record.id));
+      return { highest: current, current };
+    }
+
+    return { highest: record.highestProjectCount, current };
   } catch {
     return { highest: 0, current: 0 };
   }
