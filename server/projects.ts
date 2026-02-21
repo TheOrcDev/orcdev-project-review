@@ -37,6 +37,19 @@ export async function getProjects() {
   }
 }
 
+function normalizeXHandle(raw?: string | null): string | null {
+  if (!raw) return null;
+  let handle = raw.trim();
+  if (!handle) return null;
+  // Strip full URL: https://x.com/user or https://twitter.com/user
+  handle = handle.replace(/^https?:\/\/(www\.)?(x|twitter)\.com\//i, "");
+  // Strip leading @
+  handle = handle.replace(/^@/, "");
+  // Remove trailing slashes or query params
+  handle = handle.split(/[/?#]/)[0];
+  return handle || null;
+}
+
 export async function createProject(
   project: InsertProject
 ): Promise<string | SelectProject> {
@@ -55,7 +68,13 @@ export async function createProject(
   }
 
   try {
-    const [newProject] = await db.insert(projects).values(project).returning();
+    const [newProject] = await db
+      .insert(projects)
+      .values({
+        ...project,
+        xHandle: normalizeXHandle(project.xHandle),
+      })
+      .returning();
     revalidateTag(PROJECTS_TAG, "default");
     revalidatePath("/", "layout");
     refresh();
@@ -150,6 +169,7 @@ export async function deleteAllProjectsAndAddToReviewedProjects() {
         name: project.name,
         githubRepoUrl: project.githubRepoUrl,
         description: project.description,
+        xHandle: project.xHandle,
         batch: latestBatch + 1,
       }))
     );
@@ -161,6 +181,7 @@ export async function deleteAllProjectsAndAddToReviewedProjects() {
           name: project.name,
           githubRepoUrl: project.githubRepoUrl,
           description: project.description,
+          xHandle: project.xHandle,
         }))
       )
       .onConflictDoNothing({

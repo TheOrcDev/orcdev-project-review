@@ -5,6 +5,7 @@ export const projects = pgTable("projects", {
   name: text("name").notNull(),
   githubRepoUrl: text("github_repo_url").unique().notNull(),
   description: text("description").notNull(),
+  xHandle: text("x_handle"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
   resetDate: timestamp("reset_date"),
@@ -16,6 +17,7 @@ export const reviewedProjects = pgTable("reviewed_projects", {
   name: text("name").notNull(),
   githubRepoUrl: text("github_repo_url").notNull(),
   description: text("description").notNull(),
+  xHandle: text("x_handle"),
   batch: integer("batch").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
@@ -28,6 +30,7 @@ export const previouslySubmittedProjects = pgTable(
     name: text("name").notNull(),
     githubRepoUrl: text("github_repo_url").unique().notNull(),
     description: text("description").notNull(),
+    xHandle: text("x_handle"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
   }

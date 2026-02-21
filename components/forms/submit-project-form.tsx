@@ -32,6 +32,19 @@ const URL_PROTOCOL_REGEX = /^https?:\/\//i;
 const MIN_PROJECT_NAME_LENGTH = 3;
 const MAX_PROJECT_NAME_LENGTH = 50;
 
+/** Normalize X/Twitter handle — strips @, URLs, whitespace */
+function normalizeXHandle(raw: string): string {
+  let handle = raw.trim();
+  if (!handle) return "";
+  // Strip URL prefixes
+  handle = handle
+    .replace(/^https?:\/\/(www\.)?(twitter|x)\.com\//i, "")
+    .replace(/[?#/].*$/, ""); // remove query/hash/trailing slash
+  // Strip leading @
+  handle = handle.replace(/^@/, "");
+  return handle;
+}
+
 const formSchema = z.object({
   projectName: z
     .string()
@@ -64,6 +77,7 @@ const formSchema = z.object({
       }
     ),
   projectDescription: z.string(),
+  xHandle: z.string(),
 });
 
 export function SubmitProjectForm() {
@@ -75,16 +89,19 @@ export function SubmitProjectForm() {
       projectName: "",
       gitHubRepoUrl: "",
       projectDescription: "",
+      xHandle: "",
     },
     validators: {
       onChange: formSchema,
     },
     onSubmit: async ({ value }) => {
       try {
+        const xHandle = normalizeXHandle(value.xHandle ?? "");
         const newProject = await createProject({
           name: value.projectName,
           githubRepoUrl: value.gitHubRepoUrl,
           description: value.projectDescription,
+          ...(xHandle ? { xHandle } : {}),
         });
 
         if (typeof newProject === "string") {
@@ -224,6 +241,30 @@ export function SubmitProjectForm() {
                 );
               }}
               name="projectDescription"
+            />
+            <form.Field
+              children={(field) => {
+                return (
+                  <Field>
+                    <FieldLabel htmlFor="form-tanstack-input-x-handle">
+                      X Handle (optional)
+                    </FieldLabel>
+                    <Input
+                      id="form-tanstack-input-x-handle"
+                      name={field.name}
+                      onBlur={field.handleBlur}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      placeholder="@username"
+                      value={field.state.value}
+                    />
+                    <FieldDescription className="text-xs">
+                      Your X/Twitter handle so we can tag you if your project is
+                      picked.
+                    </FieldDescription>
+                  </Field>
+                );
+              }}
+              name="xHandle"
             />
           </FieldGroup>
         </form>
