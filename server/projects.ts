@@ -22,6 +22,7 @@ import {
   type InsertProject,
   previouslySubmittedProjects,
   projects,
+  records,
   reviewedProjects,
   type SelectProject,
 } from "@/db/schema";
@@ -75,6 +76,28 @@ export async function createProject(
         xHandle: normalizeXHandle(project.xHandle),
       })
       .returning();
+
+    // Check if current count beats the record
+    const [currentCount] = await db
+      .select({ count: count() })
+      .from(projects)
+      .where(isNull(projects.resetDate));
+
+    const currentTotal = currentCount?.count ?? 0;
+    const [record] = await db.select().from(records).limit(1);
+
+    if (!record) {
+      await db.insert(records).values({ highestProjectCount: currentTotal });
+    } else if (currentTotal > record.highestProjectCount) {
+      await db
+        .update(records)
+        .set({
+          highestProjectCount: currentTotal,
+          updatedAt: sql`NOW()`,
+        })
+        .where(eq(records.id, record.id));
+    }
+
     revalidateTag(PROJECTS_TAG, "default");
     revalidatePath("/", "layout");
     refresh();
@@ -191,6 +214,23 @@ export async function deleteAllProjectsAndAddToReviewedProjects() {
     throw new Error(
       "Failed to delete all projects and add to reviewed projects"
     );
+  }
+}
+
+export async function getRecord() {
+  try {
+    const [record] = await db.select().from(records).limit(1);
+    const [currentCount] = await db
+      .select({ count: count() })
+      .from(projects)
+      .where(isNull(projects.resetDate));
+
+    return {
+      highest: record?.highestProjectCount ?? 0,
+      current: currentCount?.count ?? 0,
+    };
+  } catch {
+    return { highest: 0, current: 0 };
   }
 }
 

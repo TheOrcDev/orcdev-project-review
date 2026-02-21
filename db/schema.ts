@@ -36,10 +36,16 @@ export const previouslySubmittedProjects = pgTable(
   }
 );
 
+export const records = pgTable("records", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  highestProjectCount: integer("highest_project_count").notNull().default(0),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
 export type SelectProject = typeof projects.$inferSelect;
 export type InsertProject = typeof projects.$inferInsert;
 
 export type SelectReviewedProject = typeof reviewedProjects.$inferSelect;
 export type InsertReviewedProject = typeof reviewedProjects.$inferInsert;
 
-export const schema = { projects, reviewedProjects };
+export const schema = { projects, reviewedProjects, records };
