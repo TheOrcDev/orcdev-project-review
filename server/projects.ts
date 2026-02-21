@@ -227,10 +227,10 @@ export async function getRecord() {
     const current = currentCount?.count ?? 0;
     const [record] = await db.select().from(records).limit(1);
 
-    // Auto-seed record if it doesn't exist or is behind current
+    // Auto-seed record if it doesn't exist
     if (!record) {
-      await db.insert(records).values({ highestProjectCount: current });
-      return { highest: current, current };
+      await db.insert(records).values({ highestProjectCount: 123 });
+      return { highest: 123, current };
     }
 
     if (current > record.highestProjectCount) {
