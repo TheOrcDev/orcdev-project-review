@@ -4,13 +4,13 @@ export async function RecordBadge() {
   const { highest, current } = await getRecord();
 
   return (
-    <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+    <div className="flex items-center gap-1.5 text-xs">
       <span>
-        Record: <strong className="text-foreground">{highest}</strong>
+        Record: <strong>{highest}</strong>
       </span>
       <span>|</span>
       <span>
-        Current: <strong className="text-foreground">{current}</strong>
+        Current: <strong>{current}</strong>
       </span>
     </div>
   );
