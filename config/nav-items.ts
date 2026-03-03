@@ -15,10 +15,10 @@ export const menuItems = [
     label: "REVIEWED PROJECTS",
     href: "/reviewed-projects",
   },
-  {
-    label: "VOTE",
-    href: "/vote",
-  },
+  // {
+  //   label: "VOTE",
+  //   href: "/vote",
+  // },
   {
     label: "DISCORD",
     href: "https://join.thehorde.dev/",
