@@ -28,10 +28,13 @@ export default async function VoteIndexPage() {
         <Button variant="outline">Back</Button>
       </Link>
 
-      <h1 className="text-center font-bold text-2xl">Vote</h1>
-      <p className="text-center text-muted-foreground text-xs">
-        Vote for your favorite project from each episode
-      </p>
+      <div className="flex flex-col items-center gap-2">
+        <Badge className="bg-yellow-500 text-black">BETA</Badge>
+        <h1 className="text-center font-bold text-2xl">🗳️ Vote</h1>
+        <p className="text-center text-muted-foreground text-xs">
+          Vote for your favorite project from each episode. Winner gets a prize!
+        </p>
+      </div>
 
       {rounds.length === 0 && (
         <p className="text-center text-muted-foreground text-sm">

@@ -18,19 +18,10 @@ function LoginForm() {
   const callbackURL = searchParams.get("callbackURL") ?? "/vote";
 
   async function handleSignIn() {
-    try {
-      const result = await signIn.social({
-        provider: "github",
-        callbackURL,
-      });
-      if (result?.error) {
-        console.error("Sign in error:", result.error);
-        alert(`Sign in failed: ${JSON.stringify(result.error)}`);
-      }
-    } catch (err) {
-      console.error("Sign in error:", err);
-      alert(`Sign in failed: ${JSON.stringify(err)}`);
-    }
+    await signIn.social({
+      provider: "github",
+      callbackURL,
+    });
   }
 
   return (

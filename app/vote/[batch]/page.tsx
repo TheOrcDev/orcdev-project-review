@@ -5,6 +5,7 @@ import { redirect, notFound } from "next/navigation";
 import { db } from "@/db/drizzle";
 import { reviewedProjects, votingRounds, votes } from "@/db/schema";
 import { auth } from "@/lib/auth";
+import { Badge } from "@/components/ui/8bit/badge";
 import { Button } from "@/components/ui/8bit/button";
 import { VoteClient } from "./vote-client";
 
@@ -78,7 +79,8 @@ export default async function VotePage({
         <Button variant="outline">Back</Button>
       </Link>
 
-      <div className="text-center">
+      <div className="flex flex-col items-center gap-2 text-center">
+        <Badge className="bg-yellow-500 text-black">BETA</Badge>
         <h1 className="font-bold text-2xl">{round.title}</h1>
         {round.livestreamUrl && (
           <a
