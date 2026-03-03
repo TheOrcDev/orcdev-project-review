@@ -15,6 +15,13 @@
       "when": 1771713916505,
       "tag": "0001_add-records-table",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1772575364438,
+      "tag": "0002_cuddly_tinkerer",
+      "breakpoints": true
     }
   ]
 }
