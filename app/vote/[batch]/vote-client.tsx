@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Github, Star, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/8bit/button";
 import { Badge } from "@/components/ui/8bit/badge";
-import { useSession, signIn } from "@/lib/auth-client";
 import type { SelectReviewedProject } from "@/db/schema";
 
 type ProjectWithVotes = SelectReviewedProject & { voteCount: number };
@@ -22,7 +21,6 @@ export function VoteClient({
   isOpen,
   isClosed,
 }: VoteClientProps) {
-  const { data: session, isPending } = useSession();
   const [votedFor, setVotedFor] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<string | null>(null);
@@ -56,41 +54,10 @@ export function VoteClient({
     }
   }
 
-  async function handleSignIn() {
-    await signIn.social({ provider: "github", callbackURL: window.location.href });
-  }
-
   return (
     <div className="flex flex-col gap-4">
-      {/* Auth state */}
-      {!isPending && !session && isOpen && (
-        <div className="flex flex-col items-center gap-3 rounded border border-dashed p-6">
-          <p className="text-muted-foreground text-sm">
-            Sign in with GitHub to vote
-          </p>
-          <Button onClick={handleSignIn}>
-            <Github className="mr-2 size-4" />
-            Sign in with GitHub
-          </Button>
-          <p className="text-muted-foreground text-xs">
-            Requirements: GitHub account 90+ days old, 3+ public repos, must
-            star the project you vote for
-          </p>
-        </div>
-      )}
-
-      {session && isOpen && (
+      {isOpen && (
         <div className="flex items-center justify-between rounded border border-dashed p-3">
-          <div className="flex items-center gap-2">
-            {session.user.image && (
-              <img
-                alt={session.user.name}
-                className="size-6 rounded-full"
-                src={session.user.image}
-              />
-            )}
-            <span className="text-sm">{session.user.name}</span>
-          </div>
           <p className="text-muted-foreground text-xs">
             {votedFor ? "✅ Vote cast!" : "Pick your favorite project below"}
           </p>
@@ -159,7 +126,7 @@ export function VoteClient({
                   )}
 
                   {/* Vote button */}
-                  {isOpen && session && !votedFor && (
+                  {isOpen && !votedFor && (
                     <Button
                       disabled={loading !== null}
                       onClick={() => handleVote(project.id)}

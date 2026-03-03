@@ -16,7 +16,7 @@ export const menuItems = [
     href: "/reviewed-projects",
   },
   {
-    label: "🗳️ VOTE",
+    label: "VOTE",
     href: "/vote",
   },
   {

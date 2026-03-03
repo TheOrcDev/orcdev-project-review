@@ -1,11 +1,19 @@
 import { desc } from "drizzle-orm";
+import { headers } from "next/headers";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { Badge } from "@/components/ui/8bit/badge";
+import { Button } from "@/components/ui/8bit/button";
 import { db } from "@/db/drizzle";
 import { votingRounds } from "@/db/schema";
-import { Button } from "@/components/ui/8bit/button";
-import { Badge } from "@/components/ui/8bit/badge";
+import { auth } from "@/lib/auth";
 
 export default async function VoteIndexPage() {
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session?.user) {
+    redirect("/api/auth/signin/social?provider=github&callbackURL=/vote");
+  }
+
   const rounds = await db
     .select()
     .from(votingRounds)
@@ -20,7 +28,7 @@ export default async function VoteIndexPage() {
         <Button variant="outline">Back</Button>
       </Link>
 
-      <h1 className="text-center font-bold text-2xl">🗳️ Vote</h1>
+      <h1 className="text-center font-bold text-2xl">Vote</h1>
       <p className="text-center text-muted-foreground text-xs">
         Vote for your favorite project from each episode
       </p>
@@ -50,7 +58,7 @@ export default async function VoteIndexPage() {
                     <Badge className="bg-green-500 text-white">Open</Badge>
                   )}
                   {isClosed && <Badge variant="outline">Closed</Badge>}
-                  {!isOpen && !isClosed && (
+                  {!(isOpen || isClosed) && (
                     <Badge variant="outline">Upcoming</Badge>
                   )}
                 </div>

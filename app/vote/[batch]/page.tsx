@@ -1,8 +1,10 @@
 import { eq } from "drizzle-orm";
+import { headers } from "next/headers";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { redirect, notFound } from "next/navigation";
 import { db } from "@/db/drizzle";
 import { reviewedProjects, votingRounds, votes } from "@/db/schema";
+import { auth } from "@/lib/auth";
 import { Button } from "@/components/ui/8bit/button";
 import { VoteClient } from "./vote-client";
 
@@ -54,6 +56,12 @@ export default async function VotePage({
 }: {
   params: Promise<{ batch: string }>;
 }) {
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session?.user) {
+    const { batch: batchStr } = await params;
+    redirect(`/api/auth/signin/social?provider=github&callbackURL=/vote/${batchStr}`);
+  }
+
   const { batch: batchStr } = await params;
   const batch = parseInt(batchStr, 10);
 
