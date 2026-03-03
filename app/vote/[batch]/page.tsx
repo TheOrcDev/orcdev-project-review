@@ -59,7 +59,7 @@ export default async function VotePage({
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session?.user) {
     const { batch: batchStr } = await params;
-    redirect(`/api/auth/signin/social?provider=github&callbackURL=/vote/${batchStr}`);
+    redirect(`/login?callbackURL=/vote/${batchStr}`);
   }
 
   const { batch: batchStr } = await params;

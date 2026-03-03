@@ -11,7 +11,7 @@ import { auth } from "@/lib/auth";
 export default async function VoteIndexPage() {
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session?.user) {
-    redirect("/api/auth/signin/social?provider=github&callbackURL=/vote");
+    redirect("/login?callbackURL=/vote");
   }
 
   const rounds = await db
