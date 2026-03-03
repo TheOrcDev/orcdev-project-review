@@ -3,6 +3,10 @@ import { Button } from "@/components/ui/8bit/button";
 
 const livestreams = [
   {
+    date: "3rd March 2026",
+    url: "https://youtube.com/live/jsYwHyN4NYc",
+  },
+  {
     date: "24th February 2026",
     url: "https://youtube.com/live/QYgEBArLndg",
   },
