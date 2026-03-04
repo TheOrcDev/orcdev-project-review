@@ -5,10 +5,10 @@ export async function RecordBadge() {
   const { highest, current } = await getRecord();
 
   return (
-    <div className="retro flex items-center gap-3 text-xs">
-      <p>Record: </p>
+    <div className="retro flex items-center gap-5 text-xs">
+      <p className="hidden md:block">Record: </p>
       <Badge>{highest}</Badge>
-      <p>Current: </p>
+      <p className="hidden md:block">Current: </p>
       <Badge>{current}</Badge>
     </div>
   );
