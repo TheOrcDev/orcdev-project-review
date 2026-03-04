@@ -3,11 +3,11 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
-import { db } from "@/db/drizzle";
-import { reviewedProjects, votingRounds, votes } from "@/db/schema";
-import { auth } from "@/lib/auth";
 import { Badge } from "@/components/ui/8bit/badge";
 import { Button } from "@/components/ui/8bit/button";
+import { db } from "@/db/drizzle";
+import { reviewedProjects, votes, votingRounds } from "@/db/schema";
+import { auth } from "@/lib/auth";
 import { VoteClient } from "./vote-client";
 
 async function getRoundData(batch: number) {
@@ -17,7 +17,9 @@ async function getRoundData(batch: number) {
     .where(eq(votingRounds.batch, batch))
     .limit(1);
 
-  if (!round) return null;
+  if (!round) {
+    return null;
+  }
 
   const projects = await db
     .select()
@@ -54,11 +56,15 @@ async function getRoundData(batch: number) {
 
 export async function VoteBatchContent({ batch: batchStr }: { batch: string }) {
   await connection();
-  const batch = parseInt(batchStr, 10);
-  if (isNaN(batch)) notFound();
+  const batch = Number.parseInt(batchStr, 10);
+  if (Number.isNaN(batch)) {
+    notFound();
+  }
 
   const data = await getRoundData(batch);
-  if (!data) notFound();
+  if (!data) {
+    notFound();
+  }
 
   const { round, projects, isOpen, isClosed, totalVotes } = data;
 
@@ -94,7 +100,7 @@ export async function VoteBatchContent({ batch: batchStr }: { batch: string }) {
             rel="noopener noreferrer"
             target="_blank"
           >
-            Watch the livestream →
+            Watch the livestream
           </a>
         )}
         <p className="mt-2 text-muted-foreground text-xs">

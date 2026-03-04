@@ -38,16 +38,24 @@ export async function getProjects() {
   }
 }
 
+const X_URL_RE = /^https?:\/\/(www\.)?(x|twitter)\.com\//i;
+const LEADING_AT_RE = /^@/;
+const URL_SPLIT_RE = /[/?#]/;
+
 function normalizeXHandle(raw?: string | null): string | null {
-  if (!raw) return null;
+  if (!raw) {
+    return null;
+  }
   let handle = raw.trim();
-  if (!handle) return null;
+  if (!handle) {
+    return null;
+  }
   // Strip full URL: https://x.com/user or https://twitter.com/user
-  handle = handle.replace(/^https?:\/\/(www\.)?(x|twitter)\.com\//i, "");
+  handle = handle.replace(X_URL_RE, "");
   // Strip leading @
-  handle = handle.replace(/^@/, "");
+  handle = handle.replace(LEADING_AT_RE, "");
   // Remove trailing slashes or query params
-  handle = handle.split(/[/?#]/)[0];
+  handle = handle.split(URL_SPLIT_RE)[0];
   return handle || null;
 }
 
@@ -125,8 +133,8 @@ export const getProjectCount = unstable_cache(
 );
 
 interface RandomProject {
-  projects: SelectProject[];
   pickedProject: SelectProject;
+  projects: SelectProject[];
 }
 
 export async function getRandomProject(): Promise<RandomProject> {

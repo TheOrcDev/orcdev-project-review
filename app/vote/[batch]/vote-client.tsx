@@ -8,6 +8,16 @@ import type { SelectReviewedProject } from "@/db/schema";
 
 type ProjectWithVotes = SelectReviewedProject & { voteCount: number };
 
+function projectBorderClass(isWinner: boolean, isVoted: boolean): string {
+  if (isWinner) {
+    return "border-yellow-500 bg-yellow-500/10";
+  }
+  if (isVoted) {
+    return "border-primary bg-primary/5";
+  }
+  return "border-border";
+}
+
 function normalizeGithubUrl(url: string): string {
   if (url.startsWith("http://") || url.startsWith("https://")) {
     return url;
@@ -37,7 +47,7 @@ export function VoteClient({
   const [loading, setLoading] = useState<string | null>(null);
 
   const sorted = [...projects].sort((a, b) => b.voteCount - a.voteCount);
-  const maxVotes = Math.max(...sorted.map((p) => p.voteCount), 0);
+  const _maxVotes = Math.max(...sorted.map((p) => p.voteCount), 0);
 
   async function handleVote(projectId: string) {
     setError(null);
@@ -89,13 +99,7 @@ export function VoteClient({
 
           return (
             <div
-              className={`border p-4 transition-all ${
-                isWinner
-                  ? "border-yellow-500 bg-yellow-500/10"
-                  : isVoted
-                    ? "border-primary bg-primary/5"
-                    : "border-border"
-              }`}
+              className={`border p-4 transition-all ${projectBorderClass(isWinner, isVoted)}`}
               key={project.id}
             >
               <div className="flex items-start justify-between gap-4">

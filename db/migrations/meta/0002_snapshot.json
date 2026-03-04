@@ -95,12 +95,8 @@
           "name": "accounts_user_id_users_id_fk",
           "tableFrom": "accounts",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -168,9 +164,7 @@
         "previously_submitted_projects_github_repo_url_unique": {
           "name": "previously_submitted_projects_github_repo_url_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "github_repo_url"
-          ]
+          "columns": ["github_repo_url"]
         }
       },
       "policies": {},
@@ -246,9 +240,7 @@
         "projects_github_repo_url_unique": {
           "name": "projects_github_repo_url_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "github_repo_url"
-          ]
+          "columns": ["github_repo_url"]
         }
       },
       "policies": {},
@@ -414,12 +406,8 @@
           "name": "sessions_user_id_users_id_fk",
           "tableFrom": "sessions",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -429,9 +417,7 @@
         "sessions_token_unique": {
           "name": "sessions_token_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "token"
-          ]
+          "columns": ["token"]
         }
       },
       "policies": {},
@@ -495,9 +481,7 @@
         "users_email_unique": {
           "name": "users_email_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
+          "columns": ["email"]
         }
       },
       "policies": {},
@@ -645,12 +629,8 @@
           "name": "votes_round_id_voting_rounds_id_fk",
           "tableFrom": "votes",
           "tableTo": "voting_rounds",
-          "columnsFrom": [
-            "round_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["round_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -658,12 +638,8 @@
           "name": "votes_user_id_users_id_fk",
           "tableFrom": "votes",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -671,12 +647,8 @@
           "name": "votes_project_id_reviewed_projects_id_fk",
           "tableFrom": "votes",
           "tableTo": "reviewed_projects",
-          "columnsFrom": [
-            "project_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["project_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -743,9 +715,7 @@
         "voting_rounds_batch_unique": {
           "name": "voting_rounds_batch_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "batch"
-          ]
+          "columns": ["batch"]
         }
       },
       "policies": {},

@@ -4,16 +4,16 @@ import { useInView, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef } from "react";
 
 interface CountUpProps {
-  to: number;
-  from?: number;
-  direction?: "up" | "down";
-  delay?: number;
-  duration?: number;
   className?: string;
-  startWhen?: boolean;
-  separator?: string;
-  onStart?: () => void;
+  delay?: number;
+  direction?: "up" | "down";
+  duration?: number;
+  from?: number;
   onEnd?: () => void;
+  onStart?: () => void;
+  separator?: string;
+  startWhen?: boolean;
+  to: number;
 }
 
 const BASE_DAMPING = 20;

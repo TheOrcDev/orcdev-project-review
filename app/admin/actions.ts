@@ -5,15 +5,15 @@ import { db } from "@/db/drizzle";
 import { votingRounds } from "@/db/schema";
 
 export async function createVotingRound(formData: FormData) {
-  const batch = parseInt(formData.get("batch") as string, 10);
+  const batch = Number.parseInt(formData.get("batch") as string, 10);
   const title = formData.get("title") as string;
   const livestreamUrl = (formData.get("livestreamUrl") as string) || null;
-  const durationDays = parseInt(
+  const durationDays = Number.parseInt(
     (formData.get("durationDays") as string) || "7",
     10
   );
 
-  if (!batch || !title) {
+  if (!(batch && title)) {
     throw new Error("Batch and title are required");
   }
 

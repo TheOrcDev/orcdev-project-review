@@ -61,9 +61,7 @@
         "previously_submitted_projects_github_repo_url_unique": {
           "name": "previously_submitted_projects_github_repo_url_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "github_repo_url"
-          ]
+          "columns": ["github_repo_url"]
         }
       },
       "policies": {},
@@ -139,9 +137,7 @@
         "projects_github_repo_url_unique": {
           "name": "projects_github_repo_url_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "github_repo_url"
-          ]
+          "columns": ["github_repo_url"]
         }
       },
       "policies": {},

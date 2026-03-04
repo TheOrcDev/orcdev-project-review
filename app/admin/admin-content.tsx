@@ -1,10 +1,10 @@
 import { desc } from "drizzle-orm";
 import Link from "next/link";
 import { connection } from "next/server";
-import { db } from "@/db/drizzle";
-import { votingRounds } from "@/db/schema";
 import { Badge } from "@/components/ui/8bit/badge";
 import { Button } from "@/components/ui/8bit/button";
+import { db } from "@/db/drizzle";
+import { votingRounds } from "@/db/schema";
 import { CreateRoundForm } from "./create-round-form";
 
 export async function AdminContent() {
@@ -51,7 +51,7 @@ export async function AdminContent() {
                   <Badge className="bg-green-500 text-white">Open</Badge>
                 )}
                 {isClosed && <Badge variant="outline">Closed</Badge>}
-                {!isOpen && !isClosed && (
+                {!(isOpen || isClosed) && (
                   <Badge variant="outline">Upcoming</Badge>
                 )}
               </div>

@@ -29,19 +29,22 @@ import { createProject } from "@/server/projects";
 import { SubmitSuccessCard } from "../submit-success-card";
 
 const URL_PROTOCOL_REGEX = /^https?:\/\//i;
+const X_HANDLE_URL_RE = /^https?:\/\/(www\.)?(twitter|x)\.com\//i;
+const X_HANDLE_TRAIL_RE = /[?#/].*$/;
+const X_HANDLE_AT_RE = /^@/;
 const MIN_PROJECT_NAME_LENGTH = 3;
 const MAX_PROJECT_NAME_LENGTH = 50;
 
 /** Normalize X/Twitter handle — strips @, URLs, whitespace */
 function normalizeXHandle(raw: string): string {
   let handle = raw.trim();
-  if (!handle) return "";
+  if (!handle) {
+    return "";
+  }
   // Strip URL prefixes
-  handle = handle
-    .replace(/^https?:\/\/(www\.)?(twitter|x)\.com\//i, "")
-    .replace(/[?#/].*$/, ""); // remove query/hash/trailing slash
+  handle = handle.replace(X_HANDLE_URL_RE, "").replace(X_HANDLE_TRAIL_RE, ""); // remove query/hash/trailing slash
   // Strip leading @
-  handle = handle.replace(/^@/, "");
+  handle = handle.replace(X_HANDLE_AT_RE, "");
   return handle;
 }
 

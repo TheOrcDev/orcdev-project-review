@@ -16,7 +16,13 @@ export function CreateRoundForm() {
         <label className="text-xs" htmlFor="batch">
           Batch Number (episode)
         </label>
-        <Input id="batch" name="batch" placeholder="18" required type="number" />
+        <Input
+          id="batch"
+          name="batch"
+          placeholder="18"
+          required
+          type="number"
+        />
       </div>
 
       <div className="flex flex-col gap-1">

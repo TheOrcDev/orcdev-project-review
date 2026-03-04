@@ -2,25 +2,24 @@ import { and, eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { db } from "@/db/drizzle";
-import {
-  accounts,
-  reviewedProjects,
-  votes,
-  votingRounds,
-} from "@/db/schema";
+import { accounts, reviewedProjects, votes, votingRounds } from "@/db/schema";
 import { auth } from "@/lib/auth";
 
 const MIN_ACCOUNT_AGE_DAYS = 90;
 const MIN_PUBLIC_REPOS = 3;
+const GITHUB_REPO_RE = /github\.com\/([^/]+)\/([^/]+)/;
+const GIT_SUFFIX_RE = /\.git$/;
 
 function daysBetween(d1: Date, d2: Date): number {
   return Math.floor((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
 }
 
 function parseGitHubRepo(url: string): { owner: string; repo: string } | null {
-  const match = url.match(/github\.com\/([^/]+)\/([^/]+)/);
-  if (!match) return null;
-  return { owner: match[1], repo: match[2].replace(/\.git$/, "") };
+  const match = url.match(GITHUB_REPO_RE);
+  if (!match) {
+    return null;
+  }
+  return { owner: match[1], repo: match[2].replace(GIT_SUFFIX_RE, "") };
 }
 
 export async function POST(request: Request) {
@@ -37,7 +36,7 @@ export async function POST(request: Request) {
       projectId: string;
     };
 
-    if (!roundId || !projectId) {
+    if (!(roundId && projectId)) {
       return NextResponse.json(
         { error: "roundId and projectId are required" },
         { status: 400 }
@@ -66,10 +65,7 @@ export async function POST(request: Request) {
       );
     }
     if (now > round.closesAt) {
-      return NextResponse.json(
-        { error: "Voting is closed" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Voting is closed" }, { status: 400 });
     }
 
     // 3. Check project belongs to this round's batch
@@ -182,9 +178,7 @@ export async function POST(request: Request) {
     const [existingVote] = await db
       .select()
       .from(votes)
-      .where(
-        and(eq(votes.roundId, roundId), eq(votes.userId, session.user.id))
-      )
+      .where(and(eq(votes.roundId, roundId), eq(votes.userId, session.user.id)))
       .limit(1);
 
     if (existingVote) {
