@@ -1,6 +1,5 @@
 "use client";
 
-import { Github, Trophy } from "lucide-react";
 import { useState } from "react";
 import { Badge } from "@/components/ui/8bit/badge";
 import { Button } from "@/components/ui/8bit/button";
@@ -105,7 +104,7 @@ export function VoteClient({
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
-                    {isWinner && <Trophy className="size-5 text-yellow-500" />}
+                    {isWinner && "Winner"}
                     <h3 className="font-bold">{project.name}</h3>
                     {isVoted && (
                       <Badge className="text-xs" variant="outline">
@@ -122,7 +121,6 @@ export function VoteClient({
                     rel="noopener noreferrer"
                     target="_blank"
                   >
-                    <Github className="size-3" />
                     {project.githubRepoUrl.replace("https://github.com/", "")}
                   </a>
                 </div>
