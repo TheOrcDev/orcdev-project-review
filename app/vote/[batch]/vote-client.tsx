@@ -18,6 +18,7 @@ interface VoteClientProps {
   projects: ProjectWithVotes[];
   isOpen: boolean;
   isClosed: boolean;
+  existingVoteProjectId: string | null;
 }
 
 export function VoteClient({
@@ -25,8 +26,9 @@ export function VoteClient({
   projects,
   isOpen,
   isClosed,
+  existingVoteProjectId,
 }: VoteClientProps) {
-  const [votedFor, setVotedFor] = useState<string | null>(null);
+  const [votedFor, setVotedFor] = useState<string | null>(existingVoteProjectId);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<string | null>(null);
 

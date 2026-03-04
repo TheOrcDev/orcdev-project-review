@@ -1,9 +1,11 @@
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
 import { db } from "@/db/drizzle";
 import { reviewedProjects, votingRounds, votes } from "@/db/schema";
+import { auth } from "@/lib/auth";
 import { Badge } from "@/components/ui/8bit/badge";
 import { Button } from "@/components/ui/8bit/button";
 import { VoteClient } from "./vote-client";
@@ -60,6 +62,22 @@ export async function VoteBatchContent({ batch: batchStr }: { batch: string }) {
 
   const { round, projects, isOpen, isClosed, totalVotes } = data;
 
+  // Check if current user already voted in this round
+  let existingVoteProjectId: string | null = null;
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (session?.user) {
+    const [existingVote] = await db
+      .select()
+      .from(votes)
+      .where(
+        and(eq(votes.roundId, round.id), eq(votes.userId, session.user.id))
+      )
+      .limit(1);
+    if (existingVote) {
+      existingVoteProjectId = existingVote.projectId;
+    }
+  }
+
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-6 py-12">
       <Link href="/">
@@ -87,6 +105,7 @@ export async function VoteBatchContent({ batch: batchStr }: { batch: string }) {
       </div>
 
       <VoteClient
+        existingVoteProjectId={existingVoteProjectId}
         isClosed={isClosed}
         isOpen={isOpen}
         projects={projects}
