@@ -124,7 +124,8 @@ export function VoteClient({
                   {(votedFor || isClosed) && (
                     <div className="text-center">
                       <div className="font-bold text-xl">
-                        {project.voteCount + (isVoted ? 1 : 0)}
+                        {project.voteCount +
+                          (isVoted && !existingVoteProjectId ? 1 : 0)}
                       </div>
                       <div className="text-muted-foreground text-xs">votes</div>
                     </div>
