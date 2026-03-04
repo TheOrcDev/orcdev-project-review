@@ -66,7 +66,7 @@ export function VoteClient({
       {isOpen && (
         <div className="flex items-center justify-between rounded border border-dashed p-3">
           <p className="text-muted-foreground text-xs">
-            {votedFor ? "✅ Vote cast!" : "Pick your favorite project below"}
+            {votedFor ? "Vote cast!" : "Pick your favorite project below"}
           </p>
         </div>
       )}
@@ -158,7 +158,7 @@ export function VoteClient({
 
       {isOpen && (
         <p className="text-center text-muted-foreground text-xs">
-          ⭐ You must star a project on GitHub before voting for it
+          You must star a project on GitHub before voting for it
         </p>
       )}
     </div>

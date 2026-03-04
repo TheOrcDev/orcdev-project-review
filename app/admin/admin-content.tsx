@@ -24,7 +24,7 @@ export async function AdminContent() {
         <Button variant="outline">Back</Button>
       </Link>
 
-      <h1 className="text-center font-bold text-2xl">⚙️ Admin — Voting Rounds</h1>
+      <h1 className="text-center font-bold text-2xl">Admin — Voting Rounds</h1>
 
       <CreateRoundForm />
 
