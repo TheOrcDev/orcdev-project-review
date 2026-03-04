@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 import { Badge } from "@/components/ui/8bit/badge";
 import { Button } from "@/components/ui/8bit/button";
 import type { SelectReviewedProject } from "@/db/schema";
@@ -42,14 +43,12 @@ export function VoteClient({
   const [votedFor, setVotedFor] = useState<string | null>(
     existingVoteProjectId
   );
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<string | null>(null);
 
   const sorted = [...projects].sort((a, b) => b.voteCount - a.voteCount);
   const _maxVotes = Math.max(...sorted.map((p) => p.voteCount), 0);
 
   async function handleVote(projectId: string) {
-    setError(null);
     setLoading(projectId);
 
     try {
@@ -62,13 +61,14 @@ export function VoteClient({
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error ?? "Failed to vote");
+        toast.error(data.error ?? "Failed to vote");
         return;
       }
 
       setVotedFor(projectId);
+      toast.success("Vote cast!");
     } catch {
-      setError("Something went wrong");
+      toast.error("Something went wrong");
     } finally {
       setLoading(null);
     }
@@ -81,12 +81,6 @@ export function VoteClient({
           <p className="text-muted-foreground text-xs">
             {votedFor ? "Vote cast!" : "Pick your favorite project below"}
           </p>
-        </div>
-      )}
-
-      {error && (
-        <div className="border border-destructive bg-destructive/10 p-3 text-destructive text-sm">
-          {error}
         </div>
       )}
 
