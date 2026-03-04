@@ -1,24 +1,26 @@
 "use client";
 
+import { Github, Trophy } from "lucide-react";
 import { useState } from "react";
-import { Github, Star, Trophy } from "lucide-react";
-import { Button } from "@/components/ui/8bit/button";
 import { Badge } from "@/components/ui/8bit/badge";
+import { Button } from "@/components/ui/8bit/button";
 import type { SelectReviewedProject } from "@/db/schema";
 
 type ProjectWithVotes = SelectReviewedProject & { voteCount: number };
 
 function normalizeGithubUrl(url: string): string {
-  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    return url;
+  }
   return `https://${url}`;
 }
 
 interface VoteClientProps {
-  roundId: string;
-  projects: ProjectWithVotes[];
-  isOpen: boolean;
-  isClosed: boolean;
   existingVoteProjectId: string | null;
+  isClosed: boolean;
+  isOpen: boolean;
+  projects: ProjectWithVotes[];
+  roundId: string;
 }
 
 export function VoteClient({
@@ -28,7 +30,9 @@ export function VoteClient({
   isClosed,
   existingVoteProjectId,
 }: VoteClientProps) {
-  const [votedFor, setVotedFor] = useState<string | null>(existingVoteProjectId);
+  const [votedFor, setVotedFor] = useState<string | null>(
+    existingVoteProjectId
+  );
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<string | null>(null);
 
@@ -100,7 +104,7 @@ export function VoteClient({
                     {isWinner && <Trophy className="size-5 text-yellow-500" />}
                     <h3 className="font-bold">{project.name}</h3>
                     {isVoted && (
-                      <Badge variant="outline" className="text-xs">
+                      <Badge className="text-xs" variant="outline">
                         Your vote
                       </Badge>
                     )}
@@ -126,9 +130,7 @@ export function VoteClient({
                       <div className="font-bold text-xl">
                         {project.voteCount + (isVoted ? 1 : 0)}
                       </div>
-                      <div className="text-muted-foreground text-xs">
-                        votes
-                      </div>
+                      <div className="text-muted-foreground text-xs">votes</div>
                     </div>
                   )}
 
@@ -139,14 +141,7 @@ export function VoteClient({
                       onClick={() => handleVote(project.id)}
                       size="sm"
                     >
-                      {loading === project.id ? (
-                        "Voting..."
-                      ) : (
-                        <>
-                          <Star className="mr-1 size-3" />
-                          Vote
-                        </>
-                      )}
+                      {loading === project.id ? "Voting..." : "Vote"}
                     </Button>
                   )}
                 </div>
