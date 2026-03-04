@@ -8,6 +8,11 @@ import type { SelectReviewedProject } from "@/db/schema";
 
 type ProjectWithVotes = SelectReviewedProject & { voteCount: number };
 
+function normalizeGithubUrl(url: string): string {
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  return `https://${url}`;
+}
+
 interface VoteClientProps {
   roundId: string;
   projects: ProjectWithVotes[];
@@ -103,7 +108,7 @@ export function VoteClient({
                   </p>
                   <a
                     className="mt-2 inline-flex items-center gap-1 text-primary text-xs underline"
-                    href={project.githubRepoUrl}
+                    href={normalizeGithubUrl(project.githubRepoUrl)}
                     rel="noopener noreferrer"
                     target="_blank"
                   >

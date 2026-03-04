@@ -28,7 +28,7 @@ export function ReviewedBatch({
       <div className="flex flex-wrap gap-2">
         {filteredProjects.map((project) => (
           <Link
-            href={project.githubRepoUrl}
+            href={project.githubRepoUrl.startsWith("http") ? project.githubRepoUrl : `https://${project.githubRepoUrl}`}
             key={project.id}
             rel="noopener noreferrer"
             target="_blank"
