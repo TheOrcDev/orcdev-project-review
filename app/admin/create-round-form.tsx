@@ -8,7 +8,7 @@ export function CreateRoundForm() {
   return (
     <form
       action={createVotingRound}
-      className="flex flex-col gap-4 rounded border border-dashed p-4"
+      className="flex flex-col gap-4 border border-dashed p-4"
     >
       <h2 className="font-bold">Create Voting Round</h2>
 

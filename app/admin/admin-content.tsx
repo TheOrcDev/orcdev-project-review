@@ -35,7 +35,7 @@ export async function AdminContent() {
 
           return (
             <div
-              className="flex items-center justify-between rounded border p-4"
+              className="flex items-center justify-between border p-4"
               key={round.id}
             >
               <div>

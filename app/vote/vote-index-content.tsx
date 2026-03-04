@@ -43,7 +43,7 @@ export async function VoteIndexContent() {
 
           return (
             <Link href={`/vote/${round.batch}`} key={round.id}>
-              <div className="flex items-center justify-between rounded border p-4 transition-colors hover:bg-accent/50">
+              <div className="flex items-center justify-between border p-4 transition-colors hover:bg-accent/50">
                 <div>
                   <h3 className="font-bold">{round.title}</h3>
                   <p className="text-muted-foreground text-xs">

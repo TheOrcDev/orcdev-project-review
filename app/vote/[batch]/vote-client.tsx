@@ -64,7 +64,7 @@ export function VoteClient({
   return (
     <div className="flex flex-col gap-4">
       {isOpen && (
-        <div className="flex items-center justify-between rounded border border-dashed p-3">
+        <div className="flex items-center justify-between border border-dashed p-3">
           <p className="text-muted-foreground text-xs">
             {votedFor ? "Vote cast!" : "Pick your favorite project below"}
           </p>
@@ -72,7 +72,7 @@ export function VoteClient({
       )}
 
       {error && (
-        <div className="rounded border border-destructive bg-destructive/10 p-3 text-destructive text-sm">
+        <div className="border border-destructive bg-destructive/10 p-3 text-destructive text-sm">
           {error}
         </div>
       )}
@@ -85,7 +85,7 @@ export function VoteClient({
 
           return (
             <div
-              className={`rounded border p-4 transition-all ${
+              className={`border p-4 transition-all ${
                 isWinner
                   ? "border-yellow-500 bg-yellow-500/10"
                   : isVoted
