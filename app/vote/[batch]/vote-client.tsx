@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { toast } from "sonner";
 import { Badge } from "@/components/ui/8bit/badge";
 import { Button } from "@/components/ui/8bit/button";
+import { toast } from "@/components/ui/8bit/toast";
 import type { SelectReviewedProject } from "@/db/schema";
 
 type ProjectWithVotes = SelectReviewedProject & { voteCount: number };
@@ -61,14 +61,14 @@ export function VoteClient({
       const data = await res.json();
 
       if (!res.ok) {
-        toast.error(data.error ?? "Failed to vote");
+        toast(data.error ?? "Failed to vote");
         return;
       }
 
       setVotedFor(projectId);
-      toast.success("Vote cast!");
+      toast("Vote cast!");
     } catch {
-      toast.error("Something went wrong");
+      toast("Something went wrong");
     } finally {
       setLoading(null);
     }
