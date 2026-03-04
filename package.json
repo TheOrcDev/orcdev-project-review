@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "biome check",
-    "format": "biome format --write"
+    "check": "biome check",
+    "fix": "biome format --write"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
