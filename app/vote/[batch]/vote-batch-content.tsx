@@ -6,9 +6,11 @@ import { connection } from "next/server";
 import { Badge } from "@/components/ui/8bit/badge";
 import { Button } from "@/components/ui/8bit/button";
 import { db } from "@/db/drizzle";
-import { reviewedProjects, votes, votingRounds } from "@/db/schema";
+import { accounts, reviewedProjects, votes, votingRounds } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { VoteClient } from "./vote-client";
+
+const ADMIN_GITHUB_ID = "7549148"; // TheOrcDev
 
 async function getRoundData(batch: number) {
   const [round] = await db
@@ -68,8 +70,9 @@ export async function VoteBatchContent({ batch: batchStr }: { batch: string }) {
 
   const { round, projects, isOpen, isClosed, totalVotes } = data;
 
-  // Check if current user already voted in this round
+  // Check if current user already voted in this round + admin check
   let existingVoteProjectId: string | null = null;
+  let isAdmin = false;
   const session = await auth.api.getSession({ headers: await headers() });
   if (session?.user) {
     const [existingVote] = await db
@@ -82,6 +85,19 @@ export async function VoteBatchContent({ batch: batchStr }: { batch: string }) {
     if (existingVote) {
       existingVoteProjectId = existingVote.projectId;
     }
+
+    // Check if admin
+    const [account] = await db
+      .select()
+      .from(accounts)
+      .where(
+        and(
+          eq(accounts.userId, session.user.id),
+          eq(accounts.providerId, "github")
+        )
+      )
+      .limit(1);
+    isAdmin = account?.accountId === ADMIN_GITHUB_ID;
   }
 
   return (
@@ -105,17 +121,20 @@ export async function VoteBatchContent({ batch: batchStr }: { batch: string }) {
         )}
         <p className="mt-2 text-muted-foreground text-xs">
           {isOpen && "Voting is open!"}
-          {isClosed && `Voting closed — ${totalVotes} total votes`}
+          {isClosed && round.winnerId && `Voting closed — ${totalVotes} total votes`}
+          {isClosed && !round.winnerId && "Voting closed — results coming soon!"}
           {data.isUpcoming && "Voting opens soon"}
         </p>
       </div>
 
       <VoteClient
         existingVoteProjectId={existingVoteProjectId}
+        isAdmin={isAdmin}
         isClosed={isClosed}
         isOpen={isOpen}
         projects={projects}
         roundId={round.id}
+        winnerId={round.winnerId}
       />
     </main>
   );

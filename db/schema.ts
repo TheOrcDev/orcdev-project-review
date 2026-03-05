@@ -113,6 +113,7 @@ export const votingRounds = pgTable("voting_rounds", {
   livestreamUrl: text("livestream_url"),
   opensAt: timestamp("opens_at").notNull(),
   closesAt: timestamp("closes_at").notNull(),
+  winnerId: text("winner_id"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

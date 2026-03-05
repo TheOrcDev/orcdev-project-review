@@ -29,8 +29,10 @@ interface VoteClientProps {
   existingVoteProjectId: string | null;
   isClosed: boolean;
   isOpen: boolean;
+  isAdmin: boolean;
   projects: ProjectWithVotes[];
   roundId: string;
+  winnerId: string | null;
 }
 
 export function VoteClient({
@@ -38,15 +40,46 @@ export function VoteClient({
   projects,
   isOpen,
   isClosed,
+  isAdmin,
   existingVoteProjectId,
+  winnerId: initialWinnerId,
 }: VoteClientProps) {
   const [votedFor, setVotedFor] = useState<string | null>(
     existingVoteProjectId
   );
   const [loading, setLoading] = useState<string | null>(null);
+  const [winnerId, setWinnerId] = useState<string | null>(initialWinnerId);
+  const [announcing, setAnnouncing] = useState(false);
+  const [showResults, setShowResults] = useState(!!initialWinnerId);
 
-  const sorted = [...projects].sort((a, b) => b.voteCount - a.voteCount);
+  // Only sort by votes if results are revealed
+  const sorted = showResults
+    ? [...projects].sort((a, b) => b.voteCount - a.voteCount)
+    : [...projects].sort((a, b) => a.name.localeCompare(b.name));
   const _maxVotes = Math.max(...sorted.map((p) => p.voteCount), 0);
+
+  async function handleAnnounce() {
+    setAnnouncing(true);
+    try {
+      const res = await fetch("/api/vote/announce", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ roundId }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        toast(data.error ?? "Failed to announce");
+        return;
+      }
+      setWinnerId(data.winnerId);
+      setShowResults(true);
+      toast("Winner announced! 🎉");
+    } catch {
+      toast("Something went wrong");
+    } finally {
+      setAnnouncing(false);
+    }
+  }
 
   async function handleVote(projectId: string) {
     setLoading(projectId);
@@ -76,6 +109,20 @@ export function VoteClient({
 
   return (
     <div className="flex flex-col gap-4">
+      {isAdmin && isClosed && !winnerId && (
+        <div className="flex items-center justify-between border border-dashed border-yellow-500 bg-yellow-500/10 p-3">
+          <p className="font-bold text-sm">Admin: Results are hidden until you announce the winner</p>
+          <Button
+            disabled={announcing}
+            onClick={handleAnnounce}
+            size="sm"
+            className="bg-yellow-500 text-black hover:bg-yellow-600"
+          >
+            {announcing ? "Announcing..." : "🏆 Announce Winner"}
+          </Button>
+        </div>
+      )}
+
       {isOpen && (
         <div className="flex items-center justify-between border border-dashed p-3">
           <p className="text-muted-foreground text-xs">
@@ -87,7 +134,7 @@ export function VoteClient({
       {/* Projects list */}
       <div className="flex flex-col gap-4">
         {sorted.map((project, idx) => {
-          const isWinner = isClosed && idx === 0 && project.voteCount > 0;
+          const isWinner = showResults && idx === 0 && project.voteCount > 0 && winnerId === project.id;
           const isVoted = votedFor === project.id;
 
           return (
@@ -120,8 +167,8 @@ export function VoteClient({
                 </div>
 
                 <div className="flex flex-col items-center gap-2">
-                  {/* Vote count (show after voting or when closed) */}
-                  {(votedFor || isClosed) && (
+                  {/* Vote count — only show after winner is announced */}
+                  {showResults && (
                     <div className="text-center">
                       <div className="font-bold text-xl">
                         {project.voteCount +
