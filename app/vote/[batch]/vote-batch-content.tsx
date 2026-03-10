@@ -3,7 +3,6 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
-import { Badge } from "@/components/ui/8bit/badge";
 import { Button } from "@/components/ui/8bit/button";
 import { db } from "@/db/drizzle";
 import { accounts, reviewedProjects, votes, votingRounds } from "@/db/schema";
@@ -107,7 +106,6 @@ export async function VoteBatchContent({ batch: batchStr }: { batch: string }) {
       </Link>
 
       <div className="flex flex-col items-center gap-2 text-center">
-        <Badge className="bg-yellow-500 text-black">BETA</Badge>
         <h1 className="font-bold text-2xl">{round.title}</h1>
         {round.livestreamUrl && (
           <a
