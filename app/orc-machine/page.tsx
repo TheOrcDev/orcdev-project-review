@@ -1,24 +1,36 @@
 import Link from "next/link";
+import { headers } from "next/headers";
 import { Button } from "@/components/ui/8bit/button";
+import { PickProject } from "@/components/pick-project";
+import { RandomNumber } from "@/components/random-number";
+import { auth } from "@/lib/auth";
 
-export default function Home() {
+const ADMIN_EMAIL = "theorcdev@gmail.com";
+
+export default async function Home() {
+  const session = await auth.api.getSession({ headers: await headers() });
+  const isAdmin = session?.user?.email === ADMIN_EMAIL;
+
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-10 py-12">
       <Link href="/">
         <Button variant="outline">Back</Button>
       </Link>
-      {/* <PickProject /> */}
-      {/* <RandomNumber /> */}
-      {/* <Button onClick={deleteAllProjectsAndAddToReviewedProjects}>
-        Delete All Projects and Add to Reviewed Projects
-      </Button> */}
+
+      {isAdmin && (
+        <>
+          <PickProject />
+          <RandomNumber />
+        </>
+      )}
+
       <div className="flex flex-col gap-3 border border-dashed p-4">
         <h1 className="text-center font-bold">
           The Orc Machine is sleeping (for now)
         </h1>
         <p className="text-xs">
           The Orc Machine is our random project picker for the livestream. When
-          it’s awake, it grabs one project from the submitted list and that’s
+          it&apos;s awake, it grabs one project from the submitted list and that&apos;s
           what gets reviewed — no favoritism, just the wheel of fate.
         </p>
 
