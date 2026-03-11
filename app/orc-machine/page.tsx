@@ -5,11 +5,9 @@ import { PickProject } from "@/components/pick-project";
 import { RandomNumber } from "@/components/random-number";
 import { auth } from "@/lib/auth";
 
-const ADMIN_EMAIL = "theorcdev@gmail.com";
-
 export default async function Home() {
   const session = await auth.api.getSession({ headers: await headers() });
-  const isAdmin = session?.user?.email === ADMIN_EMAIL;
+  const isAdmin = session?.user?.email === process.env.ADMIN_EMAIL;
 
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-10 py-12">
