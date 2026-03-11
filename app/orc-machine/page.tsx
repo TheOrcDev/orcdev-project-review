@@ -1,26 +1,35 @@
 import Link from "next/link";
 import { headers } from "next/headers";
+import { Suspense } from "react";
 import { Button } from "@/components/ui/8bit/button";
 import { PickProject } from "@/components/pick-project";
 import { RandomNumber } from "@/components/random-number";
 import { auth } from "@/lib/auth";
 
-export default async function Home() {
+async function AdminTools() {
   const session = await auth.api.getSession({ headers: await headers() });
   const isAdmin = session?.user?.email === process.env.ADMIN_EMAIL;
 
+  if (!isAdmin) return null;
+
+  return (
+    <>
+      <PickProject />
+      <RandomNumber />
+    </>
+  );
+}
+
+export default function Home() {
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-10 py-12">
       <Link href="/">
         <Button variant="outline">Back</Button>
       </Link>
 
-      {isAdmin && (
-        <>
-          <PickProject />
-          <RandomNumber />
-        </>
-      )}
+      <Suspense fallback={null}>
+        <AdminTools />
+      </Suspense>
 
       <div className="flex flex-col gap-3 border border-dashed p-4">
         <h1 className="text-center font-bold">
