@@ -1,7 +1,5 @@
 import Link from "next/link";
-import { PickProject } from "@/components/pick-project";
 import { Button } from "@/components/ui/8bit/button";
-import { deleteAllProjectsAndAddToReviewedProjects } from "@/server/projects";
 
 export default function Home() {
   return (
@@ -9,12 +7,12 @@ export default function Home() {
       <Link href="/">
         <Button variant="outline">Back</Button>
       </Link>
-      <PickProject />
+      {/* <PickProject /> */}
       {/* <RandomNumber /> */}
-      <Button onClick={deleteAllProjectsAndAddToReviewedProjects}>
+      {/* <Button onClick={deleteAllProjectsAndAddToReviewedProjects}>
         Delete All Projects and Add to Reviewed Projects
-      </Button>
-      {/* <div className="flex flex-col gap-3 border border-dashed p-4">
+      </Button> */}
+      <div className="flex flex-col gap-3 border border-dashed p-4">
         <h1 className="text-center font-bold">
           The Orc Machine is sleeping (for now)
         </h1>
@@ -33,7 +31,7 @@ export default function Home() {
           </Link>
           !
         </p>
-      </div> */}
+      </div>
     </main>
   );
 }
