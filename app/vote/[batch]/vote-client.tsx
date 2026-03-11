@@ -27,9 +27,9 @@ function normalizeGithubUrl(url: string): string {
 
 interface VoteClientProps {
   existingVoteProjectId: string | null;
+  isAdmin: boolean;
   isClosed: boolean;
   isOpen: boolean;
-  isAdmin: boolean;
   projects: ProjectWithVotes[];
   roundId: string;
   winnerId: string | null;
@@ -110,13 +110,15 @@ export function VoteClient({
   return (
     <div className="flex flex-col gap-4">
       {isAdmin && isClosed && !winnerId && (
-        <div className="flex items-center justify-between border border-dashed border-yellow-500 bg-yellow-500/10 p-3">
-          <p className="font-bold text-sm">Admin: Results are hidden until you announce the winner</p>
+        <div className="flex items-center justify-between border border-yellow-500 border-dashed bg-yellow-500/10 p-3">
+          <p className="font-bold text-sm">
+            Admin: Results are hidden until you announce the winner
+          </p>
           <Button
+            className="bg-yellow-500 text-black hover:bg-yellow-600"
             disabled={announcing}
             onClick={handleAnnounce}
             size="sm"
-            className="bg-yellow-500 text-black hover:bg-yellow-600"
           >
             {announcing ? "Announcing..." : "🏆 Announce Winner"}
           </Button>
@@ -134,7 +136,11 @@ export function VoteClient({
       {/* Projects list */}
       <div className="flex flex-col gap-4">
         {sorted.map((project, idx) => {
-          const isWinner = showResults && idx === 0 && project.voteCount > 0 && winnerId === project.id;
+          const isWinner =
+            showResults &&
+            idx === 0 &&
+            project.voteCount > 0 &&
+            winnerId === project.id;
           const isVoted = votedFor === project.id;
 
           return (

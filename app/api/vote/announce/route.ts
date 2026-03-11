@@ -43,7 +43,10 @@ export async function POST(req: Request) {
   }
 
   if (round.winnerId) {
-    return NextResponse.json({ error: "Winner already announced", winnerId: round.winnerId }, { status: 400 });
+    return NextResponse.json(
+      { error: "Winner already announced", winnerId: round.winnerId },
+      { status: 400 }
+    );
   }
 
   // Count votes per project

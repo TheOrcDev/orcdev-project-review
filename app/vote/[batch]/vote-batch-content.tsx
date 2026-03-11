@@ -119,8 +119,12 @@ export async function VoteBatchContent({ batch: batchStr }: { batch: string }) {
         )}
         <p className="mt-2 text-muted-foreground text-xs">
           {isOpen && "Voting is open!"}
-          {isClosed && round.winnerId && `Voting closed — ${totalVotes} total votes`}
-          {isClosed && !round.winnerId && "Voting closed — results coming soon!"}
+          {isClosed &&
+            round.winnerId &&
+            `Voting closed — ${totalVotes} total votes`}
+          {isClosed &&
+            !round.winnerId &&
+            "Voting closed — results coming soon!"}
           {data.isUpcoming && "Voting opens soon"}
         </p>
       </div>
