@@ -7,7 +7,7 @@ export async function RecordBadge() {
   return (
     <div className="retro flex items-center gap-5 text-xs">
       <p className="hidden md:block">Record: </p>
-      <Badge>{highest}</Badge>
+      <Badge variant={"secondary"}>{highest}</Badge>
       <p className="hidden md:block">Current: </p>
       <Badge>{current}</Badge>
     </div>
