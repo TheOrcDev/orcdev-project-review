@@ -42,6 +42,10 @@ const X_URL_RE = /^https?:\/\/(www\.)?(x|twitter)\.com\//i;
 const LEADING_AT_RE = /^@/;
 const URL_SPLIT_RE = /[/?#]/;
 
+function normalizeGithubUrl(url: string): string {
+  return url.replace(/\/+$/, "").toLowerCase().trim();
+}
+
 function normalizeXHandle(raw?: string | null): string | null {
   if (!raw) {
     return null;
@@ -62,11 +66,13 @@ function normalizeXHandle(raw?: string | null): string | null {
 export async function createProject(
   project: InsertProject
 ): Promise<string | SelectProject> {
+  const normalizedUrl = normalizeGithubUrl(project.githubRepoUrl);
+
   const check = await db.query.projects.findFirst({
     where: and(
       or(
         eq(projects.name, project.name),
-        eq(projects.githubRepoUrl, project.githubRepoUrl)
+        sql`LOWER(TRIM(TRAILING '/' FROM ${projects.githubRepoUrl})) = ${normalizedUrl}`
       ),
       isNull(projects.resetDate)
     ),
@@ -81,6 +87,7 @@ export async function createProject(
       .insert(projects)
       .values({
         ...project,
+        githubRepoUrl: normalizedUrl,
         xHandle: normalizeXHandle(project.xHandle),
       })
       .returning();
