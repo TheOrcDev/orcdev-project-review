@@ -41,9 +41,10 @@ export async function getProjects() {
 const X_URL_RE = /^https?:\/\/(www\.)?(x|twitter)\.com\//i;
 const LEADING_AT_RE = /^@/;
 const URL_SPLIT_RE = /[/?#]/;
+const TRAILING_SLASHES_RE = /\/+$/;
 
 function normalizeGithubUrl(url: string): string {
-  return url.replace(/\/+$/, "").toLowerCase().trim();
+  return url.replace(TRAILING_SLASHES_RE, "").toLowerCase().trim();
 }
 
 function normalizeXHandle(raw?: string | null): string | null {
