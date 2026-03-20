@@ -7,7 +7,7 @@ import { auth } from "@/lib/auth";
 
 const MIN_ACCOUNT_AGE_DAYS = 90;
 const MIN_PUBLIC_REPOS = 3;
-const GITHUB_REPO_RE = /github\.com\/([^/]+)\/([^/]+)/;
+const GITHUB_REPO_RE = /github\.com\/([a-zA-Z0-9-]+)\/([a-zA-Z0-9._-]+)/;
 const GIT_SUFFIX_RE = /\.git$/;
 
 function daysBetween(d1: Date, d2: Date): number {
