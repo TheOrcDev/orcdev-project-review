@@ -4,7 +4,7 @@
 import { useForm, useStore } from "@tanstack/react-form";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/8bit/button";
@@ -17,6 +17,7 @@ import {
   CardTitle,
 } from "@/components/ui/8bit/card";
 import { Input } from "@/components/ui/8bit/input";
+import { Spinner } from "@/components/ui/8bit/spinner";
 import { Textarea } from "@/components/ui/8bit/textarea";
 import {
   Field,
@@ -85,7 +86,49 @@ const formSchema = z.object({
 
 export function SubmitProjectForm() {
   const [isSubmited, setIsSubmited] = useState(false);
+  const [isFetchingRepo, setIsFetchingRepo] = useState(false);
+  const lastFetchedUrlRef = useRef("");
   const router = useRouter();
+
+  async function fetchRepoInfo(url: string) {
+    if (!url || url === lastFetchedUrlRef.current) {
+      return;
+    }
+
+    const urlWithProtocol = URL_PROTOCOL_REGEX.test(url)
+      ? url
+      : `https://${url}`;
+    try {
+      const urlObj = new URL(urlWithProtocol);
+      if (urlObj.hostname !== "github.com") {
+        return;
+      }
+    } catch {
+      return;
+    }
+
+    lastFetchedUrlRef.current = url;
+    setIsFetchingRepo(true);
+    try {
+      const res = await fetch(
+        `/api/github/repo?url=${encodeURIComponent(urlWithProtocol)}`
+      );
+      if (!res.ok) {
+        return;
+      }
+      const data = await res.json();
+      if (data.name && !form.getFieldValue("projectName")) {
+        form.setFieldValue("projectName", data.name);
+      }
+      if (data.description && !form.getFieldValue("projectDescription")) {
+        form.setFieldValue("projectDescription", data.description);
+      }
+    } catch {
+      // silently ignore
+    } finally {
+      setIsFetchingRepo(false);
+    }
+  }
 
   const form = useForm({
     defaultValues: {
@@ -187,17 +230,27 @@ export function SubmitProjectForm() {
                     <FieldLabel htmlFor="form-tanstack-input-github-repo-url">
                       GitHub Repository URL
                     </FieldLabel>
-                    <Input
-                      aria-invalid={isInvalid}
-                      autoComplete="url"
-                      id="form-tanstack-input-github-repo-url"
-                      name={field.name}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      placeholder="github.com/username/repo"
-                      type="text"
-                      value={field.state.value}
-                    />
+                    <div className="relative">
+                      <Input
+                        aria-invalid={isInvalid}
+                        autoComplete="url"
+                        id="form-tanstack-input-github-repo-url"
+                        name={field.name}
+                        onBlur={() => {
+                          field.handleBlur();
+                          fetchRepoInfo(field.state.value);
+                        }}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        placeholder="github.com/username/repo"
+                        type="text"
+                        value={field.state.value}
+                      />
+                      {isFetchingRepo && (
+                        <div className="absolute top-1/2 right-3 -translate-y-1/2">
+                          <Spinner variant="diamond" />
+                        </div>
+                      )}
+                    </div>
                     <FieldDescription className="text-xs">
                       Must be a public repository hosted on GitHub.
                     </FieldDescription>
