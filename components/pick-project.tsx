@@ -59,7 +59,7 @@ export function PickProject({
     });
   }
 
-  let archiveButtonLabel = "Move Pulled Projects to Reviewed";
+  let archiveButtonLabel = "Archive Stream Projects";
   if (isConfirmingArchive) {
     archiveButtonLabel = "Confirm Move";
   }

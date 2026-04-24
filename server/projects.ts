@@ -196,45 +196,52 @@ export async function deleteAllProjectsAndAddToReviewedProjects() {
   }
 
   try {
-    const allProjects = await db.query.projects.findMany();
-
-    const allPulledProjects = await db.query.projects.findMany({
-      where: isNotNull(projects.deletedAt),
-    });
-
-    const [latestBatchRow] = await db
-      .select()
-      .from(reviewedProjects)
-      .where(isNotNull(reviewedProjects.batch))
-      .orderBy(desc(reviewedProjects.batch))
-      .limit(1);
-
-    const latestBatch = latestBatchRow?.batch ?? 0;
-
-    await db.insert(reviewedProjects).values(
-      allPulledProjects.map((project) => ({
-        name: project.name,
-        githubRepoUrl: project.githubRepoUrl,
-        description: project.description,
-        xHandle: project.xHandle,
-        batch: latestBatch + 1,
-      }))
-    );
-
-    await db
-      .insert(previouslySubmittedProjects)
-      .values(
-        allProjects.map((project) => ({
-          name: project.name,
-          githubRepoUrl: project.githubRepoUrl,
-          description: project.description,
-          xHandle: project.xHandle,
-        }))
+    await db.execute(sql`
+      WITH next_batch AS (
+        SELECT COALESCE(MAX(${reviewedProjects.batch}), 0) + 1 AS batch
+        FROM ${reviewedProjects}
+        WHERE ${reviewedProjects.batch} IS NOT NULL
+      ),
+      reviewed_insert AS (
+        INSERT INTO ${reviewedProjects} (
+          ${reviewedProjects.name},
+          ${reviewedProjects.githubRepoUrl},
+          ${reviewedProjects.description},
+          ${reviewedProjects.xHandle},
+          ${reviewedProjects.batch}
+        )
+        SELECT
+          ${projects.name},
+          ${projects.githubRepoUrl},
+          ${projects.description},
+          ${projects.xHandle},
+          next_batch.batch
+        FROM ${projects}
+        CROSS JOIN next_batch
+        WHERE ${projects.deletedAt} IS NOT NULL
+        RETURNING ${reviewedProjects.id}
+      ),
+      previous_insert AS (
+        INSERT INTO ${previouslySubmittedProjects} (
+          ${previouslySubmittedProjects.name},
+          ${previouslySubmittedProjects.githubRepoUrl},
+          ${previouslySubmittedProjects.description},
+          ${previouslySubmittedProjects.xHandle}
+        )
+        SELECT
+          ${projects.name},
+          ${projects.githubRepoUrl},
+          ${projects.description},
+          ${projects.xHandle}
+        FROM ${projects}
+        ON CONFLICT (${previouslySubmittedProjects.githubRepoUrl}) DO NOTHING
+        RETURNING ${previouslySubmittedProjects.id}
       )
-      .onConflictDoNothing({
-        target: previouslySubmittedProjects.githubRepoUrl,
-      });
+      DELETE FROM ${projects}
+    `);
 
+    revalidateTag(PROJECTS_TAG, "default");
+    revalidatePath("/", "layout");
     revalidatePath("/orc-machine");
     revalidatePath("/reviewed-projects");
   } catch {
