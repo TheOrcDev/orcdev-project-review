@@ -1,8 +1,7 @@
 import { headers } from "next/headers";
 import Link from "next/link";
 import { Suspense } from "react";
-import { PickProject } from "@/components/pick-project";
-import { RandomNumber } from "@/components/random-number";
+import { OrcMachineAdminTools } from "@/components/orc-machine-admin-tools";
 import { Button } from "@/components/ui/8bit/button";
 import { auth } from "@/lib/auth";
 
@@ -11,24 +10,19 @@ async function AdminTools() {
   const isAdmin = session?.user?.email === process.env.ADMIN_EMAIL;
 
   if (!isAdmin) {
-    return null;
+    return (
+      <Link href="/">
+        <Button variant="outline">Back</Button>
+      </Link>
+    );
   }
 
-  return (
-    <>
-      <PickProject showReviewArchiveAction />
-      <RandomNumber />
-    </>
-  );
+  return <OrcMachineAdminTools />;
 }
 
 export default function Home() {
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-10 py-12">
-      <Link href="/">
-        <Button variant="outline">Back</Button>
-      </Link>
-
       <Suspense fallback={null}>
         <AdminTools />
       </Suspense>
