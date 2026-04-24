@@ -17,6 +17,7 @@ import {
   revalidateTag,
   unstable_cache,
 } from "next/cache";
+import { headers } from "next/headers";
 import { db } from "@/db/drizzle";
 import {
   type InsertProject,
@@ -26,8 +27,10 @@ import {
   reviewedProjects,
   type SelectProject,
 } from "@/db/schema";
+import { auth } from "@/lib/auth";
 
 const PROJECTS_TAG = "projects";
+const TRAILING_SLASH_RE = /\/+$/;
 
 export async function getProjects() {
   try {
@@ -43,7 +46,7 @@ const LEADING_AT_RE = /^@/;
 const URL_SPLIT_RE = /[/?#]/;
 
 function normalizeGithubUrl(url: string): string {
-  return url.replace(/\/+$/, "").toLowerCase().trim();
+  return url.replace(TRAILING_SLASH_RE, "").toLowerCase().trim();
 }
 
 function normalizeXHandle(raw?: string | null): string | null {
@@ -186,6 +189,12 @@ export async function getReviewedProjects() {
 }
 
 export async function deleteAllProjectsAndAddToReviewedProjects() {
+  const session = await auth.api.getSession({ headers: await headers() });
+
+  if (session?.user?.email !== process.env.ADMIN_EMAIL) {
+    throw new Error("Unauthorized");
+  }
+
   try {
     const allProjects = await db.query.projects.findMany();
 
@@ -225,6 +234,9 @@ export async function deleteAllProjectsAndAddToReviewedProjects() {
       .onConflictDoNothing({
         target: previouslySubmittedProjects.githubRepoUrl,
       });
+
+    revalidatePath("/orc-machine");
+    revalidatePath("/reviewed-projects");
   } catch {
     throw new Error(
       "Failed to delete all projects and add to reviewed projects"

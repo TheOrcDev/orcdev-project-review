@@ -16,7 +16,7 @@ async function AdminTools() {
 
   return (
     <>
-      <PickProject />
+      <PickProject showReviewArchiveAction />
       <RandomNumber />
     </>
   );

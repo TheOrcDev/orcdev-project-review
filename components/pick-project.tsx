@@ -1,18 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import type { SelectProject } from "@/db/schema";
-import { getRandomProject } from "@/server/projects";
+import {
+  deleteAllProjectsAndAddToReviewedProjects,
+  getRandomProject,
+} from "@/server/projects";
 import { ProjectCard } from "./project-card";
 import { Button } from "./ui/8bit/button";
 
 const DELAY = 500;
 
-export function PickProject() {
+interface PickProjectProps {
+  showReviewArchiveAction?: boolean;
+}
+
+export function PickProject({
+  showReviewArchiveAction = false,
+}: PickProjectProps) {
   const [project, setProject] = useState<SelectProject | null>(null);
   const [pickedProject, setPickedProject] = useState<SelectProject | null>(
     null
   );
+  const [isConfirmingArchive, setIsConfirmingArchive] = useState(false);
+  const [isArchiving, startArchiveTransition] = useTransition();
 
   async function pickProject() {
     const data = await getRandomProject();
@@ -36,15 +47,48 @@ export function PickProject() {
     );
   }
 
+  function archiveReviewedProjects() {
+    if (!isConfirmingArchive) {
+      setIsConfirmingArchive(true);
+      return;
+    }
+
+    startArchiveTransition(async () => {
+      await deleteAllProjectsAndAddToReviewedProjects();
+      setIsConfirmingArchive(false);
+    });
+  }
+
+  let archiveButtonLabel = "Move Pulled Projects to Reviewed";
+  if (isConfirmingArchive) {
+    archiveButtonLabel = "Confirm Move";
+  }
+  if (isArchiving) {
+    archiveButtonLabel = "Moving Projects...";
+  }
+
   return (
     <div className="flex flex-col items-center justify-center gap-6">
       <h1 className="text-center font-bold text-2xl">The Orc Machine</h1>
 
       <div className="flex gap-6">
         <Button onClick={pickProject}>Pick a Project</Button>
-        {/* <Button onClick={deleteAllProjectsAndAddToReviewedProjects}>
-          Delete All Projects and Add to Reviewed Projects
-        </Button> */}
+        {showReviewArchiveAction ? (
+          <div className="flex gap-3">
+            <Button disabled={isArchiving} onClick={archiveReviewedProjects}>
+              {archiveButtonLabel}
+            </Button>
+            {isConfirmingArchive ? (
+              <Button
+                disabled={isArchiving}
+                onClick={() => setIsConfirmingArchive(false)}
+                variant="outline"
+              >
+                Cancel
+              </Button>
+            ) : null}
+          </div>
+        ) : null}
       </div>
 
       {project ? (
