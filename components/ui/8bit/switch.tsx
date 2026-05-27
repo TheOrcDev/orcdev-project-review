@@ -1,111 +1,41 @@
 "use client";
 
-import * as React from "react";
+import type * as React from "react";
+
+import * as SwitchPrimitive from "@radix-ui/react-switch";
+
 import { cn } from "@/lib/utils";
 
-import "./styles/retro.css";
-
-interface SwitchProps
-  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onChange"> {
-  checked?: boolean;
-  defaultChecked?: boolean;
-  font?: "normal" | "retro";
-  onCheckedChange?: (checked: boolean) => void;
-  size?: "default" | "sm";
-}
-
 function Switch({
-  checked,
   className,
-  defaultChecked = false,
-  disabled,
-  font = "retro",
-  onCheckedChange,
-  size = "default",
   ...props
-}: SwitchProps) {
-  const [internalChecked, setInternalChecked] = React.useState(defaultChecked);
-  const isChecked = checked ?? internalChecked;
-
-  function toggleSwitch() {
-    if (disabled) {
-      return;
-    }
-
-    const nextChecked = !isChecked;
-    setInternalChecked(nextChecked);
-    onCheckedChange?.(nextChecked);
-  }
-
+}: React.ComponentProps<typeof SwitchPrimitive.Root>) {
   return (
-    <button
-      aria-checked={isChecked}
+    <SwitchPrimitive.Root
+      data-slot="switch"
       className={cn(
-        "relative inline-flex shrink-0 items-center border-0 bg-muted transition-colors active:translate-y-1 disabled:pointer-events-none disabled:opacity-50",
-        size === "default" && "h-8 w-16",
-        size === "sm" && "h-6 w-11",
-        "data-[state=checked]:bg-foreground data-[state=checked]:text-background dark:data-[state=checked]:bg-ring",
-        font === "retro" && "retro",
+        "relative peer data-[state=checked]:bg-primary data-[state=unchecked]:bg-input focus-visible:border-ring focus-visible:ring-ring/50 dark:data-[state=unchecked]:bg-input/80 inline-flex h-4 w-8 shrink-0 items-center border border-transparent shadow-xs transition-all outline-none border-none disabled:cursor-not-allowed disabled:opacity-50",
         className
       )}
-      data-state={isChecked ? "checked" : "unchecked"}
-      disabled={disabled}
-      onClick={toggleSwitch}
-      role="switch"
-      type="button"
       {...props}
     >
-      <span
+      <SwitchPrimitive.Thumb
+        data-slot="switch-thumb"
         className={cn(
-          "absolute left-1 bg-foreground transition-transform dark:bg-ring",
-          size === "default" && "size-6",
-          size === "sm" && "size-4",
-          isChecked && size === "default" && "translate-x-8",
-          isChecked && size === "sm" && "translate-x-5",
-          isChecked && "bg-background dark:bg-background"
+          "bg-primary data-[state=checked]:bg-primary-foreground dark:data-[state=checked]:bg-primary-foreground dark:data-[state=unchecked]:bg-foreground pointer-events-none block size-4 data-[state=checked]:border-l data-[state=unchecked]:border-r border-foreground dark:border-ring ring-0 transition-transform data-[state=checked]:translate-x-[calc(100%)] data-[state=unchecked]:translate-x-0"
         )}
       />
-      <span
+
+      <div
+        className="absolute inset-0 border-y-4 -my-1 border-foreground dark:border-ring pointer-events-none"
         aria-hidden="true"
-        className="pointer-events-none absolute -top-1.5 left-1.5 h-1.5 w-1/2 bg-foreground dark:bg-ring"
       />
-      <span
+
+      <div
+        className="absolute inset-0 border-x-4 -mx-1 border-foreground dark:border-ring pointer-events-none"
         aria-hidden="true"
-        className="pointer-events-none absolute -top-1.5 right-1.5 h-1.5 w-1/2 bg-foreground dark:bg-ring"
       />
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-1.5 left-1.5 h-1.5 w-1/2 bg-foreground dark:bg-ring"
-      />
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-1.5 right-1.5 h-1.5 w-1/2 bg-foreground dark:bg-ring"
-      />
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute top-0 left-0 size-1.5 bg-foreground dark:bg-ring"
-      />
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute top-0 right-0 size-1.5 bg-foreground dark:bg-ring"
-      />
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-0 left-0 size-1.5 bg-foreground dark:bg-ring"
-      />
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute right-0 bottom-0 size-1.5 bg-foreground dark:bg-ring"
-      />
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute top-1.5 -left-1.5 h-[calc(100%-12px)] w-1.5 bg-foreground dark:bg-ring"
-      />
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute top-1.5 -right-1.5 h-[calc(100%-12px)] w-1.5 bg-foreground dark:bg-ring"
-      />
-    </button>
+    </SwitchPrimitive.Root>
   );
 }
 

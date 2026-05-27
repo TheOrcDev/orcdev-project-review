@@ -21,7 +21,6 @@ export function OrcMachineAdminTools() {
           aria-label="Show archive button"
           checked={showArchiveAction}
           onCheckedChange={setShowArchiveAction}
-          size="sm"
         />
       </div>
 
