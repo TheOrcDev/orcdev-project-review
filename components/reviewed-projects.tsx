@@ -1,27 +1,28 @@
+import type { SelectReviewedProject } from "@/db/schema";
 import { getReviewedProjects } from "@/server/projects";
-import { ReviewedBatch } from "./reviewed-batch";
+import { ReviewedProjectsList } from "./reviewed-projects-list";
 
 export async function ReviewedProjects() {
   const reviewedProjects = await getReviewedProjects();
 
   const batches = reviewedProjects.reduce((acc, project) => {
-    if (!acc.includes(project.batch)) {
+    if (project.batch !== null && !acc.includes(project.batch)) {
       acc.push(project.batch);
     }
     return acc;
   }, [] as number[]);
 
+  const projectsByBatch = batches.reduce(
+    (acc, batch) => {
+      acc[batch] = reviewedProjects.filter(
+        (project) => project.batch === batch
+      );
+      return acc;
+    },
+    {} as Record<number, SelectReviewedProject[]>
+  );
+
   return (
-    <>
-      {batches.map((batch) => (
-        <ReviewedBatch
-          batch={batch}
-          key={batch}
-          projects={reviewedProjects.filter(
-            (project) => project.batch === batch
-          )}
-        />
-      ))}
-    </>
+    <ReviewedProjectsList batches={batches} projectsByBatch={projectsByBatch} />
   );
 }
