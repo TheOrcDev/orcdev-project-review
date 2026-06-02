@@ -20,7 +20,7 @@ export async function AdminContent() {
 
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-6 py-12">
-      <Link href="/">
+      <Link href="/menu">
         <Button variant="outline">Back</Button>
       </Link>
 

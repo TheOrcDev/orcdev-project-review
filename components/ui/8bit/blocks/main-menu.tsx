@@ -24,13 +24,23 @@ export default function MainMenu({
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-5">
-          {menuItems.map((item) => (
-            <Link className="w-full" href={item.href} key={item.label}>
-              <Button className="flex w-full items-center gap-2">
-                {item.label}
-              </Button>
-            </Link>
-          ))}
+          {menuItems.map((item) => {
+            const isExternal = item.href.startsWith("http");
+
+            return (
+              <Link
+                className="w-full"
+                href={item.href}
+                key={item.label}
+                rel={isExternal ? "noopener noreferrer" : undefined}
+                target={isExternal ? "_blank" : undefined}
+              >
+                <Button className="flex w-full items-center gap-2">
+                  {item.label}
+                </Button>
+              </Link>
+            );
+          })}
         </div>
       </CardContent>
     </Card>

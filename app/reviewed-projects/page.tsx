@@ -9,7 +9,7 @@ export default async function ReviewedProjectsPage() {
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-5 py-12">
       <div className="flex items-center justify-between">
-        <Link href="/">
+        <Link href="/menu">
           <Button variant="outline">Back</Button>
         </Link>
 

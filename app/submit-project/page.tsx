@@ -13,7 +13,7 @@ export default function Home() {
         join the spotlight.
       </p>
 
-      <Link href="/">
+      <Link href="/menu">
         <Button variant="outline">Back</Button>
       </Link>
 

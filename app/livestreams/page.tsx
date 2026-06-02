@@ -79,7 +79,7 @@ const livestreams = [
 export default function Livestreams() {
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-5 py-12">
-      <Link href="/">
+      <Link href="/menu">
         <Button variant="outline">Back</Button>
       </Link>
       <h1 className="text-center font-bold md:text-2xl">
