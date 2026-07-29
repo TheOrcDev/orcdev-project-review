@@ -23,6 +23,8 @@ All livestreams are recorded and available for viewing. Check out the [Livestrea
 
 ## Stream Guests
 
+- 20th November 2025: [François Best](https://francoisbest.com/links) _(creator of [nuqs](https://nuqs.dev))_
+
 ## How to Submit Your Project
 
 Want your open source project reviewed on stream? Here's how:
