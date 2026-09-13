@@ -15,8 +15,4 @@ export const menuItems = [
     label: "REVIEWED PROJECTS",
     href: "/reviewed-projects",
   },
-  {
-    label: "DISCORD",
-    href: "https://join.thehorde.dev/",
-  },
 ];
