@@ -1,18 +1,6 @@
 "use client";
 
-import type { LucideIcon } from "lucide-react";
-import {
-  BarChart3Icon,
-  CpuIcon,
-  FolderCheckIcon,
-  HouseIcon,
-  LogInIcon,
-  RadioIcon,
-  SearchIcon,
-  SendIcon,
-  ShieldIcon,
-  VoteIcon,
-} from "lucide-react";
+import { SearchIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/8bit/button";
@@ -26,18 +14,6 @@ import {
   CommandSeparator,
 } from "@/components/ui/8bit/command";
 import { commandMenuGroups } from "@/config/nav-items";
-
-const pageIcons: Record<string, LucideIcon> = {
-  "/": HouseIcon,
-  "/admin": ShieldIcon,
-  "/livestreams": RadioIcon,
-  "/login": LogInIcon,
-  "/orc-machine": CpuIcon,
-  "/reviewed-projects": FolderCheckIcon,
-  "/stats": BarChart3Icon,
-  "/submit-project": SendIcon,
-  "/vote": VoteIcon,
-};
 
 export function CommandMenu() {
   const [open, setOpen] = useState(false);
@@ -84,7 +60,7 @@ export function CommandMenu() {
         open={open}
         title="Command Menu"
       >
-        <CommandInput placeholder="Search pages..." />
+        <CommandInput aria-label="Search pages" placeholder="Search pages..." />
         <CommandList>
           <CommandEmpty>No pages found.</CommandEmpty>
           {commandMenuGroups.flatMap((group, index) => [
@@ -92,20 +68,15 @@ export function CommandMenu() {
               <CommandSeparator key={`${group.heading}-separator`} />
             ) : null,
             <CommandGroup heading={group.heading} key={group.heading}>
-              {group.items.map((item) => {
-                const Icon = pageIcons[item.href];
-
-                return (
-                  <CommandItem
-                    key={item.href}
-                    onSelect={() => navigateTo(item.href)}
-                    value={`${item.label} ${item.href}`}
-                  >
-                    {Icon ? <Icon aria-hidden className="size-4" /> : null}
-                    {item.label}
-                  </CommandItem>
-                );
-              })}
+              {group.items.map((item) => (
+                <CommandItem
+                  key={item.href}
+                  onSelect={() => navigateTo(item.href)}
+                  value={`${item.label} ${item.href}`}
+                >
+                  {item.label}
+                </CommandItem>
+              ))}
             </CommandGroup>,
           ])}
         </CommandList>
