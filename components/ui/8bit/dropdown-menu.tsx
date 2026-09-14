@@ -100,7 +100,8 @@ function DropdownMenuSubContent({
   className,
   font,
   ...props
-}: BitDropownMenuContentProps) {
+}: React.ComponentProps<typeof DropdownMenuPrimitive.SubContent> &
+  VariantProps<typeof dropDownVariants>) {
   return (
     <ShadcnDropdownMenuSubContent
       {...props}

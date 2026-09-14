@@ -6,11 +6,6 @@ const nextConfig: NextConfig = {
   experimental: {
     useTypeScriptCli: true,
   },
-  turbopack: {
-    resolveAlias: {
-      "@better-auth/kysely-adapter": "./stubs/empty-kysely-adapter.mjs",
-    },
-  },
 };
 
 export default nextConfig;
