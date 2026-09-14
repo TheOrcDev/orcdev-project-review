@@ -11,9 +11,9 @@ async function AdminTools() {
 
   if (!isAdmin) {
     return (
-      <Link href="/">
-        <Button variant="outline">Back</Button>
-      </Link>
+      <Button asChild variant="outline">
+        <Link href="/">Back</Link>
+      </Button>
     );
   }
 

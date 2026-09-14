@@ -18,9 +18,9 @@ export async function VoteIndexContent() {
 
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-6 py-12">
-      <Link href="/">
-        <Button variant="outline">Back</Button>
-      </Link>
+      <Button asChild variant="outline">
+        <Link href="/">Back</Link>
+      </Button>
 
       <div className="flex flex-col items-center gap-2">
         <h1 className="text-center font-bold text-2xl">Vote</h1>

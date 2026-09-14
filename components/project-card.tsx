@@ -24,9 +24,11 @@ export function ProjectCard({ project }: { project: SelectProject }) {
         </CardDescription>
 
         <CardContent className="mt-5 flex justify-center">
-          <Link href={url} rel="noopener noreferrer" target="_blank">
-            <Button>View Project</Button>
-          </Link>
+          <Button asChild>
+            <Link href={url} rel="noopener noreferrer" target="_blank">
+              View Project
+            </Link>
+          </Button>
         </CardContent>
       </CardHeader>
     </Card>

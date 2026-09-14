@@ -79,9 +79,9 @@ const livestreams = [
 export default function Livestreams() {
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-5 py-12">
-      <Link href="/">
-        <Button variant="outline">Back</Button>
-      </Link>
+      <Button asChild variant="outline">
+        <Link href="/">Back</Link>
+      </Button>
       <h1 className="text-center font-bold md:text-2xl">
         OrcDev Project Review Livestreams
       </h1>
@@ -91,15 +91,16 @@ export default function Livestreams() {
 
       <div className="mt-5 grid grid-cols-1 gap-6 lg:grid-cols-2">
         {livestreams.map((livestream) => (
-          <Link
-            className="w-full text-center font-bold text-primary underline md:text-xl"
-            href={livestream.url}
-            key={livestream.date}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <Button className="w-full">{livestream.date}</Button>
-          </Link>
+          <Button asChild className="w-full" key={livestream.date}>
+            <Link
+              className="w-full text-center font-bold md:text-xl"
+              href={livestream.url}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {livestream.date}
+            </Link>
+          </Button>
         ))}
       </div>
     </main>

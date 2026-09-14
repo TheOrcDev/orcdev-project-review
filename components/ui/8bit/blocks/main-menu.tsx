@@ -28,17 +28,20 @@ export default function MainMenu({
             const isExternal = item.href.startsWith("http");
 
             return (
-              <Link
-                className="w-full"
-                href={item.href}
+              <Button
+                asChild
+                className="flex w-full items-center gap-2"
                 key={item.label}
-                rel={isExternal ? "noopener noreferrer" : undefined}
-                target={isExternal ? "_blank" : undefined}
               >
-                <Button className="flex w-full items-center gap-2">
+                <Link
+                  className="w-full"
+                  href={item.href}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
+                  target={isExternal ? "_blank" : undefined}
+                >
                   {item.label}
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             );
           })}
         </div>

@@ -13,9 +13,9 @@ export default function Home() {
         join the spotlight.
       </p>
 
-      <Link href="/">
-        <Button variant="outline">Back</Button>
-      </Link>
+      <Button asChild variant="outline">
+        <Link href="/">Back</Link>
+      </Button>
 
       <Suspense fallback={<Skeleton className="h-40 w-full" />}>
         <SubmitProjectForm />

@@ -20,9 +20,9 @@ export async function AdminContent() {
 
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-6 py-12">
-      <Link href="/">
-        <Button variant="outline">Back</Button>
-      </Link>
+      <Button asChild variant="outline">
+        <Link href="/">Back</Link>
+      </Button>
 
       <h1 className="text-center font-bold text-2xl">Admin — Voting Rounds</h1>
 

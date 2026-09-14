@@ -101,9 +101,9 @@ export async function VoteBatchContent({ batch: batchStr }: { batch: string }) {
 
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-6 py-12">
-      <Link href="/">
-        <Button variant="outline">Back</Button>
-      </Link>
+      <Button asChild variant="outline">
+        <Link href="/">Back</Link>
+      </Button>
 
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="font-bold text-2xl">{round.title}</h1>

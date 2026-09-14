@@ -27,21 +27,20 @@ export function ReviewedBatch({
       <h2 className="font-bold text-lg">Episode #{batch}</h2>
       <div className="flex min-w-0 max-w-full flex-wrap gap-2">
         {filteredProjects.map((project) => (
-          <Link
-            className="min-w-0 max-w-full"
-            href={
-              project.githubRepoUrl.startsWith("http")
-                ? project.githubRepoUrl
-                : `https://${project.githubRepoUrl}`
-            }
-            key={project.id}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <Button className="min-w-0 max-w-full">
+          <Button asChild className="min-w-0 max-w-full" key={project.id}>
+            <Link
+              className="min-w-0 max-w-full"
+              href={
+                project.githubRepoUrl.startsWith("http")
+                  ? project.githubRepoUrl
+                  : `https://${project.githubRepoUrl}`
+              }
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               <span className="block min-w-0 truncate">{project.name}</span>
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         ))}
       </div>
     </div>

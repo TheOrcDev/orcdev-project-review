@@ -9,9 +9,9 @@ export default async function ReviewedProjectsPage() {
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-5 py-12">
       <div className="flex items-center justify-between">
-        <Link href="/">
-          <Button variant="outline">Back</Button>
-        </Link>
+        <Button asChild variant="outline">
+          <Link href="/">Back</Link>
+        </Button>
 
         <Suspense fallback={<Skeleton className="h-10 w-40" />}>
           <SearchReviewedProjects />

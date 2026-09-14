@@ -22,9 +22,9 @@ export function OrcMachineAdminTools() {
   return (
     <>
       <div className="flex items-center justify-between gap-4">
-        <Link href="/">
-          <Button variant="outline">Back</Button>
-        </Link>
+        <Button asChild variant="outline">
+          <Link href="/">Back</Link>
+        </Button>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
