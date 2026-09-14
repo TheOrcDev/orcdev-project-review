@@ -75,7 +75,7 @@ function CommandDialog({
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <Command className="**:data-[slot=command-input-wrapper]:h-12 [&_[cmdk-empty]]:font-normal [&_[cmdk-empty]]:retro [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-normal [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group-heading]]:retro [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-input]]:font-normal [&_[cmdk-input]]:retro [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]]:font-normal [&_[cmdk-item]]:retro [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+        <Command className="**:data-[slot=command-input-wrapper]:h-12 [&_[cmdk-empty]]:font-normal [&_[cmdk-empty]]:retro [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-normal [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group-heading]]:retro [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-input]]:font-normal [&_[cmdk-input]]:retro [&_[cmdk-item]]:items-center [&_[cmdk-item]]:justify-center [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]]:text-center [&_[cmdk-item]]:font-normal [&_[cmdk-item]]:retro [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
           {children}
         </Command>
       </DialogContent>
@@ -208,7 +208,7 @@ function CommandItem({
     <ShadcnCommandItem
       data-slot="command-item"
       className={cn(
-        "rounded-none border-y-3 border-ring/0 border-dashed font-normal hover:border-foreground dark:hover:border-ring",
+        "flex items-center justify-center rounded-none border-y-3 border-ring/0 border-dashed text-center font-normal hover:border-foreground dark:hover:border-ring",
         "retro",
         className
       )}
