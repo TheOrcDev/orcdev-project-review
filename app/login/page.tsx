@@ -53,9 +53,29 @@ function LoginForm() {
   );
 }
 
+function LoginFallback() {
+  return (
+    <main className="retro flex min-h-[60vh] items-center justify-center py-12">
+      <Card className="w-full max-w-sm">
+        <CardHeader className="flex flex-col items-center gap-2">
+          <CardTitle>Sign In</CardTitle>
+          <CardDescription className="text-center text-xs">
+            Loading sign-in…
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-col items-center gap-4">
+          <p className="text-center text-muted-foreground text-xs">
+            Preparing GitHub sign-in
+          </p>
+        </CardContent>
+      </Card>
+    </main>
+  );
+}
+
 export default function LoginPage() {
   return (
-    <Suspense>
+    <Suspense fallback={<LoginFallback />}>
       <LoginForm />
     </Suspense>
   );
