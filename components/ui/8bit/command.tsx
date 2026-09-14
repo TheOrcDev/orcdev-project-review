@@ -26,10 +26,13 @@ import "@/components/ui/8bit/styles/retro.css";
 
 function Command({
   className,
+  showPixelBorder = true,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive>) {
+}: React.ComponentProps<typeof CommandPrimitive> & {
+  showPixelBorder?: boolean;
+}) {
   return (
-    <div className={cn("relative !p-0", className)}>
+    <div className={cn("relative overflow-visible !p-0", className)}>
       <ShadcnCommand
         data-slot="command"
         className={cn(
@@ -40,18 +43,22 @@ function Command({
         {...props}
       />
 
-      <div className="absolute -top-1.5 w-1/2 left-1.5 h-1.5 bg-foreground dark:bg-ring" />
-      <div className="absolute -top-1.5 w-1/2 right-1.5 h-1.5 bg-foreground dark:bg-ring" />
-      <div className="absolute -bottom-1.5 w-1/2 left-1.5 h-1.5 bg-foreground dark:bg-ring" />
-      <div className="absolute -bottom-1.5 w-1/2 right-1.5 h-1.5 bg-foreground dark:bg-ring" />
-      <div className="absolute top-0 left-0 size-1.5 bg-foreground dark:bg-ring" />
-      <div className="absolute top-0 right-0 size-1.5 bg-foreground dark:bg-ring" />
-      <div className="absolute bottom-0 left-0 size-1.5 bg-foreground dark:bg-ring" />
-      <div className="absolute bottom-0 right-0 size-1.5 bg-foreground dark:bg-ring" />
-      <div className="absolute top-1.5 -left-1.5 h-1/2 w-1.5 bg-foreground dark:bg-ring" />
-      <div className="absolute top-1.5 -right-1.5 h-1/2 w-1.5 bg-foreground dark:bg-ring" />
-      <div className="absolute bottom-1.5 -left-1.5 h-1/2 w-1.5 bg-foreground dark:bg-ring" />
-      <div className="absolute bottom-1.5 -right-1.5 h-1/2 w-1.5 bg-foreground dark:bg-ring" />
+      {showPixelBorder ? (
+        <>
+          <div className="absolute -top-1.5 left-1.5 h-1.5 w-1/2 bg-foreground dark:bg-ring" />
+          <div className="absolute -top-1.5 right-1.5 h-1.5 w-1/2 bg-foreground dark:bg-ring" />
+          <div className="absolute -bottom-1.5 left-1.5 h-1.5 w-1/2 bg-foreground dark:bg-ring" />
+          <div className="absolute -bottom-1.5 right-1.5 h-1.5 w-1/2 bg-foreground dark:bg-ring" />
+          <div className="absolute top-0 left-0 size-1.5 bg-foreground dark:bg-ring" />
+          <div className="absolute top-0 right-0 size-1.5 bg-foreground dark:bg-ring" />
+          <div className="absolute bottom-0 left-0 size-1.5 bg-foreground dark:bg-ring" />
+          <div className="absolute bottom-0 right-0 size-1.5 bg-foreground dark:bg-ring" />
+          <div className="absolute top-1.5 -left-1.5 h-1/2 w-1.5 bg-foreground dark:bg-ring" />
+          <div className="absolute top-1.5 -right-1.5 h-1/2 w-1.5 bg-foreground dark:bg-ring" />
+          <div className="absolute bottom-1.5 -left-1.5 h-1/2 w-1.5 bg-foreground dark:bg-ring" />
+          <div className="absolute bottom-1.5 -right-1.5 h-1/2 w-1.5 bg-foreground dark:bg-ring" />
+        </>
+      ) : null}
     </div>
   );
 }
@@ -68,14 +75,17 @@ function CommandDialog({
   return (
     <Dialog {...props}>
       <DialogContent
-        className="overflow-visible p-0"
+        className="w-[min(42rem,calc(100%-2rem))] overflow-visible p-0 sm:max-w-2xl"
         showCloseButton={false}
       >
         <DialogHeader className="sr-only">
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <Command className="**:data-[slot=command-input-wrapper]:h-12 [&_[cmdk-empty]]:font-normal [&_[cmdk-empty]]:retro [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-normal [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group-heading]]:retro [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-input]]:font-normal [&_[cmdk-input]]:retro [&_[cmdk-item]]:relative [&_[cmdk-item]]:items-center [&_[cmdk-item]]:justify-center [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]]:text-center [&_[cmdk-item]]:font-normal [&_[cmdk-item]]:retro [&_[cmdk-item]>svg]:absolute [&_[cmdk-item]>svg]:top-1/2 [&_[cmdk-item]>svg]:left-2 [&_[cmdk-item]>svg]:-translate-y-1/2 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+        <Command
+          className="**:data-[slot=command-input-wrapper]:h-14 [&_[cmdk-empty]]:font-normal [&_[cmdk-empty]]:retro [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-normal [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group-heading]]:retro [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input]]:h-14 [&_[cmdk-input]]:font-normal [&_[cmdk-input]]:retro [&_[cmdk-item]]:items-center [&_[cmdk-item]]:justify-center [&_[cmdk-item]]:px-3 [&_[cmdk-item]]:py-4 [&_[cmdk-item]]:text-center [&_[cmdk-item]]:font-normal [&_[cmdk-item]]:retro"
+          showPixelBorder={false}
+        >
           {children}
         </Command>
       </DialogContent>
@@ -90,42 +100,12 @@ function CommandInput({
   return (
     <div
       data-slot="command-input-wrapper"
-      className="retro flex h-10 items-center gap-2 border-b px-3"
+      className="retro flex h-14 items-center border-b px-4"
     >
-      <svg
-        width="30"
-        height="30"
-        viewBox="0 0 256 256"
-        fill="currentColor"
-        xmlns="http://www.w3.org/2000/svg"
-        stroke="currentColor"
-        strokeWidth="0.25"
-        aria-label="search"
-      >
-        <rect x="88" y="56" width="14" height="14" rx="1"></rect>
-        <rect x="72" y="72" width="14" height="14" rx="1"></rect>
-        <rect x="56" y="88" width="14" height="14" rx="1"></rect>
-        <rect x="56" y="104" width="14" height="14" rx="1"></rect>
-        <rect x="56" y="120" width="14" height="14" rx="1"></rect>
-        <rect x="72" y="136" width="14" height="14" rx="1"></rect>
-        <rect x="88" y="152" width="14" height="14" rx="1"></rect>
-        <rect x="104" y="152" width="14" height="14" rx="1"></rect>
-        <rect x="120" y="152" width="14" height="14" rx="1"></rect>
-        <rect x="136" y="136" width="14" height="14" rx="1"></rect>
-        <rect x="152" y="120" width="14" height="14" rx="1"></rect>
-        <rect x="152" y="104" width="14" height="14" rx="1"></rect>
-        <rect x="152" y="88" width="14" height="14" rx="1"></rect>
-        <rect x="136" y="72" width="14" height="14" rx="1"></rect>
-        <rect x="120" y="56" width="14" height="14" rx="1"></rect>
-        <rect x="104" y="56" width="14" height="14" rx="1"></rect>
-        <rect x="152" y="152" width="14" height="14" rx="1"></rect>
-        <rect x="168" y="168" width="14" height="14" rx="1"></rect>
-        <rect x="184" y="184" width="14" height="14" rx="1"></rect>
-      </svg>
       <CommandPrimitive.Input
         data-slot="command-input"
         className={cn(
-          "placeholder:text-muted-foreground flex h-10 w-full rounded-none bg-transparent py-3 font-normal text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
+          "placeholder:text-muted-foreground flex h-14 w-full rounded-none bg-transparent py-3 text-center font-normal text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
           "retro",
           className
         )}
@@ -143,7 +123,7 @@ function CommandList({
     <ShadcnCommandList
       data-slot="command-list"
       className={cn(
-        "max-h-[320px] scroll-py-1 overflow-x-hidden overflow-y-auto",
+        "max-h-[min(28rem,70vh)] scroll-py-1 overflow-x-hidden overflow-y-auto",
         "retro",
         className
       )}
@@ -208,7 +188,7 @@ function CommandItem({
     <ShadcnCommandItem
       data-slot="command-item"
       className={cn(
-        "relative flex w-full items-center justify-center rounded-none border-y-3 border-ring/0 border-dashed text-center font-normal hover:border-foreground dark:hover:border-ring [&>svg]:absolute [&>svg]:top-1/2 [&>svg]:left-2 [&>svg]:-translate-y-1/2",
+        "relative flex w-full items-center justify-center rounded-none border-y-3 border-ring/0 border-dashed text-center font-normal hover:border-foreground dark:hover:border-ring",
         "retro",
         className
       )}

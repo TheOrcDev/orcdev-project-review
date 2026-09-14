@@ -66,22 +66,20 @@ function DialogContent({
   return (
     <ShadcnDialogContent
       className={cn(
-        "rounded-none border-none bg-card shadow-none",
+        "overflow-visible rounded-none border-none bg-transparent p-0 shadow-none",
         font !== "normal" && "retro",
         className
       )}
       {...props}
     >
-      {children}
+      <div className="relative border-y-6 border-foreground bg-card dark:border-ring">
+        {children}
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -mx-1.5 border-x-6 border-foreground dark:border-ring"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -my-1.5 border-y-6 border-foreground dark:border-ring"
-      />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -mx-1.5 border-x-6 border-foreground dark:border-ring"
+        />
+      </div>
     </ShadcnDialogContent>
   );
 }
