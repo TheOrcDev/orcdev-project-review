@@ -73,21 +73,24 @@ function SelectTrigger({ children, ...props }: BitSelectTriggerProps) {
   return (
     <div
       className={cn(
-        "relative border-foreground border-y-6 dark:border-ring",
+        "relative max-w-full min-w-0 border-foreground border-y-6 px-1.5 dark:border-ring",
         className,
         font !== "normal" && "retro"
       )}
     >
       <ShadcnSelectTrigger
         {...props}
-        className={cn("w-full rounded-none border-0 ring-0", className)}
+        className={cn(
+          "w-full min-w-0 max-w-full rounded-none border-0 ring-0",
+          className
+        )}
       >
         {children}
       </ShadcnSelectTrigger>
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -mx-1.5 border-foreground border-x-6 dark:border-ring"
+        className="pointer-events-none absolute inset-0 border-foreground border-x-6 dark:border-ring"
       />
     </div>
   );

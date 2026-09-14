@@ -53,7 +53,7 @@ export function SelectThemeDropdown({
       onValueChange={(val) => setActiveTheme(val as Theme)}
       value={activeTheme}
     >
-      <SelectTrigger className="w-full">
+      <SelectTrigger className="w-full min-w-0 max-w-full">
         <SelectValue font="retro" placeholder="Select theme" />
       </SelectTrigger>
       <SelectContent>
