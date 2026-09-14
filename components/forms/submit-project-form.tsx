@@ -151,12 +151,15 @@ export function SubmitProjectForm() {
                   field.state.meta.isTouched === true &&
                   field.state.meta.isValid === false;
 
+                const errorId = "form-tanstack-input-project-name-error";
+
                 return (
                   <Field data-invalid={isInvalid}>
                     <FieldLabel htmlFor="form-tanstack-input-project-name">
                       Project Name
                     </FieldLabel>
                     <Input
+                      aria-describedby={isInvalid ? errorId : undefined}
                       aria-invalid={isInvalid}
                       autoComplete="project-name"
                       id="form-tanstack-input-project-name"
@@ -170,6 +173,7 @@ export function SubmitProjectForm() {
                       <FieldError
                         className="text-xs"
                         errors={field.state.meta.errors}
+                        id={errorId}
                       />
                     ) : null}
                   </Field>
@@ -182,12 +186,21 @@ export function SubmitProjectForm() {
                 const isInvalid =
                   field.state.meta.isTouched === true &&
                   field.state.meta.isValid === false;
+                const descriptionId =
+                  "form-tanstack-input-github-repo-url-description";
+                const errorId = "form-tanstack-input-github-repo-url-error";
+
                 return (
                   <Field data-invalid={isInvalid}>
                     <FieldLabel htmlFor="form-tanstack-input-github-repo-url">
                       GitHub Repository URL
                     </FieldLabel>
                     <Input
+                      aria-describedby={
+                        isInvalid
+                          ? `${descriptionId} ${errorId}`
+                          : descriptionId
+                      }
                       aria-invalid={isInvalid}
                       autoComplete="url"
                       id="form-tanstack-input-github-repo-url"
@@ -198,13 +211,14 @@ export function SubmitProjectForm() {
                       type="text"
                       value={field.state.value}
                     />
-                    <FieldDescription className="text-xs">
+                    <FieldDescription className="text-xs" id={descriptionId}>
                       Must be a public repository hosted on GitHub.
                     </FieldDescription>
                     {isInvalid ? (
                       <FieldError
                         className="text-xs"
                         errors={field.state.meta.errors}
+                        id={errorId}
                       />
                     ) : null}
                   </Field>
@@ -217,12 +231,21 @@ export function SubmitProjectForm() {
                 const isInvalid =
                   field.state.meta.isTouched === true &&
                   field.state.meta.isValid === false;
+                const descriptionId =
+                  "form-tanstack-input-project-description-description";
+                const errorId = "form-tanstack-input-project-description-error";
+
                 return (
                   <Field data-invalid={isInvalid}>
                     <FieldLabel htmlFor="form-tanstack-input-project-description">
                       Project Description
                     </FieldLabel>
                     <Textarea
+                      aria-describedby={
+                        isInvalid
+                          ? `${descriptionId} ${errorId}`
+                          : descriptionId
+                      }
                       aria-invalid={isInvalid}
                       id="form-tanstack-input-project-description"
                       name={field.name}
@@ -231,13 +254,14 @@ export function SubmitProjectForm() {
                       placeholder="A brief description of your project..."
                       value={field.state.value}
                     />
-                    <FieldDescription className="text-xs">
+                    <FieldDescription className="text-xs" id={descriptionId}>
                       Be descriptive — this helps during the livestream review.
                     </FieldDescription>
                     {isInvalid ? (
                       <FieldError
                         className="text-xs"
                         errors={field.state.meta.errors}
+                        id={errorId}
                       />
                     ) : null}
                   </Field>
