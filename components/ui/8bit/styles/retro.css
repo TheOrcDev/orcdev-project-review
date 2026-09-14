@@ -6,8 +6,29 @@
     system-ui,
     -apple-system,
     sans-serif;
+  font-weight: 400;
   line-height: 1.5;
   letter-spacing: 0.5px;
+}
+
+/* Form controls and cmdk slots do not reliably inherit family/weight. */
+.retro input,
+.retro textarea,
+.retro select,
+.retro [cmdk-input],
+.retro [cmdk-group-heading],
+.retro [cmdk-empty],
+.retro [cmdk-item] {
+  font-family: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+}
+
+.retro input::placeholder,
+.retro [cmdk-input]::placeholder {
+  font-family: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
 }
 
 .pixelated {
