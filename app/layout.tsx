@@ -16,41 +16,41 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
   subsets: ["latin"],
+  variable: "--font-geist-sans",
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
   subsets: ["latin"],
+  variable: "--font-geist-mono",
 });
 
 export const metadata: Metadata = {
-  title: "OrcDev Project Review",
+  authors: [{ name: "OrcDev" }],
   description:
     "Submit your project for live code reviews by OrcDev. Get actionable feedback on code quality, architecture, and UX.",
-  authors: [{ name: "OrcDev" }],
   openGraph: {
-    title: "OrcDev Project Review",
     description:
       "Submit your project for live code reviews by OrcDev. Get actionable feedback on code quality, architecture, and UX.",
-    siteName: "OrcDev",
     images: [
       {
+        alt: "OrcDev",
+        height: 512,
         url: "/orcdev.png",
         width: 512,
-        height: 512,
-        alt: "OrcDev",
       },
     ],
+    siteName: "OrcDev",
+    title: "OrcDev Project Review",
     type: "website",
   },
+  title: "OrcDev Project Review",
   twitter: {
     card: "summary_large_image",
-    title: "OrcDev Project Review",
     description:
       "Submit your project for live code reviews by OrcDev. Get actionable feedback on code quality, architecture, and UX.",
     images: ["/orcdev.png"],
+    title: "OrcDev Project Review",
   },
 };
 

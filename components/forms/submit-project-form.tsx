@@ -49,16 +49,6 @@ function normalizeXHandle(raw: string): string {
 }
 
 const formSchema = z.object({
-  projectName: z
-    .string()
-    .min(
-      MIN_PROJECT_NAME_LENGTH,
-      `Project name must be at least ${MIN_PROJECT_NAME_LENGTH} characters.`
-    )
-    .max(
-      MAX_PROJECT_NAME_LENGTH,
-      `Project name must be less than ${MAX_PROJECT_NAME_LENGTH} characters.`
-    ),
   gitHubRepoUrl: z
     .string()
     .min(1, "GitHub repository URL is required.")
@@ -80,6 +70,16 @@ const formSchema = z.object({
       }
     ),
   projectDescription: z.string(),
+  projectName: z
+    .string()
+    .min(
+      MIN_PROJECT_NAME_LENGTH,
+      `Project name must be at least ${MIN_PROJECT_NAME_LENGTH} characters.`
+    )
+    .max(
+      MAX_PROJECT_NAME_LENGTH,
+      `Project name must be less than ${MAX_PROJECT_NAME_LENGTH} characters.`
+    ),
   xHandle: z.string(),
 });
 
@@ -89,21 +89,18 @@ export function SubmitProjectForm() {
 
   const form = useForm({
     defaultValues: {
-      projectName: "",
       gitHubRepoUrl: "",
       projectDescription: "",
+      projectName: "",
       xHandle: "",
-    },
-    validators: {
-      onChange: formSchema,
     },
     onSubmit: async ({ value }) => {
       try {
         const xHandle = normalizeXHandle(value.xHandle ?? "");
         const newProject = await createProject({
-          name: value.projectName,
-          githubRepoUrl: value.gitHubRepoUrl,
           description: value.projectDescription,
+          githubRepoUrl: value.gitHubRepoUrl,
+          name: value.projectName,
           ...(xHandle ? { xHandle } : {}),
         });
 
@@ -116,9 +113,12 @@ export function SubmitProjectForm() {
         setIsSubmited(true);
         form.reset();
         router.refresh();
-      } catch {
-        throw new Error("Failed to create project");
+      } catch (error) {
+        throw new Error("Failed to create project", { cause: error });
       }
+    },
+    validators: {
+      onChange: formSchema,
     },
   });
 
@@ -246,27 +246,25 @@ export function SubmitProjectForm() {
               name="projectDescription"
             />
             <form.Field
-              children={(field) => {
-                return (
-                  <Field>
-                    <FieldLabel htmlFor="form-tanstack-input-x-handle">
-                      X Handle (optional)
-                    </FieldLabel>
-                    <Input
-                      id="form-tanstack-input-x-handle"
-                      name={field.name}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      placeholder="@username"
-                      value={field.state.value}
-                    />
-                    <FieldDescription className="text-xs">
-                      Your X/Twitter handle so we can tag you if your project is
-                      picked.
-                    </FieldDescription>
-                  </Field>
-                );
-              }}
+              children={(field) => (
+                <Field>
+                  <FieldLabel htmlFor="form-tanstack-input-x-handle">
+                    X Handle (optional)
+                  </FieldLabel>
+                  <Input
+                    id="form-tanstack-input-x-handle"
+                    name={field.name}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    placeholder="@username"
+                    value={field.state.value}
+                  />
+                  <FieldDescription className="text-xs">
+                    Your X/Twitter handle so we can tag you if your project is
+                    picked.
+                  </FieldDescription>
+                </Field>
+              )}
               name="xHandle"
             />
           </FieldGroup>

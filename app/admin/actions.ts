@@ -22,10 +22,10 @@ export async function createVotingRound(formData: FormData) {
 
   await db.insert(votingRounds).values({
     batch,
-    title,
+    closesAt,
     livestreamUrl,
     opensAt: now,
-    closesAt,
+    title,
   });
 
   revalidatePath("/admin");

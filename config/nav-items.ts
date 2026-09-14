@@ -1,18 +1,18 @@
 export const menuItems = [
   {
-    label: "SUBMIT PROJECT",
     href: "/submit-project",
+    label: "SUBMIT PROJECT",
   },
   {
-    label: "LIVESTREAMS",
     href: "/livestreams",
+    label: "LIVESTREAMS",
   },
   {
-    label: "THE ORC MACHINE",
     href: "/orc-machine",
+    label: "THE ORC MACHINE",
   },
   {
-    label: "REVIEWED PROJECTS",
     href: "/reviewed-projects",
+    label: "REVIEWED PROJECTS",
   },
 ];

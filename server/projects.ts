@@ -36,8 +36,8 @@ export async function getProjects() {
   try {
     const allProjects = await db.query.projects.findMany();
     return allProjects;
-  } catch {
-    throw new Error("Failed to get projects");
+  } catch (error) {
+    throw new Error("Failed to get projects", { cause: error });
   }
 }
 
@@ -62,7 +62,8 @@ function normalizeXHandle(raw?: string | null): string | null {
   // Strip leading @
   handle = handle.replace(LEADING_AT_RE, "");
   // Remove trailing slashes or query params
-  handle = handle.split(URL_SPLIT_RE)[0];
+  const [normalizedHandle] = handle.split(URL_SPLIT_RE);
+  handle = normalizedHandle;
   return handle || null;
 }
 
@@ -120,8 +121,8 @@ export async function createProject(
     revalidatePath("/", "layout");
     refresh();
     return newProject;
-  } catch {
-    throw new Error("Failed to create project");
+  } catch (error) {
+    throw new Error("Failed to create project", { cause: error });
   }
 }
 
@@ -134,8 +135,8 @@ export const getProjectCount = unstable_cache(
         .where(isNull(projects.resetDate));
 
       return totalProjects?.count ?? 0;
-    } catch {
-      throw new Error("Failed to get project count");
+    } catch (error) {
+      throw new Error("Failed to get project count", { cause: error });
     }
   },
   ["project-count"],
@@ -150,9 +151,9 @@ interface RandomProject {
 export async function getRandomProject(): Promise<RandomProject> {
   try {
     const random10Projects = await db.query.projects.findMany({
-      where: and(isNull(projects.resetDate), isNull(projects.deletedAt)),
-      orderBy: sql`RANDOM()`,
       limit: 10,
+      orderBy: sql`RANDOM()`,
+      where: and(isNull(projects.resetDate), isNull(projects.deletedAt)),
     });
 
     const pickedProject =
@@ -166,13 +167,13 @@ export async function getRandomProject(): Promise<RandomProject> {
       .where(eq(projects.id, pickedProject.id));
 
     return {
+      pickedProject,
       projects: random10Projects.filter(
         (project) => project.id !== pickedProject.id
       ),
-      pickedProject,
     };
-  } catch {
-    throw new Error("Failed to get random project");
+  } catch (error) {
+    throw new Error("Failed to get random project", { cause: error });
   }
 }
 
@@ -183,8 +184,8 @@ export async function getReviewedProjects() {
     });
 
     return allReviewedProjects;
-  } catch {
-    throw new Error("Failed to get reviewed projects");
+  } catch (error) {
+    throw new Error("Failed to get reviewed projects", { cause: error });
   }
 }
 
@@ -244,9 +245,10 @@ export async function deleteAllProjectsAndAddToReviewedProjects() {
     revalidatePath("/", "layout");
     revalidatePath("/orc-machine");
     revalidatePath("/reviewed-projects");
-  } catch {
+  } catch (error) {
     throw new Error(
-      "Failed to delete all projects and add to reviewed projects"
+      "Failed to delete all projects and add to reviewed projects",
+      { cause: error }
     );
   }
 }
@@ -264,7 +266,7 @@ export async function getRecord() {
     // Auto-seed record if it doesn't exist
     if (!record) {
       await db.insert(records).values({ highestProjectCount: 123 });
-      return { highest: 123, current };
+      return { current, highest: 123 };
     }
 
     if (current > record.highestProjectCount) {
@@ -272,12 +274,12 @@ export async function getRecord() {
         .update(records)
         .set({ highestProjectCount: current, updatedAt: sql`NOW()` })
         .where(eq(records.id, record.id));
-      return { highest: current, current };
+      return { current, highest: current };
     }
 
-    return { highest: record.highestProjectCount, current };
+    return { current, highest: record.highestProjectCount };
   } catch {
-    return { highest: 0, current: 0 };
+    return { current: 0, highest: 0 };
   }
 }
 
@@ -289,7 +291,7 @@ export async function getBatchCount() {
       .where(isNotNull(reviewedProjects.batch));
 
     return batchCount?.count ?? 0;
-  } catch {
-    throw new Error("Failed to get batch count");
+  } catch (error) {
+    throw new Error("Failed to get batch count", { cause: error });
   }
 }

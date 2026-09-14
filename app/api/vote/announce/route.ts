@@ -80,5 +80,5 @@ export async function POST(req: Request) {
     .set({ winnerId })
     .where(eq(votingRounds.id, roundId));
 
-  return NextResponse.json({ winnerId, votes: maxVotes });
+  return NextResponse.json({ votes: maxVotes, winnerId });
 }

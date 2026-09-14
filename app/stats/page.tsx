@@ -12,11 +12,11 @@ import {
 } from "@/components/ui/8bit/card";
 
 export const metadata: Metadata = {
-  title: "Project Stats",
   robots: {
-    index: false,
     follow: false,
+    index: false,
   },
+  title: "Project Stats",
 };
 
 export default function StatsPage() {

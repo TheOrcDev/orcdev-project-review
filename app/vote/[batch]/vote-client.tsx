@@ -62,9 +62,9 @@ export function VoteClient({
     setAnnouncing(true);
     try {
       const res = await fetch("/api/vote/announce", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ roundId }),
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
       });
       const data = await res.json();
       if (!res.ok) {
@@ -86,9 +86,9 @@ export function VoteClient({
 
     try {
       const res = await fetch("/api/vote", {
-        method: "POST",
+        body: JSON.stringify({ projectId, roundId }),
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ roundId, projectId }),
+        method: "POST",
       });
 
       const data = await res.json();

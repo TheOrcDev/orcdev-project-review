@@ -91,6 +91,7 @@ export function ActiveThemeProvider({
 
   // On initial mount, sync with cookie - cookie takes priority
   useEffect(() => {
+    // biome-ignore lint/suspicious/noUnnecessaryConditions: ref.current is mutated after the first pass
     if (hasInitialized.current) {
       return;
     }
@@ -117,6 +118,7 @@ export function ActiveThemeProvider({
     const targets = [document.body, document.documentElement];
 
     // Only save cookie after initial mount (to avoid overwriting on first render)
+    // biome-ignore lint/suspicious/noUnnecessaryConditions: ref.current is mutated after the first pass
     if (!isInitialMount.current) {
       setThemeCookie(activeTheme);
     }

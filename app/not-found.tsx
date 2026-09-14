@@ -5,9 +5,9 @@ import Link from "next/link";
 import { Button } from "@/components/ui/8bit/button";
 
 export const metadata: Metadata = {
-  title: "404 | OrcDev Project Review",
   description:
     "The page you are looking for does not exist. Please check the URL and try again.",
+  title: "404 | OrcDev Project Review",
 };
 
 export default function NotFound() {
