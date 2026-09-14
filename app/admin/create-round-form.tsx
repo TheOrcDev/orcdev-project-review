@@ -1,8 +1,27 @@
 "use client";
 
+import { Loader2 } from "lucide-react";
+import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/8bit/button";
 import { Input } from "@/components/ui/8bit/input";
 import { createVotingRound } from "./actions";
+
+function CreateRoundSubmitButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button disabled={pending} type="submit">
+      {pending ? (
+        <>
+          <Loader2 className="size-4 animate-spin" />
+          Creating...
+        </>
+      ) : (
+        "Create Round"
+      )}
+    </Button>
+  );
+}
 
 export function CreateRoundForm() {
   return (
@@ -60,7 +79,7 @@ export function CreateRoundForm() {
         />
       </div>
 
-      <Button type="submit">Create Round</Button>
+      <CreateRoundSubmitButton />
     </form>
   );
 }
