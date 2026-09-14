@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { CommandMenu } from "./command-menu";
 import { RecordBadge } from "./record-badge";
 import { ThemeSelector } from "./theme-selector";
 import { RetroModeSwitcher } from "./ui/retro-mode-switcher";
@@ -14,6 +15,8 @@ export function Header() {
         </div>
 
         <div className="ml-auto flex min-w-0 items-center gap-1.5 md:gap-5">
+          <CommandMenu />
+
           <RetroModeSwitcher />
 
           <div className="min-w-0 max-w-[8.5rem] sm:max-w-[11rem] md:max-w-[14rem]">

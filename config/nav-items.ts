@@ -16,3 +16,19 @@ export const menuItems = [
     label: "REVIEWED PROJECTS",
   },
 ];
+
+export const commandMenuGroups = [
+  {
+    heading: "Pages",
+    items: [{ href: "/", label: "HOME" }, ...menuItems],
+  },
+  {
+    heading: "More",
+    items: [
+      { href: "/stats", label: "STATS" },
+      { href: "/login", label: "LOGIN" },
+      { href: "/admin", label: "ADMIN" },
+      { href: "/vote", label: "VOTE" },
+    ],
+  },
+];
