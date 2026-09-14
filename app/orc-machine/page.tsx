@@ -51,14 +51,35 @@ async function SleepingNotice() {
   );
 }
 
+function AdminToolsFallback() {
+  return (
+    <div className="flex items-center justify-between gap-4">
+      <Button disabled type="button" variant="outline">
+        Loading admin tools…
+      </Button>
+    </div>
+  );
+}
+
+function SleepingNoticeFallback() {
+  return (
+    <div className="flex flex-col gap-3 border border-dashed p-4">
+      <h1 className="text-center font-bold">The Orc Machine is waking up…</h1>
+      <p className="text-xs">
+        Checking whether the random project picker is still sleeping.
+      </p>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-10 py-12">
-      <Suspense fallback={null}>
+      <Suspense fallback={<AdminToolsFallback />}>
         <AdminTools />
       </Suspense>
 
-      <Suspense fallback={null}>
+      <Suspense fallback={<SleepingNoticeFallback />}>
         <SleepingNotice />
       </Suspense>
     </main>
