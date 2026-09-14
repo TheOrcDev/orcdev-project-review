@@ -1,5 +1,6 @@
 "use client";
 
+import { Loader2 } from "lucide-react";
 import { useState, useTransition } from "react";
 import type { SelectProject } from "@/db/schema";
 import {
@@ -10,6 +11,7 @@ import { ProjectCard } from "./project-card";
 import { Button } from "./ui/8bit/button";
 
 const DELAY = 500;
+const PREVIEW_PROJECT_COUNT = 10;
 
 interface PickProjectProps {
   showReviewArchiveAction?: boolean;
@@ -24,27 +26,40 @@ export function PickProject({
   );
   const [isConfirmingArchive, setIsConfirmingArchive] = useState(false);
   const [isArchiving, startArchiveTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
 
   async function pickProject() {
-    const data = await getRandomProject();
+    if (isPending) {
+      return;
+    }
 
-    const projectsToShow = data.projects.slice(0, 10);
-    projectsToShow.forEach((p, index) => {
+    setIsPending(true);
+    setPickedProject(null);
+
+    try {
+      const data = await getRandomProject();
+      const projectsToShow = data.projects.slice(0, PREVIEW_PROJECT_COUNT);
+
+      for (const [index, previewProject] of projectsToShow.entries()) {
+        setTimeout(
+          () => {
+            setProject(previewProject);
+          },
+          DELAY * (index + 1)
+        );
+      }
+
       setTimeout(
         () => {
-          setProject(p);
+          setPickedProject(data.pickedProject);
+          setProject(null);
+          setIsPending(false);
         },
-        DELAY * (index + 1)
+        DELAY * (projectsToShow.length + 1)
       );
-    });
-
-    setTimeout(
-      () => {
-        setPickedProject(data.pickedProject);
-        setProject(null);
-      },
-      DELAY * (projectsToShow.length + 1)
-    );
+    } catch {
+      setIsPending(false);
+    }
   }
 
   function archiveReviewedProjects() {
@@ -71,17 +86,40 @@ export function PickProject({
     <div className="flex flex-col items-center justify-center gap-6">
       <h1 className="text-center font-bold text-2xl">The Orc Machine</h1>
 
+      <p aria-live="polite" className="sr-only" role="status">
+        {isPending ? "Picking a project" : ""}
+      </p>
+
       <div className="flex gap-6">
-        <Button onClick={pickProject}>Pick a Project</Button>
+        <Button
+          aria-busy={isPending}
+          disabled={isPending}
+          onClick={pickProject}
+          type="button"
+        >
+          {isPending ? (
+            <>
+              <Loader2 className="size-4 animate-spin" />
+              Picking...
+            </>
+          ) : (
+            "Pick a Project"
+          )}
+        </Button>
         {showReviewArchiveAction ? (
           <div className="flex gap-3">
-            <Button disabled={isArchiving} onClick={archiveReviewedProjects}>
+            <Button
+              disabled={isArchiving || isPending}
+              onClick={archiveReviewedProjects}
+              type="button"
+            >
               {archiveButtonLabel}
             </Button>
             {isConfirmingArchive ? (
               <Button
-                disabled={isArchiving}
+                disabled={isArchiving || isPending}
                 onClick={() => setIsConfirmingArchive(false)}
+                type="button"
                 variant="outline"
               >
                 Cancel
