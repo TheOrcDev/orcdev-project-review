@@ -23,11 +23,12 @@ export function ReviewedBatch({
   }
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex min-w-0 flex-col gap-2">
       <h2 className="font-bold text-lg">Episode #{batch}</h2>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex min-w-0 max-w-full flex-wrap gap-2">
         {filteredProjects.map((project) => (
           <Link
+            className="min-w-0 max-w-full"
             href={
               project.githubRepoUrl.startsWith("http")
                 ? project.githubRepoUrl
@@ -37,7 +38,9 @@ export function ReviewedBatch({
             rel="noopener noreferrer"
             target="_blank"
           >
-            <Button>{project.name}</Button>
+            <Button className="min-w-0 max-w-full">
+              <span className="block min-w-0 truncate">{project.name}</span>
+            </Button>
           </Link>
         ))}
       </div>
