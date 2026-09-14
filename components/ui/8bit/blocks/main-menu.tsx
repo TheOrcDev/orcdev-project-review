@@ -30,11 +30,11 @@ export default function MainMenu({
             return (
               <Button
                 asChild
-                className="flex w-full items-center gap-2"
+                className="flex w-full items-center justify-center text-center"
                 key={item.label}
               >
                 <Link
-                  className="w-full"
+                  className="flex w-full items-center justify-center text-center"
                   href={item.href}
                   rel={isExternal ? "noopener noreferrer" : undefined}
                   target={isExternal ? "_blank" : undefined}

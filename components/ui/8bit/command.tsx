@@ -20,7 +20,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from "@/components/ui/8bit/dialog";
 
 import "@/components/ui/8bit/styles/retro.css";
 
@@ -33,7 +33,7 @@ function Command({
       <ShadcnCommand
         data-slot="command"
         className={cn(
-          "bg-popover text-popover-foreground flex h-full !w-full flex-col overflow-hidden rounded-md",
+          "flex h-full !w-full flex-col overflow-hidden rounded-none bg-popover text-popover-foreground",
           "retro",
           className
         )}
@@ -67,12 +67,15 @@ function CommandDialog({
 }) {
   return (
     <Dialog {...props}>
-      <DialogContent className="overflow-hidden p-0" showCloseButton={false}>
+      <DialogContent
+        className="overflow-visible p-0"
+        showCloseButton={false}
+      >
         <DialogHeader className="sr-only">
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <Command className="[&_[cmdk-group-heading]]:text-muted-foreground **:data-[slot=command-input-wrapper]:h-12 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+        <Command className="**:data-[slot=command-input-wrapper]:h-12 [&_[cmdk-empty]]:font-normal [&_[cmdk-empty]]:retro [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-normal [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group-heading]]:retro [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-input]]:font-normal [&_[cmdk-input]]:retro [&_[cmdk-item]]:relative [&_[cmdk-item]]:items-center [&_[cmdk-item]]:justify-center [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]]:text-center [&_[cmdk-item]]:font-normal [&_[cmdk-item]]:retro [&_[cmdk-item]>svg]:absolute [&_[cmdk-item]>svg]:top-1/2 [&_[cmdk-item]>svg]:left-2 [&_[cmdk-item]>svg]:-translate-y-1/2 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
           {children}
         </Command>
       </DialogContent>
@@ -87,7 +90,7 @@ function CommandInput({
   return (
     <div
       data-slot="command-input-wrapper"
-      className="flex h-10 items-center gap-2 border-b px-3"
+      className="retro flex h-10 items-center gap-2 border-b px-3"
     >
       <svg
         width="30"
@@ -122,7 +125,8 @@ function CommandInput({
       <CommandPrimitive.Input
         data-slot="command-input"
         className={cn(
-          "placeholder:text-muted-foreground flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
+          "placeholder:text-muted-foreground flex h-10 w-full rounded-none bg-transparent py-3 font-normal text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
+          "retro",
           className
         )}
         {...props}
@@ -154,7 +158,7 @@ function CommandEmpty({
   return (
     <ShadcnCommandEmpty
       data-slot="command-empty"
-      className="py-6 text-center text-sm"
+      className="retro py-6 text-center font-normal text-sm"
       {...props}
     />
   );
@@ -168,7 +172,7 @@ function CommandGroup({
     <ShadcnCommandGroup
       data-slot="command-group"
       className={cn(
-        "text-foreground [&_[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium",
+        "overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:font-normal [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:retro",
         "retro",
         className
       )}
@@ -204,7 +208,8 @@ function CommandItem({
     <ShadcnCommandItem
       data-slot="command-item"
       className={cn(
-        "rounded-none border-dashed border-y-3 border-ring/0 hover:border-foreground dark:hover:border-ring",
+        "relative flex w-full items-center justify-center rounded-none border-y-3 border-ring/0 border-dashed text-center font-normal hover:border-foreground dark:hover:border-ring [&>svg]:absolute [&>svg]:top-1/2 [&>svg]:left-2 [&>svg]:-translate-y-1/2",
+        "retro",
         className
       )}
       {...props}
