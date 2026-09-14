@@ -145,7 +145,7 @@ export function VoteClient({
 
           return (
             <div
-              className={`border p-4 transition-all ${projectBorderClass(isWinner, isVoted)}`}
+              className={`border p-4 transition-all motion-reduce:transition-none ${projectBorderClass(isWinner, isVoted)}`}
               key={project.id}
             >
               <div className="flex items-start justify-between gap-4">
@@ -163,6 +163,7 @@ export function VoteClient({
                     {project.description}
                   </p>
                   <a
+                    aria-label={`View ${project.name} on GitHub`}
                     className="mt-2 inline-flex items-center gap-1 text-primary text-xs underline"
                     href={normalizeGithubUrl(project.githubRepoUrl)}
                     rel="noopener noreferrer"
