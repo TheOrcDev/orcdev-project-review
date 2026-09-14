@@ -18,8 +18,8 @@ function LoginForm() {
 
   async function handleSignIn() {
     await signIn.social({
-      provider: "github",
       callbackURL,
+      provider: "github",
     });
   }
 

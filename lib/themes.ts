@@ -1,33 +1,32 @@
 export const Theme = {
-  Default: "default",
-  Sega: "sega",
-  Gameboy: "gameboy",
-  Atari: "atari",
-  Nintendo: "nintendo",
+  AncientRunes: "ancient-runes",
   Arcade: "arcade",
-  NeoGeo: "neo-geo",
-  SoftPop: "soft-pop",
-  Pacman: "pacman",
-  VHS: "vhs",
+  Atari: "atari",
   Cassette: "cassette",
-  RustyByte: "rusty-byte",
-  Zelda: "zelda",
+  Default: "default",
+  DragonHoard: "dragon-hoard",
   DungeonTorch: "dungeon-torch",
-  SpaceStation: "space-station",
-  PixelForest: "pixel-forest",
+  DwarvenVault: "dwarven-vault",
+  Gameboy: "gameboy",
+  GlitchMode: "glitch-mode",
   IceCavern: "ice-cavern",
   LavaCore: "lava-core",
-  GlitchMode: "glitch-mode",
-  DwarvenVault: "dwarven-vault",
-  DragonHoard: "dragon-hoard",
-  AncientRunes: "ancient-runes",
+  NeoGeo: "neo-geo",
+  Nintendo: "nintendo",
+  Pacman: "pacman",
+  PixelForest: "pixel-forest",
+  RustyByte: "rusty-byte",
+  Sega: "sega",
+  SoftPop: "soft-pop",
+  SpaceStation: "space-station",
+  VHS: "vhs",
+  Zelda: "zelda",
 } as const;
 
 export type Theme = (typeof Theme)[keyof typeof Theme];
 
 const themes = [
   {
-    name: Theme.Default,
     color: `:root {
     --radius: 0.65rem;
     --background: oklch(1 0 0);
@@ -97,9 +96,9 @@ const themes = [
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
   }`,
+    name: Theme.Default,
   },
   {
-    name: Theme.Sega,
     color: `
     :root {
     --radius: 0rem;
@@ -169,9 +168,9 @@ const themes = [
     --sidebar-ring: oklch(0.5 0.2 280);
   }
 }`,
+    name: Theme.Sega,
   },
   {
-    name: Theme.Gameboy,
     color: `:root {
   --radius: 0rem;
   --primary: oklch(0.7 0.2 120);
@@ -240,9 +239,9 @@ const themes = [
     --sidebar-border: oklch(0.4 0.2 140);
     --sidebar-ring: oklch(0.8 0.2 120);
 }`,
+    name: Theme.Gameboy,
   },
   {
-    name: Theme.Atari,
     color: `:root {
   --radius: 0rem;
   --primary: oklch(0.5 0.2 60);
@@ -311,9 +310,9 @@ const themes = [
     --sidebar-border: oklch(0.4 0 0);
     --sidebar-ring: oklch(0.5 0.3 280);
 }`,
+    name: Theme.Atari,
   },
   {
-    name: Theme.Nintendo,
     color: `
     :root {
     --radius: 0rem;
@@ -383,9 +382,9 @@ const themes = [
     --sidebar-ring: oklch(0.5 0.2 280);
   }
 }`,
+    name: Theme.Nintendo,
   },
   {
-    name: Theme.Arcade,
     color: `:root {
   --radius: 0rem;
   --primary: oklch(0.7 0.25 320);
@@ -454,9 +453,9 @@ const themes = [
   --sidebar-border: oklch(0.8 0.3 320);
   --sidebar-ring: oklch(0.8 0.3 320);
 }`,
+    name: Theme.Arcade,
   },
   {
-    name: Theme.NeoGeo,
     color: `:root {
   --radius: 0rem;
   --primary: oklch(0.65 0.25 25);
@@ -525,9 +524,9 @@ const themes = [
   --sidebar-border: oklch(0.2 0.08 25);
   --sidebar-ring: oklch(0.75 0.3 25);
 }`,
+    name: Theme.NeoGeo,
   },
   {
-    name: Theme.SoftPop,
     color: `
   :root {
   --background: oklch(0.9789 0.0082 121.6272);
@@ -644,9 +643,9 @@ const themes = [
     0px 8px 10px -1px hsl(0 0% 10.1961% / 0.05);
   --shadow-2xl: 0px 0px 0px 0px hsl(0 0% 10.1961% / 0.13);
 }`,
+    name: Theme.SoftPop,
   },
   {
-    name: Theme.VHS,
     color: `
     :root {
   --background: oklch(0.9768 0.0142 308.299);
@@ -763,9 +762,9 @@ const themes = [
     --shadow-2xl: 0px 0px 8px 1px hsl(198.6301 88.664% 48.4314% / 0.5);
   }
     `,
+    name: Theme.VHS,
   },
   {
-    name: Theme.Pacman,
     color: `
     :root {
   --background: oklch(1 0 0);
@@ -871,9 +870,9 @@ const themes = [
     --shadow-2xl: 0px 0px 0px 0px hsl(0 0% 0% / 0);
   }
     `,
+    name: Theme.Pacman,
   },
   {
-    name: Theme.Cassette,
     color: `
       :root {
   --background: oklch(0.9613 0.0245 61.6527);
@@ -985,9 +984,9 @@ const themes = [
     --shadow-2xl: 0px 5px 10px -3px hsl(0 0% 0% / 0.63);
   }
       `,
+    name: Theme.Cassette,
   },
   {
-    name: Theme.RustyByte,
     color: `
     :root {
   --radius: 0.25rem;
@@ -1057,9 +1056,9 @@ const themes = [
     --sidebar-ring: oklch(0.7 0.2 40);
   }
     `,
+    name: Theme.RustyByte,
   },
   {
-    name: Theme.Zelda,
     color: `
    :root {
   --radius: 0.25rem;
@@ -1130,9 +1129,9 @@ const themes = [
     --sidebar-ring: oklch(0.85 0.2 90);
   }
     `,
+    name: Theme.Zelda,
   },
   {
-    name: Theme.DungeonTorch,
     color: `:root {
     --radius: 0.65rem;
     --background: oklch(0.95 0.01 60);
@@ -1177,9 +1176,9 @@ const themes = [
     --ring: oklch(0.7 0.15 55);
   }
     `,
+    name: Theme.DungeonTorch,
   },
   {
-    name: Theme.SpaceStation,
     color: `:root {
     --radius: 0.65rem;
     --background: oklch(0.96 0.01 240);
@@ -1224,9 +1223,9 @@ const themes = [
     --ring: oklch(0.65 0.15 220);
   }
     `,
+    name: Theme.SpaceStation,
   },
   {
-    name: Theme.PixelForest,
     color: `:root {
     --radius: 0.65rem;
     --background: oklch(0.95 0.02 140);
@@ -1271,9 +1270,9 @@ const themes = [
     --ring: oklch(0.6 0.15 145);
   }
     `,
+    name: Theme.PixelForest,
   },
   {
-    name: Theme.IceCavern,
     color: `:root {
     --radius: 0.65rem;
     --background: oklch(0.96 0.01 250);
@@ -1318,9 +1317,9 @@ const themes = [
     --ring: oklch(0.65 0.12 230);
   }
     `,
+    name: Theme.IceCavern,
   },
   {
-    name: Theme.LavaCore,
     color: `:root {
     --radius: 0.65rem;
     --background: oklch(0.95 0.01 30);
@@ -1365,9 +1364,9 @@ const themes = [
     --ring: oklch(0.65 0.2 30);
   }
     `,
+    name: Theme.LavaCore,
   },
   {
-    name: Theme.GlitchMode,
     color: `:root {
     --radius: 0.65rem;
     --background: oklch(0.96 0 0);
@@ -1412,9 +1411,9 @@ const themes = [
     --ring: oklch(0.7 0.2 195);
   }
     `,
+    name: Theme.GlitchMode,
   },
   {
-    name: Theme.DwarvenVault,
     color: `:root {
     --radius: 0.65rem;
     --background: oklch(0.94 0.01 80);
@@ -1459,9 +1458,9 @@ const themes = [
     --ring: oklch(0.7 0.12 80);
   }
     `,
+    name: Theme.DwarvenVault,
   },
   {
-    name: Theme.DragonHoard,
     color: `:root {
     --radius: 0.65rem;
     --background: oklch(0.95 0.01 50);
@@ -1506,9 +1505,9 @@ const themes = [
     --ring: oklch(0.6 0.2 20);
   }
     `,
+    name: Theme.DragonHoard,
   },
   {
-    name: Theme.AncientRunes,
     color: `:root {
     --radius: 0.65rem;
     --background: oklch(0.94 0.01 190);
@@ -1553,6 +1552,7 @@ const themes = [
     --ring: oklch(0.6 0.12 185);
   }
     `,
+    name: Theme.AncientRunes,
   },
 ];
 

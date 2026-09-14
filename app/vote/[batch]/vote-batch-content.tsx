@@ -43,14 +43,14 @@ async function getRoundData(batch: number) {
   const isUpcoming = now < round.opensAt;
 
   return {
-    round,
+    isClosed,
+    isOpen,
+    isUpcoming,
     projects: projects.map((p) => ({
       ...p,
       voteCount: voteCounts.get(p.id) ?? 0,
     })),
-    isOpen,
-    isClosed,
-    isUpcoming,
+    round,
     totalVotes: allVotes.length,
   };
 }

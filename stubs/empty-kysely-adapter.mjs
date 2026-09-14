@@ -6,8 +6,9 @@ export function getKyselyDatabaseType() {
   return null;
 }
 
+// biome-ignore lint/suspicious/useAwait: stub must stay async to match better-auth's adapter API
 export async function createKyselyAdapter() {
-  return { kysely: null, databaseType: null, transaction: undefined };
+  return { databaseType: null, kysely: null, transaction: undefined };
 }
 
 export default {};

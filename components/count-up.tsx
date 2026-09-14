@@ -45,13 +45,13 @@ export default function CountUp({
     stiffness: STIFFNESS,
   });
 
-  const isInView = useInView(ref, { once: true, margin: "0px" });
+  const isInView = useInView(ref, { margin: "0px", once: true });
 
   const getDecimalPlaces = (num: number): number => {
     const str = num.toString();
     if (str.includes(".")) {
-      const decimals = str.split(".")[1];
-      if (Number.parseInt(decimals, 10) !== 0) {
+      const [, decimals] = str.split(".");
+      if (decimals && Number.parseInt(decimals, 10) !== 0) {
         return decimals.length;
       }
     }
@@ -109,9 +109,9 @@ export default function CountUp({
         const hasDecimals = maxDecimals > 0;
 
         const options: Intl.NumberFormatOptions = {
-          useGrouping: !!separator,
-          minimumFractionDigits: hasDecimals ? maxDecimals : 0,
           maximumFractionDigits: hasDecimals ? maxDecimals : 0,
+          minimumFractionDigits: hasDecimals ? maxDecimals : 0,
+          useGrouping: !!separator,
         };
 
         const formattedNumber = Intl.NumberFormat("en-US", options).format(

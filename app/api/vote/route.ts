@@ -109,8 +109,8 @@ export async function POST(request: Request) {
     // Fetch GitHub user info
     const ghUserRes = await fetch("https://api.github.com/user", {
       headers: {
-        Authorization: `Bearer ${account.accessToken}`,
         Accept: "application/vnd.github+json",
+        Authorization: `Bearer ${account.accessToken}`,
       },
     });
 
@@ -156,8 +156,8 @@ export async function POST(request: Request) {
         `https://api.github.com/user/starred/${parsed.owner}/${parsed.repo}`,
         {
           headers: {
-            Authorization: `Bearer ${account.accessToken}`,
             Accept: "application/vnd.github+json",
+            Authorization: `Bearer ${account.accessToken}`,
           },
         }
       );
@@ -190,13 +190,13 @@ export async function POST(request: Request) {
 
     // 9. Cast vote
     await db.insert(votes).values({
-      roundId,
-      userId: session.user.id,
-      projectId,
-      githubUsername,
       githubAccountAgeDays: accountAgeDays,
       githubPublicRepos: publicRepos,
+      githubUsername,
       hasStarred: true,
+      projectId,
+      roundId,
+      userId: session.user.id,
     });
 
     return NextResponse.json({ success: true, votedFor: project.name });
