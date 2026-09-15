@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { BackButton } from "@/components/back-button";
 import { OrcMachineAdminTools } from "@/components/orc-machine-admin-tools";
+import { Button } from "@/components/ui/8bit/button";
 import { auth } from "@/lib/auth";
 
 async function AdminTools() {
