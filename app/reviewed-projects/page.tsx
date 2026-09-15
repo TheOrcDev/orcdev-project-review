@@ -1,17 +1,14 @@
-import Link from "next/link";
 import { Suspense } from "react";
+import { BackButton } from "@/components/back-button";
 import { ReviewedProjects } from "@/components/reviewed-projects";
 import { SearchReviewedProjects } from "@/components/search-reviewed-projects";
-import { Button } from "@/components/ui/8bit/button";
 import { Skeleton } from "@/components/ui/8bit/skeleton";
 
 export default async function ReviewedProjectsPage() {
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-5 py-12">
       <div className="flex items-center justify-between">
-        <Button asChild variant="outline">
-          <Link href="/">Back</Link>
-        </Button>
+        <BackButton />
 
         <Suspense fallback={<Skeleton className="h-10 w-40" />}>
           <SearchReviewedProjects />

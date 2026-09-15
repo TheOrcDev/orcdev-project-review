@@ -1,9 +1,8 @@
 import { and, eq } from "drizzle-orm";
 import { headers } from "next/headers";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
-import { Button } from "@/components/ui/8bit/button";
+import { BackButton } from "@/components/back-button";
 import { db } from "@/db/drizzle";
 import { accounts, reviewedProjects, votes, votingRounds } from "@/db/schema";
 import { auth } from "@/lib/auth";
@@ -101,9 +100,7 @@ export async function VoteBatchContent({ batch: batchStr }: { batch: string }) {
 
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-6 py-12">
-      <Button asChild variant="outline">
-        <Link href="/">Back</Link>
-      </Button>
+      <BackButton />
 
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="font-bold text-2xl">{round.title}</h1>

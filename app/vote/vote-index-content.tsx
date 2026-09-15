@@ -1,8 +1,8 @@
 import { desc } from "drizzle-orm";
 import Link from "next/link";
 import { connection } from "next/server";
+import { BackButton } from "@/components/back-button";
 import { Badge } from "@/components/ui/8bit/badge";
-import { Button } from "@/components/ui/8bit/button";
 import { db } from "@/db/drizzle";
 import { votingRounds } from "@/db/schema";
 
@@ -18,9 +18,7 @@ export async function VoteIndexContent() {
 
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-6 py-12">
-      <Button asChild variant="outline">
-        <Link href="/">Back</Link>
-      </Button>
+      <BackButton />
 
       <div className="flex flex-col items-center gap-2">
         <h1 className="text-center font-bold text-2xl">Vote</h1>

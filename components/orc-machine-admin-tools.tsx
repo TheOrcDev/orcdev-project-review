@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
+import { BackButton } from "@/components/back-button";
 import { PickProject } from "@/components/pick-project";
 import { RandomNumber } from "@/components/random-number";
 import { Button } from "@/components/ui/8bit/button";
@@ -22,9 +22,7 @@ export function OrcMachineAdminTools() {
   return (
     <>
       <div className="flex items-center justify-between gap-4">
-        <Button asChild variant="outline">
-          <Link href="/">Back</Link>
-        </Button>
+        <BackButton />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

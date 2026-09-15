@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BackButton } from "@/components/back-button";
 import { Button } from "@/components/ui/8bit/button";
 
 const livestreams = [
@@ -79,9 +80,7 @@ const livestreams = [
 export default function Livestreams() {
   return (
     <main className="retro mx-auto flex max-w-2xl flex-col gap-5 py-12">
-      <Button asChild variant="outline">
-        <Link href="/">Back</Link>
-      </Button>
+      <BackButton />
       <h1 className="text-center font-bold md:text-2xl">
         OrcDev Project Review Livestreams
       </h1>

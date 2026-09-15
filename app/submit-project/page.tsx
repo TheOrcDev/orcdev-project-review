@@ -1,7 +1,6 @@
-import Link from "next/link";
 import { Suspense } from "react";
+import { BackButton } from "@/components/back-button";
 import { SubmitProjectForm } from "@/components/forms/submit-project-form";
-import { Button } from "@/components/ui/8bit/button";
 import { Skeleton } from "@/components/ui/8bit/skeleton";
 
 export default function Home() {
@@ -13,9 +12,7 @@ export default function Home() {
         join the spotlight.
       </p>
 
-      <Button asChild variant="outline">
-        <Link href="/">Back</Link>
-      </Button>
+      <BackButton />
 
       <Suspense fallback={<Skeleton className="h-40 w-full" />}>
         <SubmitProjectForm />
